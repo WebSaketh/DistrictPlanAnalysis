@@ -1,7 +1,6 @@
 "use client";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from "react-leaflet";
-import styles from "../../styles/Map.css";
 
 const maxBounds = L.latLngBounds(
   L.latLng(5.49955, -167.276413), //Southwest
@@ -13,11 +12,11 @@ const center = [40, -100];
 const Map = () => {
   return (
     <MapContainer
-      classname={styles.map}
       maxBounds={maxBounds}
+      style={{ minHeight: "400px", height: "100%", width: "100%" }}
       center={center}
       zoom={4.4}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
