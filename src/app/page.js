@@ -5,44 +5,46 @@ import Tile from "./components/Tile";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-36 pt-0">
+    <main>
       <Navbar>HEY</Navbar>
-      <div className="mb-32 grid text-center lg:w-full lg:mb-0 lg:grid-cols-11 lg:text-left">
-        <div className="col-span-6">
-          <Map></Map>
-        </div>
-        <div className="aspect-square bg-slate-50 col-span-5 group border border-transparent px-5 py-4 transition-colors ">
-          <div className="grid grid-cols-12 mb-4">
-            <div className="col-span-3">
-              <Dropdown
-                title="Select State"
-                items={["Colorado", "Illinois", "Ohio"]}
-              ></Dropdown>
-            </div>
-            <div className="col-span-3">
-              <Dropdown
-                title="District Plans"
-                items={["2022", "2023"]}
-              ></Dropdown>
-            </div>
-            <div className="col-span-2"></div>
-            <button className="col-span-2 m-1 btn btn-error self-end">
-              Reset State
-            </button>
-            <button className="col-span-2 m-1 btn btn-error self-end">
-              Reset Map{" "}
-            </button>
+      <div className="flex min-h-screen flex-col items-center justify-between p-36 pt-0">
+        <div className="mb-32 grid text-center lg:w-full lg:mb-0 lg:grid-cols-11 lg:text-left">
+          <div className="col-span-6">
+            <Map></Map>
           </div>
+          <div className="aspect-square bg-slate-50 col-span-5 group border border-transparent px-5 py-4 transition-colors ">
+            <div className="grid grid-cols-12 mb-4">
+              <div className="col-span-3">
+                <Dropdown
+                  title="Select State"
+                  items={["Colorado", "Illinois", "Ohio"]}
+                ></Dropdown>
+              </div>
+              <div className="col-span-3">
+                <Dropdown
+                  title="District Plans"
+                  items={["2022", "2023"]}
+                ></Dropdown>
+              </div>
+              <div className="col-span-2"></div>
+              <button className="col-span-2 m-1 btn btn-error self-end">
+                Reset State
+              </button>
+              <button className="col-span-2 m-1 btn btn-error self-end">
+                Reset Map{" "}
+              </button>
+            </div>
 
-          <div className="h-full overflow-scroll">
-            <Tile></Tile>
-            <Tile></Tile>
-            <Tile></Tile>
-            <Tile></Tile>
-            <Tile></Tile>
-            <Tile></Tile>
-            <Tile></Tile>
-            <Tile></Tile>
+            <div className="h-full overflow-scroll">
+              <Tile></Tile>
+              <Tile></Tile>
+              <Tile></Tile>
+              <Tile></Tile>
+              <Tile></Tile>
+              <Tile></Tile>
+              <Tile></Tile>
+              <Tile></Tile>
+            </div>
           </div>
         </div>
       </div>
