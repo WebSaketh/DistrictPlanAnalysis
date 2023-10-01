@@ -3,14 +3,20 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from "react-leaflet";
 import styles from "../../styles/Map.css";
 
-const position = [51.505, -0.09];
+const maxBounds = L.latLngBounds(
+  L.latLng(5.49955, -167.276413), //Southwest
+  L.latLng(83.162102, -52.23304) //Northeast
+);
+
+const center = [40, -100];
 
 const Map = () => {
   return (
     <MapContainer
       classname={styles.map}
-      center={position}
-      zoom={13}
+      maxBounds={maxBounds}
+      center={center}
+      zoom={4.4}
       scrollWheelZoom={false}
     >
       <TileLayer
