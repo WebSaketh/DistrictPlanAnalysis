@@ -13,10 +13,12 @@
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-leaflet": "^4.2.1"
+    "react-leaflet": "^4.2.1",
+    "tw-elements": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "latest",
+    "daisyui": "^3.8.2",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
