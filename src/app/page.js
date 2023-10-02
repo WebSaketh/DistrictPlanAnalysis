@@ -13,6 +13,16 @@ export default function Home() {
             <Map></Map>
           </div>
           <div className="aspect-square bg-slate-50 col-span-5 group border border-transparent px-5 py-4 transition-colors ">
+            <div className="h-full overflow-scroll">
+              <Tile title="Thing 1">null</Tile>
+              <Tile title="Thing 2">null</Tile>
+              <Tile title="Thing 3">null</Tile>
+              <Tile title="Thing 4">null</Tile>
+              <Tile title="Thing 5">null</Tile>
+              <Tile title="Thing 6">null</Tile>
+              <Tile title="Thing 7">null</Tile>
+              <Tile title="Thing 8">null</Tile>
+            </div>
             <div className="grid grid-cols-12 mb-4">
               <div className="col-span-3">
                 <Dropdown
@@ -33,17 +43,6 @@ export default function Home() {
               <button className="col-span-2 m-1 btn btn-error self-end">
                 Reset Map{" "}
               </button>
-            </div>
-
-            <div className="h-full overflow-scroll">
-              <Tile title="Thing 1">null</Tile>
-              <Tile title="Thing 2">null</Tile>
-              <Tile title="Thing 3">null</Tile>
-              <Tile title="Thing 4">null</Tile>
-              <Tile title="Thing 5">null</Tile>
-              <Tile title="Thing 6">null</Tile>
-              <Tile title="Thing 7">null</Tile>
-              <Tile title="Thing 8">null</Tile>
             </div>
           </div>
         </div>
