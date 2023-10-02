@@ -3,7 +3,7 @@
 const Dropdown = (props) => {
   const names = props.items;
   const listItems = names.map((item, index) => (
-    <li key={index}>
+    <li key={index} onClick={props.changeState}>
       <a>{item}</a>
     </li>
   ));

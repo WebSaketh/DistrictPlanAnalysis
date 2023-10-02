@@ -1,6 +1,17 @@
 "use client";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import { useMapEvents } from "react-leaflet/hooks";
+
+const MapControl = (props) => {
+  const map = useMapEvents({
+    click: () => {
+      console.log(props);
+      map.flyTo(L.latLng(props.center), props.zoom);
+    },
+  });
+  return null;
+};
 
 const maxBounds = L.latLngBounds(
   L.latLng(5.49955, -167.276413), // Southwest
@@ -9,7 +20,7 @@ const maxBounds = L.latLngBounds(
 
 const center = [40, -96];
 
-const Map = () => {
+const Map = (props) => {
   const geoJsonData = {
     type: "FeatureCollection",
     name: "Colorado_State_Boundary",
@@ -16924,12 +16935,18 @@ const Map = () => {
 
   return (
     <MapContainer
+      id="map"
       maxBounds={maxBounds}
       style={{ minHeight: "400px", height: "100%", width: "100%" }}
       center={center}
       zoom={4.6}
       scrollWheelZoom={true}
     >
+      <MapControl
+        center={props.center}
+        state={props.state}
+        zoom={props.zoom}
+      ></MapControl>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

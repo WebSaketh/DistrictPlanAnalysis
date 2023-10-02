@@ -1,16 +1,52 @@
+"use client";
 import Dropdown from "./components/Dropdown";
 import Map from "./components/Map";
 import Navbar from "./components/Navbar";
 import Tile from "./components/Tile";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
+  const [state, setState] = useState("Default");
+  const [center, setCenter] = useState([40, -96]);
+  const [zoom, setZoom] = useState(4.6);
+
+  const changeState = (e) => {
+    var k = e.target.text;
+
+    setState(k);
+    if (e.target.text === "Default") {
+      setCenter([40, -96]);
+      setZoom(4.6);
+      //this.map.leafletElement.setView(new L.LatLng(40, -96), 4.6);
+    } else if (k === "Colorado") {
+      setCenter([39.4, -106]);
+      setZoom(6.5);
+      // this.map.leafletElement.setView(new L.LatLng(10, -96), 4.6);
+    } else if (k === "Ohio") {
+      setCenter([40, -83]);
+      setZoom(6.5);
+    } else if (k === "Illinois") {
+      setCenter([40, -89.5]);
+      setZoom(6.5);
+    } else if (k === "Reset Map") {
+      setCenter([40, -96]);
+      setZoom(4.6);
+    } else if (k === "Reset State") {
+      setState(state);
+    }
+  };
+
+  useEffect(() => {
+    document.getElementById("map")?.click();
+  }, [state, zoom, center]);
+
   return (
     <main>
       <Navbar>HEY</Navbar>
       <div className="flex min-h-screen flex-col items-center justify-between p-36 pt-0">
         <div className="mb-32 grid text-center lg:w-full lg:mb-0 lg:grid-cols-11 lg:text-left">
           <div className="col-span-6">
-            <Map></Map>
+            <Map state={state} center={center} zoom={zoom}></Map>
           </div>
           <div className="aspect-square bg-slate-50 col-span-5 group border border-transparent px-5 py-4 transition-colors ">
             <div className="h-full overflow-scroll">
@@ -28,6 +64,7 @@ export default function Home() {
                 <Dropdown
                   title="Select State"
                   items={["Colorado", "Illinois", "Ohio"]}
+                  changeState={changeState}
                 ></Dropdown>
               </div>
               <div className="col-span-3">
@@ -37,11 +74,17 @@ export default function Home() {
                 ></Dropdown>
               </div>
               <div className="col-span-2"></div>
-              <button className="col-span-2 m-1 btn btn-error self-end">
-                Reset State
+              <button
+                onClick={changeState}
+                className="col-span-2 m-1 btn btn-error self-end"
+              >
+                <a>Reset State</a>
               </button>
-              <button className="col-span-2 m-1 btn btn-error self-end">
-                Reset Map{" "}
+              <button
+                onClick={changeState}
+                className="col-span-2 m-1 btn btn-error self-end"
+              >
+                <a>Reset Map</a>
               </button>
             </div>
           </div>
