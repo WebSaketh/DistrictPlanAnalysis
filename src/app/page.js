@@ -36,14 +36,14 @@ export default function Home() {
             </div>
 
             <div className="h-full overflow-scroll">
-              <Tile></Tile>
-              <Tile></Tile>
-              <Tile></Tile>
-              <Tile></Tile>
-              <Tile></Tile>
-              <Tile></Tile>
-              <Tile></Tile>
-              <Tile></Tile>
+              <Tile title="Thing 1">null</Tile>
+              <Tile title="Thing 2">null</Tile>
+              <Tile title="Thing 3">null</Tile>
+              <Tile title="Thing 4">null</Tile>
+              <Tile title="Thing 5">null</Tile>
+              <Tile title="Thing 6">null</Tile>
+              <Tile title="Thing 7">null</Tile>
+              <Tile title="Thing 8">null</Tile>
             </div>
           </div>
         </div>
