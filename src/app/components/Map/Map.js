@@ -16941,6 +16941,7 @@ const Map = (props) => {
       center={center}
       zoom={4.6}
       scrollWheelZoom={true}
+      dragging={false}
     >
       <MapControl
         center={props.center}

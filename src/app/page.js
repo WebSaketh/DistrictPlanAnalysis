@@ -12,31 +12,34 @@ export default function Home() {
 
   const changeState = (e) => {
     var k = e.target.text;
-
-    setState(k);
+    console.log(e.target.text);
     if (e.target.text === "Default") {
+      setState("Default");
       setCenter([40, -96]);
       setZoom(4.6);
-      //this.map.leafletElement.setView(new L.LatLng(40, -96), 4.6);
     } else if (k === "Colorado") {
+      setState("Colorado");
       setCenter([39.4, -106]);
       setZoom(6.5);
-      // this.map.leafletElement.setView(new L.LatLng(10, -96), 4.6);
     } else if (k === "Ohio") {
+      setState("Ohio");
       setCenter([40, -83]);
       setZoom(6.5);
     } else if (k === "Illinois") {
+      setState("Illinois");
       setCenter([40, -89.5]);
       setZoom(6.5);
     } else if (k === "Reset Map") {
+      setState("Default");
+      console.log("RESETMAP");
       setCenter([40, -96]);
       setZoom(4.6);
-    } else if (k === "Reset State") {
-      setState(state);
     }
   };
 
   useEffect(() => {
+    console.log("useEffect", state, zoom, center);
+    document.getElementById("map")?.click();
     document.getElementById("map")?.click();
   }, [state, zoom, center]);
 
@@ -73,14 +76,9 @@ export default function Home() {
                   items={["2022", "2023"]}
                 ></Dropdown>
               </div>
-              <div className="col-span-2"></div>
+              <div className="col-span-4"></div>
               <button
-                onClick={changeState}
-                className="col-span-2 m-1 btn btn-error self-end"
-              >
-                <a>Reset State</a>
-              </button>
-              <button
+                text="Reset Map"
                 onClick={changeState}
                 className="col-span-2 m-1 btn btn-error self-end"
               >
