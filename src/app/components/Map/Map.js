@@ -6,6 +6,7 @@ import { geoJsonData, geoJsonData2, geoJsonData3 } from "./const";
 import { colobound, illbound, ohio2020 } from "./const";
 import { latLng, polygon } from "leaflet";
 import * as d3 from "d3";
+import api from "../../store/api/index";
 
 const MapControl = (props) => {
   const map = useMapEvents({
@@ -42,7 +43,6 @@ const Map = (props) => {
   };
 
   const clickMapState = (e) => {
-    console.log(e);
     const k = e?.target?.feature?.properties?.name;
     const i = e?.target?.feature?.properties?.NAME;
     const name = i ? i : k;
@@ -54,7 +54,7 @@ const Map = (props) => {
     props.changeState(p);
   };
 
-  const clickMap = (e) => {
+  const clickMap = async (e) => {
     const polygons = e.target.feature.geometry.geometries;
     const point = [e.latlng.lng, e.latlng.lat];
     for (var i = 0; i < polygons.length; i++) {
