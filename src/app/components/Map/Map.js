@@ -2,8 +2,8 @@
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
-import { geoJsonData, geoJsonData2, geoJsonData3 } from "./const";
-import { colobound, illbound, ohio2020 } from "./const";
+import { ohio2020, ill2020, colo2020 } from "./const";
+import { colobound, illbound, ohiobound } from "./const";
 import { latLng, polygon } from "leaflet";
 import * as d3 from "d3";
 
@@ -68,7 +68,7 @@ const Map = (props) => {
   const geoJsonStyle = {
     fillColor: "#B59410", // Fill color for the boundary
     color: "black", // Stroke color for the boundary
-    weight: 3, // Stroke width
+    weight: 1, // Stroke width
     fillOpacity: 0.6, // Fill opacity (0 to 1)
   };
 
@@ -93,14 +93,14 @@ const Map = (props) => {
       />
       {props.state === "Colorado" ? (
         <GeoJSON
-          data={colobound}
+          data={colo2020}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         />
       ) : null}
       {props.state === "Illinois" ? (
         <GeoJSON
-          data={illbound}
+          data={ill2020}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         />
@@ -114,21 +114,21 @@ const Map = (props) => {
       ) : null}
       {props.state === null ? (
         <GeoJSON
-          data={geoJsonData}
+          data={colobound}
           style={geoJsonStyle}
           // onEachFeature={onEachFeatureState}
         />
       ) : null}
       {props.state === null ? (
         <GeoJSON
-          data={geoJsonData2}
+          data={illbound}
           style={geoJsonStyle}
           onEachFeature={onEachFeatureState}
         />
       ) : null}
       {props.state === null ? (
         <GeoJSON
-          data={geoJsonData3}
+          data={ohiobound}
           style={geoJsonStyle}
           onEachFeature={onEachFeatureState}
         />
