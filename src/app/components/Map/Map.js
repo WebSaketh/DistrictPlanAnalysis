@@ -69,8 +69,10 @@ const Map = (props) => {
     fillColor: "#B59410", // Fill color for the boundary
     color: "black", // Stroke color for the boundary
     weight: 1, // Stroke width
-    fillOpacity: 0.6, // Fill opacity (0 to 1)
+    fillOpacity: 0.3, // Fill opacity (0 to 1)
+  
   };
+ 
 
   return (
     <MapContainer
