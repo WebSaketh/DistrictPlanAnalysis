@@ -20,7 +20,6 @@ const maxBounds = L.latLngBounds(
   L.latLng(5.49955, -167.276413), // Southwest
   L.latLng(83.162102, -52.23304) // Northeast
 );
-
 const center = [40, -96];
 
 const Map = (props) => {
@@ -36,18 +35,29 @@ const Map = (props) => {
     });
   };
 
+  const onEachFeatureState = (feature, layer) => {
+    layer.on({
+      click: clickMapState,
+    });
+  };
+
+  const clickMapState = (e) => {
+    console.log(e);
+    const k = e?.target?.feature?.properties?.name;
+    const i = e?.target?.feature?.properties?.NAME;
+    const name = i ? i : k;
+    const p = {
+      target: {
+        text: name,
+      },
+    };
+    props.changeState(p);
+  };
+
   const clickMap = (e) => {
-    // console.log(
-    //   e,
-    //   "clicked state",
-    //   e.latlng,
-    //   e.target.feature.geometry.geometries
-    // );
     const polygons = e.target.feature.geometry.geometries;
-    // console.log(polygons.length);
     const point = [e.latlng.lng, e.latlng.lat];
     for (var i = 0; i < polygons.length; i++) {
-      // console.log(polygons[i]);
       if (d3.polygonContains(polygons[i].coordinates[0], point)) {
         props.changeDistrict(i + 1);
         return;
@@ -103,13 +113,25 @@ const Map = (props) => {
         />
       ) : null}
       {props.state === null ? (
-        <GeoJSON data={geoJsonData} style={geoJsonStyle} />
+        <GeoJSON
+          data={geoJsonData}
+          style={geoJsonStyle}
+          // onEachFeature={onEachFeatureState}
+        />
       ) : null}
       {props.state === null ? (
-        <GeoJSON data={geoJsonData2} style={geoJsonStyle} />
+        <GeoJSON
+          data={geoJsonData2}
+          style={geoJsonStyle}
+          onEachFeature={onEachFeatureState}
+        />
       ) : null}
       {props.state === null ? (
-        <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
+        <GeoJSON
+          data={geoJsonData3}
+          style={geoJsonStyle}
+          onEachFeature={onEachFeatureState}
+        />
       ) : null}
     </MapContainer>
   );

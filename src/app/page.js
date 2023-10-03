@@ -10,7 +10,7 @@ export default function Home() {
   const [center, setCenter] = useState([40, -96]);
   const [zoom, setZoom] = useState(4.6);
   const [district, setDistrict] = useState(null);
-  const [year, setYear] = useState(null);
+  const [year, setYear] = useState("2020");
 
   const changeYear = (e) => {
     var k = e.target.text;
@@ -28,8 +28,7 @@ export default function Home() {
   };
 
   const changeState = (e) => {
-    var k = e.target.text;
-    console.log(e.target.text);
+    var k = e?.target?.text;
     if (e.target.text === "Default") {
       setState(null);
       setCenter([40, -96]);
@@ -66,7 +65,7 @@ export default function Home() {
 
   useEffect(() => {
     document.getElementById("map")?.click();
-    document.getElementById("map")?.click();
+    // document.getElementById("map")?.click();
   }, [state, zoom, center]);
 
   return (
@@ -82,6 +81,7 @@ export default function Home() {
               year={year}
               district={district}
               changeDistrict={changeDistrict}
+              changeState={changeState}
             ></Map>
           </div>
           <div className="aspect-square bg-slate-50 col-span-4 group border border-transparent px-5 py-4 transition-colors ">
