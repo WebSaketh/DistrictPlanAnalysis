@@ -1,6 +1,6 @@
 "use client";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
 
 const MapControl = (props) => {
@@ -8,6 +8,15 @@ const MapControl = (props) => {
     click: () => {
       console.log(props);
       map.flyTo(L.latLng(props.center), props.zoom);
+    },
+  });
+  return null;
+};
+
+const StateControl = (props) => {
+  const map = useMapEvents({
+    click: () => {
+      console.log("Whats popping Gang State Clicked");
     },
   });
   return null;
@@ -16933,6 +16942,10 @@ const Map = (props) => {
     fillOpacity: 0.6, // Fill opacity (0 to 1)
   };
 
+  const p = () => {
+    console.log("clicked state");
+  };
+
   return (
     <MapContainer
       id="map"
@@ -16962,13 +16975,15 @@ const Map = (props) => {
         <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
       ) : null}
       {props.state === "Default" ? (
-        <GeoJSON data={geoJsonData} style={geoJsonStyle} />
+        <GeoJSON data={geoJsonData} style={geoJsonStyle}>
+          <StateControl></StateControl>
+        </GeoJSON>
       ) : null}
       {props.state === "Default" ? (
-        <GeoJSON data={geoJsonData2} style={geoJsonStyle} />
+        <GeoJSON onClick={p} data={geoJsonData2} style={geoJsonStyle} />
       ) : null}
       {props.state === "Default" ? (
-        <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
+        <GeoJSON onClick={p} data={geoJsonData3} style={geoJsonStyle} />
       ) : null}
     </MapContainer>
   );
