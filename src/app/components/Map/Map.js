@@ -6,20 +6,24 @@ import { useMapEvents } from "react-leaflet/hooks";
 const MapControl = (props) => {
   const map = useMapEvents({
     click: () => {
-      console.log(props);
       map.flyTo(L.latLng(props.center), props.zoom);
     },
   });
   return null;
 };
+const p = (e) => {
+  console.log(e, "clicked state");
+};
 
-const StateControl = (props) => {
-  const map = useMapEvents({
-    click: () => {
-      console.log("Whats popping Gang State Clicked");
-    },
+const onEachFeature = (feature, layer) => {
+  if (feature.properties) {
+    layer.bindPopup("Your text or whatever");
+  }
+  layer.on({
+    // mouseover: onMouseOver,
+    // mouseout: onMouseOut,
+    click: p,
   });
-  return null;
 };
 
 const maxBounds = L.latLngBounds(
@@ -10245,7 +10249,6 @@ const Map = (props) => {
       ],
     },
   };
-
   const geoJsonData3 = {
     type: "FeatureCollection",
     features: [
@@ -16942,10 +16945,6 @@ const Map = (props) => {
     fillOpacity: 0.6, // Fill opacity (0 to 1)
   };
 
-  const p = () => {
-    console.log("clicked state");
-  };
-
   return (
     <MapContainer
       id="map"
@@ -16975,15 +16974,17 @@ const Map = (props) => {
         <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
       ) : null}
       {props.state === "Default" ? (
-        <GeoJSON data={geoJsonData} style={geoJsonStyle}>
-          <StateControl></StateControl>
-        </GeoJSON>
+        <GeoJSON
+          data={geoJsonData}
+          style={geoJsonStyle}
+          onEachFeature={onEachFeature}
+        />
       ) : null}
       {props.state === "Default" ? (
-        <GeoJSON onClick={p} data={geoJsonData2} style={geoJsonStyle} />
+        <GeoJSON data={geoJsonData2} style={geoJsonStyle} />
       ) : null}
       {props.state === "Default" ? (
-        <GeoJSON onClick={p} data={geoJsonData3} style={geoJsonStyle} />
+        <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
       ) : null}
     </MapContainer>
   );

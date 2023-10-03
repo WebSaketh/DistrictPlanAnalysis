@@ -38,7 +38,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log("useEffect", state, zoom, center);
     document.getElementById("map")?.click();
     document.getElementById("map")?.click();
   }, [state, zoom, center]);
