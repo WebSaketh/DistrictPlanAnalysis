@@ -45,7 +45,10 @@ const Map = (props) => {
     console.log(e);
     const k = e?.target?.feature?.properties?.name;
     const i = e?.target?.feature?.properties?.NAME;
-    const name = i ? i : k;
+    var name = i ? i : k;
+    if (name == null) {
+      name = "Colorado";
+    }
     const p = {
       target: {
         text: name,
@@ -116,7 +119,7 @@ const Map = (props) => {
         <GeoJSON
           data={colobound}
           style={geoJsonStyle}
-          // onEachFeature={onEachFeatureState}
+          onEachFeature={onEachFeatureState}
         />
       ) : null}
       {props.state === null ? (
