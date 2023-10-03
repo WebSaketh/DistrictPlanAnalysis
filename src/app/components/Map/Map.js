@@ -16952,14 +16952,24 @@ const Map = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
-      {/* Add GeoJSON layer */}
-      {/* Add the first GeoJSON layer */}
-      <GeoJSON data={geoJsonData} style={geoJsonStyle} />
-      {/* Add the second GeoJSON layer */}
-      <GeoJSON data={geoJsonData2} style={geoJsonStyle} />
-
-      <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
+      {props.state === "Colorado" ? (
+        <GeoJSON data={geoJsonData} style={geoJsonStyle} />
+      ) : null}
+      {props.state === "Illinois" ? (
+        <GeoJSON data={geoJsonData2} style={geoJsonStyle} />
+      ) : null}
+      {props.state === "Ohio" ? (
+        <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
+      ) : null}
+      {props.state === "Default" ? (
+        <GeoJSON data={geoJsonData} style={geoJsonStyle} />
+      ) : null}
+      {props.state === "Default" ? (
+        <GeoJSON data={geoJsonData2} style={geoJsonStyle} />
+      ) : null}
+      {props.state === "Default" ? (
+        <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
+      ) : null}
     </MapContainer>
   );
 };
