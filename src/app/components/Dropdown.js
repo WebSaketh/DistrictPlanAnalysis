@@ -13,7 +13,7 @@ const Dropdown = (props) => {
         tabIndex={0}
         className="btn m-1 bg-gray-300 border-gray-300 text-sm opacity-75 text-black"
       >
-        {props.title}
+        {props.itemName ? props.itemName : props.title}
       </label>
       <ul
         tabIndex={0}

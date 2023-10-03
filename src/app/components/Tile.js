@@ -4,7 +4,12 @@ const Tile = (props) => {
       <input type="radio" name="my-accordion-2" />
       <div className="collapse-title text-xl font-medium">{props.title}</div>
       <div className="collapse-content">
-        <p>{props.children}</p>
+        <p>
+          {props.children}
+          {props.state}
+          {props.year}
+          {props.district}
+        </p>
       </div>
     </div>
   );

@@ -4,6 +4,8 @@ import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
 import { geoJsonData, geoJsonData2, geoJsonData3 } from "./const";
 import { colobound, illbound, ohio2020 } from "./const";
+import { latLng, polygon } from "leaflet";
+import * as d3 from "d3";
 
 const MapControl = (props) => {
   const map = useMapEvents({
@@ -12,20 +14,6 @@ const MapControl = (props) => {
     },
   });
   return null;
-};
-const p = (e) => {
-  console.log(e, "clicked state");
-};
-
-const onEachFeature = (feature, layer) => {
-  if (feature.properties) {
-    layer.bindPopup("Your text or whatever");
-  }
-  layer.on({
-    // mouseover: onMouseOver,
-    // mouseout: onMouseOut,
-    click: p,
-  });
 };
 
 const maxBounds = L.latLngBounds(
@@ -36,6 +24,37 @@ const maxBounds = L.latLngBounds(
 const center = [40, -96];
 
 const Map = (props) => {
+  const onEachFeature = (feature, layer) => {
+    // console.log("feature:", feature);
+    // if (feature.properties) {
+    //   layer.bindPopup("Your text or whatever");
+    // }
+    layer.on({
+      // mouseover: onMouseOver,
+      // mouseout: onMouseOut,
+      click: clickMap,
+    });
+  };
+
+  const clickMap = (e) => {
+    // console.log(
+    //   e,
+    //   "clicked state",
+    //   e.latlng,
+    //   e.target.feature.geometry.geometries
+    // );
+    const polygons = e.target.feature.geometry.geometries;
+    // console.log(polygons.length);
+    const point = [e.latlng.lng, e.latlng.lat];
+    for (var i = 0; i < polygons.length; i++) {
+      // console.log(polygons[i]);
+      if (d3.polygonContains(polygons[i].coordinates[0], point)) {
+        props.changeDistrict(i + 1);
+        return;
+      }
+    }
+  };
+
   const geoJsonStyle = {
     fillColor: "#B59410", // Fill color for the boundary
     color: "black", // Stroke color for the boundary
@@ -63,25 +82,33 @@ const Map = (props) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {props.state === "Colorado" ? (
-        <GeoJSON data={colobound} style={geoJsonStyle} />
-      ) : null}
-      {props.state === "Illinois" ? (
-        <GeoJSON data={illbound} style={geoJsonStyle} />
-      ) : null}
-      {props.state === "Ohio" ? (
-        <GeoJSON data={ohio2020} style={geoJsonStyle} />
-      ) : null}
-      {props.state === "Default" ? (
         <GeoJSON
-          data={geoJsonData}
+          data={colobound}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         />
       ) : null}
-      {props.state === "Default" ? (
+      {props.state === "Illinois" ? (
+        <GeoJSON
+          data={illbound}
+          style={geoJsonStyle}
+          onEachFeature={onEachFeature}
+        />
+      ) : null}
+      {props.state === "Ohio" ? (
+        <GeoJSON
+          data={ohio2020}
+          style={geoJsonStyle}
+          onEachFeature={onEachFeature}
+        />
+      ) : null}
+      {props.state === null ? (
+        <GeoJSON data={geoJsonData} style={geoJsonStyle} />
+      ) : null}
+      {props.state === null ? (
         <GeoJSON data={geoJsonData2} style={geoJsonStyle} />
       ) : null}
-      {props.state === "Default" ? (
+      {props.state === null ? (
         <GeoJSON data={geoJsonData3} style={geoJsonStyle} />
       ) : null}
     </MapContainer>
