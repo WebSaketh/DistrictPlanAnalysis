@@ -7,6 +7,118 @@ import Tile from "./components/Tile";
 import React, { useEffect, useState } from "react";
 import Map2 from "./components/Map2";
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+const data1 = {
+  columns: [
+    "Cluster",
+    "Number of Plans",
+    "Avg Distance between Plans",
+    "Republican %",
+    "Democratic %",
+    "White %",
+    "African American %",
+    "Asians %",
+    "Hispanic %",
+  ],
+  rows: [
+    [
+      1,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      2,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      3,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      4,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      5,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+  ],
+};
+
+/*const data1 = {
+  columns: [
+    "Cluster",
+    "Number of Plans",
+    "Avg Distance between Plans",
+    "Republican %",
+    "Democratic %",
+    "White %",
+  ],
+  rows: [
+    [
+      3,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      4,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      5,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+  ],
+};*/
+
 export default function Home() {
   const [state, setState] = useState(null);
   const [center, setCenter] = useState([40, -96]);
@@ -86,9 +198,7 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-              <Table />
-              <Table />
-              <Table />
+              <Table data={data1} />
             </div>
           </div>
         </div>
