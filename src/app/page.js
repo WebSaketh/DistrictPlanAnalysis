@@ -351,7 +351,7 @@ export default function Home() {
                 changeState={changeState}
               ></Map2>
             </div>
-            <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
+            <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left flex-1">
               {ensemble && distanceMeasure && !cluster && !districtPlan ? (
                 <Table
                   data={data1}
@@ -360,7 +360,7 @@ export default function Home() {
                 />
               ) : null}
               {ensemble && distanceMeasure && cluster ? (
-                <div className="flex flex-col">
+                <div className="flex flex-col flex-1">
                   <div className="grid grid-cols-8 items-center">
                     <span
                       className="badge m-4 col-span-1 bg-[#CD5C5C] border-[#CD5C5C] text-white"
@@ -382,17 +382,19 @@ export default function Home() {
                     districtPlan={districtPlan}
                     headerStyle={{ "background-color": "#DAA520" }}
                   />
+                  <div className="flex flex-row">
+                    <Scatterplot
+                      data={data}
+                      width={600}
+                      height={400}
+                      settingDistrictPlan={setDistrictPlan}
+                    />
+                    <SimpleBoxPlot />
+                  </div>
                 </div>
               ) : null}
 
-              {false ? (
-                <Scatterplot data={data} width={400} height={300} />
-              ) : null}
             </div>
-            {/* <div>
-              
-              <SimpleBoxPlot />{" "} 
-            </div> */}
           </div>
         </div>
       </main>
