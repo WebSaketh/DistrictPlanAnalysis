@@ -11,6 +11,8 @@ const Navbar = (props) => {
           height="40.000000pt"
           viewBox="0 0 300.000000 184.000000"
           preserveAspectRatio="xMidYMid meet"
+          onClick={props.goToAbout}
+          className="cursor-pointer"
         >
           <g
             transform="translate(0.000000,184.000000) scale(0.050000,-0.050000)"
@@ -27,7 +29,12 @@ const Navbar = (props) => {
             />
           </g>
         </svg>
-        <span className="font-semibold text-xl tracking-tight">CHIEFS</span>
+        <span
+          className="font-semibold text-xl tracking-tight cursor-pointer"
+          onClick={props.goToAbout}
+        >
+          CHIEFS
+        </span>
         <button
           text="Cluster Analysis"
           onClick={props.changeView}

@@ -10,6 +10,7 @@ import button from "daisyui";
 import SimpleBoxPlot from "src/app/components/SimpleBoxPlot.js";
 import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
+import About from "./components/About";
 import { Encode_Sans } from "next/font/google";
 
 const data = Array.from({ length: 20 }, () => ({
@@ -219,6 +220,7 @@ export default function Home() {
   const [cluster, setCluster] = useState(null);
   const [districtPlan, setDistrictPlan] = useState(null);
   const [view, setView] = useState("Cluster Analysis");
+  const [about, setAbout] = useState(false);
 
   const changeView = (e) => {
     var k = e?.target?.innerHTML;
@@ -227,6 +229,11 @@ export default function Home() {
     } else if (k == "Distance Measure Analysis") {
       setView(k);
     }
+  };
+
+  const goToAbout = () => {
+    if (about) setAbout(false);
+    else setAbout(true);
   };
 
   const changingCluster = (id) => {
@@ -330,6 +337,34 @@ export default function Home() {
     document.getElementById("map2")?.click();
   }, [state, zoom, center]);
 
+  if (about) {
+    return (
+      <main>
+        <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
+          <Navbar
+            total={total}
+            view={view}
+            state={state}
+            ensemble={ensemble}
+            distanceMeasure={distanceMeasure}
+            changeView={changeView}
+            changeState={changeState}
+            changeEnsemble={changeEnsemble}
+            changeDistanceMeasure={changeDistanceMeasure}
+            goToAbout={goToAbout}
+          >
+            HEY
+          </Navbar>
+          <div className="flex flex-row flex-1">
+            <div className="flex flex-1">
+              <About goBack={goToAbout} />
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   if (state && view == "Cluster Analysis") {
     return (
       <main>
@@ -344,6 +379,7 @@ export default function Home() {
             changeState={changeState}
             changeEnsemble={changeEnsemble}
             changeDistanceMeasure={changeDistanceMeasure}
+            goToAbout={goToAbout}
           >
             HEY
           </Navbar>
@@ -445,6 +481,7 @@ export default function Home() {
             changeState={changeState}
             changeEnsemble={changeEnsemble}
             changeDistanceMeasure={changeDistanceMeasure}
+            goToAbout={goToAbout}
           >
             HEY
           </Navbar>
@@ -490,6 +527,7 @@ export default function Home() {
           changeState={changeState}
           changeEnsemble={changeEnsemble}
           changeDistanceMeasure={changeDistanceMeasure}
+          goToAbout={goToAbout}
         >
           HEY
         </Navbar>
