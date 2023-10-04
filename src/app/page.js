@@ -4,6 +4,7 @@ import Map from "./components/Map";
 import Navbar from "./components/Navbar";
 import Tile from "./components/Tile";
 import React, { useEffect, useState } from "react";
+import Map2 from "./components/Map2";
 
 export default function Home() {
   const [state, setState] = useState(null);
@@ -65,8 +66,34 @@ export default function Home() {
 
   useEffect(() => {
     document.getElementById("map")?.click();
-    // document.getElementById("map")?.click();
+    document.getElementById("map2")?.click();
   }, [state, zoom, center]);
+
+  if (state) {
+    return (
+      <main>
+        <Navbar changeState={changeState} changeYear={changeYear}>
+          HEY
+        </Navbar>
+
+        <div className="flex min-h-screen  justify-between p-0 pb-20 pt-0">
+          <div className="flex flex-row text-center lg:w-full lg:mb-0  lg:text-left">
+            <div className="aspect-square">
+              <Map2
+                state={state}
+                center={center}
+                zoom={zoom}
+                year={year}
+                district={district}
+                changeDistrict={changeDistrict}
+                changeState={changeState}
+              ></Map2>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main>

@@ -73,20 +73,27 @@ const Map = (props) => {
     color: "black", // Stroke color for the boundary
     weight: 1, // Stroke width
     fillOpacity: 0.3, // Fill opacity (0 to 1)
-  
   };
- 
+
+  const style1 = {
+    minHeight: "700px",
+    minWidth: "600px",
+    maxWidth: "600px",
+    height: "100%",
+  };
+
+  const style2 = {
+    minHeight: "820px",
+    maxHeight: "820px",
+    minWidth: "1725px",
+    maxWidth: "100%",
+  };
 
   return (
     <MapContainer
       id="map"
       maxBounds={maxBounds}
-      style={{
-        minHeight: "700px",
-        minWidth: "600px",
-        maxWidth: "600px",
-        height: "100%",
-      }}
+      style={style2}
       center={center}
       zoom={4.6}
       scrollWheelZoom={true}
