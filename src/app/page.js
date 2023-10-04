@@ -124,7 +124,7 @@ export default function Home() {
   const [center, setCenter] = useState([40, -96]);
   const [zoom, setZoom] = useState(4.6);
   const [district, setDistrict] = useState(null);
-  const [ensemble, setEnsemble] = useState("2020");
+  const [ensemble, setEnsemble] = useState(null);
   const [distanceMeasure, setDistanceMeasure] = useState(null);
 
   const changeDistanceMeasure = (e) => {
@@ -150,6 +150,8 @@ export default function Home() {
       setState(null);
       setCenter([40, -96]);
       setZoom(4.6);
+      setEnsemble(null);
+      setDistanceMeasure(null);
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
@@ -157,6 +159,8 @@ export default function Home() {
       setState("Colorado");
       setCenter([39.4, -106]);
       setZoom(6.5);
+      setEnsemble(null);
+      setDistanceMeasure(null);
     } else if (k === "Ohio") {
       if (state !== k) {
         setDistrict(null);
@@ -164,6 +168,8 @@ export default function Home() {
       setState("Ohio");
       setCenter([40, -83]);
       setZoom(6.5);
+      setEnsemble(null);
+      setDistanceMeasure(null);
     } else if (k === "Illinois") {
       if (state !== k) {
         setDistrict(null);
@@ -171,12 +177,16 @@ export default function Home() {
       setState("Illinois");
       setCenter([40, -89.5]);
       setZoom(6.5);
+      setEnsemble(null);
+      setDistanceMeasure(null);
     } else if (k === "Reset Map") {
       setState(null);
       console.log("RESETMAP");
       setCenter([40, -96]);
       setZoom(4.6);
       setDistrict(null);
+      setEnsemble(null);
+      setDistanceMeasure(null);
     }
   };
 
@@ -210,7 +220,7 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-              <Table data={data1} />
+              {ensemble && distanceMeasure ? <Table data={data1} /> : null}
             </div>
           </div>
         </div>
