@@ -23,6 +23,7 @@
     "tw-elements": "^1.0.0"
   },
   "devDependencies": {
+    "@types/node": "20.8.2",
     "autoprefixer": "latest",
     "daisyui": "^3.8.2",
     "eslint": "latest",

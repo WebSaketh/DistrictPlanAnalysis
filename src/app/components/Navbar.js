@@ -31,6 +31,13 @@ const Navbar = (props) => {
             changeState={props.changeEnsemble}
           ></Dropdown>
         </div>
+        <div className="col-span-2">
+          <Dropdown
+            title="Distance Measure"
+            items={["DM1", "DM2", "DM3"]}
+            changeState={props.changeDistanceMeasure}
+          ></Dropdown>
+        </div>
         <button
           text="Reset Map"
           onClick={props.changeState}
