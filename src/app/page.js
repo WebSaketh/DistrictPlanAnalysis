@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Tile from "./components/Tile";
 import React, { useEffect, useState } from "react";
 import Map2 from "./components/Map2";
+import SimpleLineChart  from "./components/SimpleLineChart";
 
 import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
 
@@ -210,6 +211,7 @@ export default function Home() {
                 <Scatterplot data={data} width={400} height={300} />
               ) : null}
             </div>
+            <div> <SimpleLineChart /> </div>
           </div>
         </div>
       </main>
