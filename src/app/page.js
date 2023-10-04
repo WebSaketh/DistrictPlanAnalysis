@@ -1,6 +1,7 @@
 "use client";
 import Dropdown from "./components/Dropdown";
 import Map from "./components/Map";
+import Table from "./components/Table/table";
 import Navbar from "./components/Navbar";
 import Tile from "./components/Tile";
 import React, { useEffect, useState } from "react";
@@ -114,6 +115,9 @@ export default function Home() {
               changeState={changeState}
             ></Map>
           </div>
+        </div>
+        <div className="flex flex-row text-center lg:w-full lg:mb-0  lg:text-left">
+          <Table />
         </div>
       </div>
     </main>
