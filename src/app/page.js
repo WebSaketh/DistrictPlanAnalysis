@@ -304,7 +304,10 @@ export default function Home() {
               {ensemble && distanceMeasure && cluster ? (
                 <div className="flex flex-col">
                   <div className="grid grid-cols-8 items-center">
-                    <span className="badge m-4 col-span-1">
+                    <span
+                      className="badge m-4 col-span-1 bg-[#CD5C5C] border-[#CD5C5C] text-white"
+                      // style={{ "background-color": "IndianRed" }}
+                    >
                       Cluster {cluster}
                     </span>
                     <div className="col-span-6"></div>
@@ -312,7 +315,7 @@ export default function Home() {
                       className="btn btn-ghost col-span-1"
                       onClick={clickClusterButton}
                     >
-                      <p className="m-2">View Clusters</p>
+                      <p className="m-2 text-[#CD5C5C]">View Clusters</p>
                     </button>
                   </div>
                   <Table
