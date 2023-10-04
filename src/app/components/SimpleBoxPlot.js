@@ -42,7 +42,6 @@ function SimpleBoxPlot() {
 
   return (
     <div>
-      <h2>Smaller Vertical Box Plots Without Dots (5 Box Plots)</h2>
       <Plot
         data={data}
         layout={{

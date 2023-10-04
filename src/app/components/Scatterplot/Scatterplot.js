@@ -86,6 +86,20 @@ const Scatterplot = ({ data, width, height, settingDistrictPlan }) => {
       .attr("d", d3.symbol().type(d3.symbolSquare).size(60)) // Use square symbol for red
       .style("fill", "red")
       .style("opacity", 0.7);
+
+    // Add X and Y axis titles
+    g.append("text")
+      .attr("x", innerWidth / 2)
+      .attr("y", innerHeight + margin.bottom / 2)
+      .attr("text-anchor", "middle")
+      .text("X Axis Title");
+
+    g.append("text")
+      .attr("x", -innerHeight / 2)
+      .attr("y", -margin.left)
+      .attr("transform", "rotate(-90)")
+      .attr("text-anchor", "middle")
+      .text("Y Axis Title");
   }, [data, width, height]);
 
   return <svg ref={svgRef}></svg>;
