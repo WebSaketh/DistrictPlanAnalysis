@@ -7,6 +7,7 @@ import Tile from "./components/Tile";
 import React, { useEffect, useState } from "react";
 import Map2 from "./components/Map2";
 import button from "daisyui";
+import SimpleBoxPlot from "src/app/components/SimpleBoxPlot.js";
 
 import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
 
@@ -178,11 +179,13 @@ export default function Home() {
     var k = e.target.text;
     console.log(k);
     setDistanceMeasure(k);
+    setCluster(null);
   };
 
   const changeEnsemble = (e) => {
     var k = e.target.text;
     setEnsemble(k);
+    setCluster(null);
   };
 
   const changeDistrict = (e) => {
@@ -206,30 +209,33 @@ export default function Home() {
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
+        setEnsemble(null);
+        setDistanceMeasure(null);
+        setCluster(null);
       }
       setState("Colorado");
       setCenter([39.4, -106]);
       setZoom(6.5);
-      setEnsemble(null);
-      setDistanceMeasure(null);
     } else if (k === "Ohio") {
       if (state !== k) {
         setDistrict(null);
+        setEnsemble(null);
+        setDistanceMeasure(null);
+        setCluster(null);
       }
       setState("Ohio");
       setCenter([40, -83]);
       setZoom(6.5);
-      setEnsemble(null);
-      setDistanceMeasure(null);
     } else if (k === "Illinois") {
       if (state !== k) {
         setDistrict(null);
+        setEnsemble(null);
+        setDistanceMeasure(null);
+        setCluster(null);
       }
       setState("Illinois");
       setCenter([40, -89.5]);
       setZoom(6.5);
-      setEnsemble(null);
-      setDistanceMeasure(null);
     } else if (k === "Reset Map") {
       setState(null);
       console.log("RESETMAP");
@@ -238,6 +244,7 @@ export default function Home() {
       setDistrict(null);
       setEnsemble(null);
       setDistanceMeasure(null);
+      setCluster(null);
     }
   };
 
@@ -271,6 +278,7 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
+
               {ensemble && distanceMeasure && !cluster && !districtPlan ? (
                 <Table data={data1} settingSomething={changingCluster} />
               ) : null}
@@ -291,6 +299,7 @@ export default function Home() {
                 <Scatterplot data={data} width={400} height={300} />
               ) : null}
             </div>
+            <div> <SimpleBoxPlot /> </div>
           </div>
         </div>
       </main>
