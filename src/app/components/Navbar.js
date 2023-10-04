@@ -15,6 +15,20 @@ const Navbar = (props) => {
         <span className="font-semibold text-xl tracking-tight">
           CHIEFS GERRYMANDERING
         </span>
+        <button
+          text="Cluster Analysis"
+          onClick={props.changeView}
+          className="col-span-2 m-1 ml-4 btn btn-error self-end"
+        >
+          <a>Cluster Analysis</a>
+        </button>
+        <button
+          text="Distance Measure Analysis"
+          onClick={props.changeView}
+          className="col-span-2 m-1 btn btn-error self-end"
+        >
+          <a>Distance Measure Analysis</a>
+        </button>
       </div>
       <div className="flex flex-row">
         <div className="col-span-2">

@@ -165,6 +165,16 @@ export default function Home() {
   const [distanceMeasure, setDistanceMeasure] = useState(null);
   const [cluster, setCluster] = useState(null);
   const [districtPlan, setDistrictPlan] = useState(null);
+  const [view, setView] = useState("Cluster Analysis");
+
+  const changeView = (e) => {
+    var k = e?.target?.innerHTML;
+    if (k == "Cluster Analysis") {
+      setView(k);
+    } else if (k == "Distance Measure Analysis") {
+      setView(k);
+    }
+  };
 
   const changingCluster = (id) => {
     setCluster(id);
@@ -254,11 +264,12 @@ export default function Home() {
     document.getElementById("map2")?.click();
   }, [state, zoom, center]);
 
-  if (state) {
+  if (state && view == "Cluster Analysis") {
     return (
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
+            changeView={changeView}
             changeState={changeState}
             changeEnsemble={changeEnsemble}
             changeDistanceMeasure={changeDistanceMeasure}
@@ -317,10 +328,46 @@ export default function Home() {
     );
   }
 
+  if (state && view == "Distance Measure Analysis") {
+    return (
+      <main>
+        <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
+          <Navbar
+            changeView={changeView}
+            changeState={changeState}
+            changeEnsemble={changeEnsemble}
+            changeDistanceMeasure={changeDistanceMeasure}
+          >
+            HEY
+          </Navbar>
+          <div className="flex flex-row flex-1">
+            <div className="aspect-square">
+              <Map2
+                state={state}
+                center={center}
+                zoom={zoom}
+                ensemble={ensemble}
+                district={district}
+                changeDistrict={changeDistrict}
+                changeState={changeState}
+              ></Map2>
+            </div>
+            <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll"></div>
+            <div>
+              {/* {" "}
+              <SimpleLineChart />{" "} */}
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main>
       <div className="flex min-h-screen max-h-screen flex flex-col justify-between p-0 pb-0 pt-0">
         <Navbar
+          changeView={changeView}
           changeState={changeState}
           changeEnsemble={changeEnsemble}
           changeDistanceMeasure={changeDistanceMeasure}
