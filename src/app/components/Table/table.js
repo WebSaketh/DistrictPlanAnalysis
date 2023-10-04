@@ -31,7 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const table = (props) => {
   const handleClick = (id) => {
-    props.settingCluster(id);
+    props.settingSomething(id);
   };
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
