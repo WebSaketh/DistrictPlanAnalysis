@@ -36,6 +36,7 @@ const Navbar = (props) => {
             title="Select State"
             items={["Colorado", "Illinois", "Ohio"]}
             changeState={props.changeState}
+            itemName={props.state}
           ></Dropdown>
         </div>
         <div className="col-span-2">
@@ -43,6 +44,7 @@ const Navbar = (props) => {
             title="District Plans"
             items={["Ensemble 1", "Ensemble 2", "Ensemble 3"]}
             changeState={props.changeEnsemble}
+            itemName={props.ensemble}
           ></Dropdown>
         </div>
         <div className="col-span-2">
@@ -50,6 +52,7 @@ const Navbar = (props) => {
             title="Distance Measure"
             items={["DM1", "DM2", "DM3"]}
             changeState={props.changeDistanceMeasure}
+            itemName={props.distanceMeasure}
           ></Dropdown>
         </div>
         <button

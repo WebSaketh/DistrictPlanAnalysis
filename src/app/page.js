@@ -10,6 +10,7 @@ import button from "daisyui";
 import SimpleBoxPlot from "src/app/components/SimpleBoxPlot.js";
 import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
+import { Encode_Sans } from "next/font/google";
 
 const data = Array.from({ length: 20 }, () => ({
   x: Math.random() * 300 + 5, // Random X value between 0 and 100
@@ -269,6 +270,9 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
+            state={state}
+            ensemble={ensemble}
+            distanceMeasure={distanceMeasure}
             changeView={changeView}
             changeState={changeState}
             changeEnsemble={changeEnsemble}
@@ -333,6 +337,9 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
+            state={state}
+            ensemble={ensemble}
+            distanceMeasure={distanceMeasure}
             changeView={changeView}
             changeState={changeState}
             changeEnsemble={changeEnsemble}
@@ -367,6 +374,9 @@ export default function Home() {
     <main>
       <div className="flex min-h-screen max-h-screen flex flex-col justify-between p-0 pb-0 pt-0">
         <Navbar
+          state={state}
+          ensemble={ensemble}
+          distanceMeasure={distanceMeasure}
           changeView={changeView}
           changeState={changeState}
           changeEnsemble={changeEnsemble}
