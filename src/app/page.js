@@ -89,43 +89,6 @@ const data1 = {
   ],
 };
 
-/*const data1 = {
-  columns: [
-    "Cluster",
-    "Number of Plans",
-    "Avg Distance between Plans",
-    "Republican %",
-    "Democratic %",
-    "White %",
-  ],
-  rows: [
-    [
-      3,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      4,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      5,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-  ],
-};*/
-
 export default function Home() {
   const [state, setState] = useState(null);
   const [center, setCenter] = useState([40, -96]);
@@ -133,16 +96,21 @@ export default function Home() {
   const [district, setDistrict] = useState(null);
   const [ensemble, setEnsemble] = useState(null);
   const [distanceMeasure, setDistanceMeasure] = useState(null);
-
+  const [cluster, setCluster] = useState(null);
+    
+  const changingCluster = (id) => {
+    setCluster(id);
+  }
+    
   const changeDistanceMeasure = (e) => {
     var k = e.target.text;
     console.log(k);
     setDistanceMeasure(k);
+
   };
 
   const changeEnsemble = (e) => {
     var k = e.target.text;
-    console.log(k);
     setEnsemble(k);
   };
 
@@ -227,8 +195,8 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-
-              {ensemble && distanceMeasure ? <Table data={data1} /> : null}
+              {ensemble && distanceMeasure ? <Table data={data1} settingCluster={changingCluster} /> : null}
+              {ensemble && distanceMeasure && cluster? <Table data={data1} />: null}
               {false? <Scatterplot data={data} width={400} height={300} />:null}
 
             </div>
