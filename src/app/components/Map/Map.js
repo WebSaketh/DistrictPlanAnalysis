@@ -79,7 +79,12 @@ const Map = (props) => {
     <MapContainer
       id="map"
       maxBounds={maxBounds}
-      style={{ minHeight: "400px", height: "100%", width: "100%" }}
+      style={{
+        minHeight: "700px",
+        minWidth: "600px",
+        maxWidth: "600px",
+        height: "100%",
+      }}
       center={center}
       zoom={4.6}
       scrollWheelZoom={true}

@@ -1,6 +1,8 @@
-const Navbar = () => {
+import Dropdown from "./Dropdown";
+
+const Navbar = (props) => {
   return (
-    <nav className="w-full flex items-center justify-between flex-wrap bg-[#B59410] p-6">
+    <nav className="w-full flex items-center justify-between flex-wrap bg-[#990000] p-2">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <svg
           className="fill-current h-8 w-8 mr-2"
@@ -14,6 +16,30 @@ const Navbar = () => {
         <span className="font-semibold text-xl tracking-tight">
           CHIEFS GERRYMANDERING
         </span>
+      </div>
+      <div className="grid grid-cols-12">
+        <div className="col-span-3">
+          <Dropdown
+            title="Select State"
+            items={["Colorado", "Illinois", "Ohio"]}
+            changeState={props.changeState}
+          ></Dropdown>
+        </div>
+        <div className="col-span-3">
+          <Dropdown
+            title="District Plans"
+            items={["2020", "2023"]}
+            changeState={props.changeYear}
+          ></Dropdown>
+        </div>
+        <div className="col-span-4"></div>
+        <button
+          text="Reset Map"
+          onClick={props.changeState}
+          className="col-span-2 m-1 btn btn-error self-end"
+        >
+          <a>Reset Map</a>
+        </button>
       </div>
       {/* <div className="block lg:hidden">
         <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
