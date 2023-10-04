@@ -200,11 +200,42 @@ export default function Home() {
                 changeState={changeState}
               ></Map2>
             </div>
+<<<<<<< Updated upstream
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
             
 
               {ensemble && distanceMeasure ? (
                 <Table data={data1} settingCluster={changingCluster} />
+=======
+
+            <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left flex-1">
+            {ensemble && distanceMeasure && state ? (
+  null
+) : (
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh', // 100% of the viewport height
+    width: '100%',   // 100% of the parent container width
+    textAlign: 'center',
+    color: 'grey',             // Change text color to grey
+    fontFamily: 'Helvetica-Bold',     // Use Roboto font
+    fontSize: '24px'           // Set font size to 24 pixels
+  }}>
+    Please Select State, Ensemble, and DM
+  </div>
+)}
+
+
+
+              {ensemble && distanceMeasure && !cluster && !districtPlan ? (
+                <Table
+                  data={data1}
+                  settingSomething={changingCluster}
+                  headerStyle={{ "background-color": "#CD5C5C" }}
+                />
+>>>>>>> Stashed changes
               ) : null}
               {ensemble && distanceMeasure && cluster ? (
                 <Table data={data1} />
@@ -212,6 +243,57 @@ export default function Home() {
               {false ? (
                 <Scatterplot data={data} width={400} height={300} />
               ) : null}
+<<<<<<< Updated upstream
+=======
+
+            </div>
+
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (state && view == "Distance Measure Analysis") {
+    return (
+      <main>
+        <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
+          <Navbar
+            view={view}
+            state={state}
+            ensemble={ensemble}
+            distanceMeasure={distanceMeasure}
+            changeView={changeView}
+            changeState={changeState}
+            changeEnsemble={changeEnsemble}
+            changeDistanceMeasure={changeDistanceMeasure}
+          >
+            HEY
+          </Navbar>
+          <div className="flex flex-row flex-1">
+            <div>
+              <Map2
+                state={state}
+                center={center}
+                zoom={zoom}
+                ensemble={ensemble}
+                district={district}
+                districtPlan={districtPlan}
+                changeDistrict={changeDistrict}
+                changeState={changeState}
+              ></Map2>
+            </div>
+
+            <div className="flex flex-1 justify-center items-center">
+              <div className="flex flex-col">
+                <div className="m-5">
+                  <SimpleLineChart />
+                </div>
+                <div className="m-5">
+                  <Table data={data3} settingSomething={changingCluster} />
+                </div>
+              </div>
+>>>>>>> Stashed changes
             </div>
             <div> <SimpleBoxPlot /> </div>
           </div>
