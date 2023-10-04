@@ -50,7 +50,7 @@ function SimpleBoxPlot() {
           xaxis: { title: "Box Plots" },
           showlegend: true,
           height: 400, // Adjust the height to make the box plots smaller
-          width: 600,
+          width: 450,
         }}
       />
     </div>
