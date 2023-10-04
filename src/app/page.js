@@ -236,14 +236,20 @@ export default function Home() {
   const changeDistanceMeasure = (e) => {
     var k = e.target.text;
     console.log(k);
-    setDistanceMeasure(k);
-    setCluster(null);
+    if (k !== distanceMeasure) {
+      setDistanceMeasure(k);
+      setCluster(null);
+      setDistrictPlan(null);
+    }
   };
 
   const changeEnsemble = (e) => {
     var k = e.target.text;
-    setEnsemble(k);
-    setCluster(null);
+    if (k !== ensemble) {
+      setEnsemble(k);
+      setCluster(null);
+      setDistrictPlan(null);
+    }
   };
 
   const changeDistrict = (e) => {
@@ -425,12 +431,15 @@ export default function Home() {
 
             <div className="flex flex-1 justify-center items-center">
               <div className="flex flex-col">
-                <div className="m-5"><SimpleLineChart/></div>
-                <div className="m-5"><Table  data={data3} settingSomething={changingCluster} /></div>
-                
+                <div className="m-5">
+                  <SimpleLineChart />
+                </div>
+                <div className="m-5">
+                  <Table data={data3} settingSomething={changingCluster} />
+                </div>
               </div>
             </div>
-            </div>
+          </div>
         </div>
       </main>
     );
