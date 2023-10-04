@@ -13,11 +13,9 @@ import { ohio2020, ill2020, colo2020 } from "./const";
 import { colobound, illbound, ohiobound } from "./const";
 import { latLng, polygon } from "leaflet";
 import * as d3 from "d3";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const MapControl = (props) => {
-  const [mousePos, setMousePos] = useState(null);
-
   const map = useMapEvents({
     click: () => {
       map.flyTo(L.latLng(props.center), props.zoom);
@@ -33,6 +31,7 @@ const maxBounds = L.latLngBounds(
 var center = [40, -96];
 
 const Map2 = (props) => {
+  const [mousePos, setMousePos] = useState(null);
   if (props.state == "Colorado") {
     center = [39.4, -106];
   }

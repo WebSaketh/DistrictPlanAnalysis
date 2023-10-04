@@ -363,6 +363,24 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left flex-1">
+              {ensemble && distanceMeasure && state ? null : (
+                <div
+                  className="flex flex-1 text-center w-full"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh", // 100% of the viewport height
+                    width: "100%", // 100% of the parent container width
+                    textAlign: "center",
+                    color: "grey", // Change text color to grey
+                    fontFamily: "Helvetica-Bold", // Use Roboto font
+                    fontSize: "24px", // Set font size to 24 pixels
+                  }}
+                >
+                  <p>Please Select State, Ensemble, and DM</p>
+                </div>
+              )}
               {ensemble && distanceMeasure && !cluster && !districtPlan ? (
                 <Table
                   data={data1}
