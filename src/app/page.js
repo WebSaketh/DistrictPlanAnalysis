@@ -223,6 +223,7 @@ export default function Home() {
         setEnsemble(null);
         setDistanceMeasure(null);
         setCluster(null);
+        setDistrictPlan(null);
       }
       setState("Colorado");
       setCenter([39.4, -106]);
@@ -233,6 +234,7 @@ export default function Home() {
         setEnsemble(null);
         setDistanceMeasure(null);
         setCluster(null);
+        setDistrictPlan(null);
       }
       setState("Ohio");
       setCenter([40, -83]);
@@ -243,6 +245,7 @@ export default function Home() {
         setEnsemble(null);
         setDistanceMeasure(null);
         setCluster(null);
+        setDistrictPlan(null);
       }
       setState("Illinois");
       setCenter([40, -89.5]);
@@ -256,6 +259,7 @@ export default function Home() {
       setEnsemble(null);
       setDistanceMeasure(null);
       setCluster(null);
+      setDistrictPlan(null);
     }
   };
 
