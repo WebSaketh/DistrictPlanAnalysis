@@ -157,6 +157,53 @@ const data2 = {
   ],
 };
 
+const data3 = {
+  columns: [
+    "Cluster Purity", //Cluster purity measures the proportion of data points in a cluster that belong to the majority class. Higher purity indicates more homogeneous clusters.
+    "Execution Time",
+    "Resource Utilization",
+    "Silhouette Score", //The silhouette score quantifies how similar each data point is to its own cluster compared to other clusters. Higher scores indicate better-defined clusters.
+    "Inertia", //Inertia measures the total distance between data points and their cluster centroids. Lower inertia indicates tighter clusters.
+  ],
+  rows: [
+    [
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+  ],
+};
+
 export default function Home() {
   const [state, setState] = useState(null);
   const [center, setCenter] = useState([40, -96]);
@@ -348,7 +395,7 @@ export default function Home() {
             HEY
           </Navbar>
           <div className="flex flex-row flex-1">
-            <div className="aspect-square">
+            <div>
               <Map2
                 state={state}
                 center={center}
@@ -359,12 +406,15 @@ export default function Home() {
                 changeState={changeState}
               ></Map2>
             </div>
-            <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll"></div>
-            <div>
-              {/* {" "}
-              <SimpleLineChart />{" "} */}
+
+            <div className="flex flex-1 justify-center items-center">
+              <div className="flex flex-col">
+                <div className="m-5"><SimpleLineChart/></div>
+                <div className="m-5"><Table  data={data3} settingSomething={changingCluster} /></div>
+                
+              </div>
             </div>
-          </div>
+            </div>
         </div>
       </main>
     );
