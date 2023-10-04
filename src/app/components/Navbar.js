@@ -63,11 +63,15 @@ const Navbar = (props) => {
         <div className="col-span-2">
           <Dropdown
             title="Ensembles"
-            items={[
-              "Ensemble 1 " + "[" + props.total.toLocaleString() + "]",
-              "Ensemble 2 " + "[" + props.total.toLocaleString() + "]",
-              "Ensemble 3 " + "[" + props.total.toLocaleString() + "]",
-            ]}
+            items={
+              props.state
+                ? [
+                    "Ensemble 1 " + "[" + props.total.toLocaleString() + "]",
+                    "Ensemble 2 " + "[" + props.total.toLocaleString() + "]",
+                    "Ensemble 3 " + "[" + props.total.toLocaleString() + "]",
+                  ]
+                : []
+            }
             changeState={props.changeEnsemble}
             itemName={props.ensemble}
           ></Dropdown>
@@ -75,7 +79,7 @@ const Navbar = (props) => {
         <div className="col-span-2">
           <Dropdown
             title="Distance Measure"
-            items={["DM1", "DM2", "DM3"]}
+            items={props.ensemble ? ["DM1", "DM2", "DM3"] : []}
             changeState={props.changeDistanceMeasure}
             itemName={props.distanceMeasure}
           ></Dropdown>

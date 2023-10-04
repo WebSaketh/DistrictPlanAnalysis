@@ -166,6 +166,7 @@ const data2 = {
 
 const data3 = {
   columns: [
+    "Metric Name",
     "Cluster Purity", //Cluster purity measures the proportion of data points in a cluster that belong to the majority class. Higher purity indicates more homogeneous clusters.
     "Execution Time",
     "Resource Utilization",
@@ -174,6 +175,7 @@ const data3 = {
   ],
   rows: [
     [
+      "Optimal Transport",
       getRandomInt(100),
       getRandomInt(100),
       getRandomInt(100),
@@ -181,6 +183,7 @@ const data3 = {
       getRandomInt(100),
     ],
     [
+      "Hamming Distance",
       getRandomInt(1000),
       getRandomInt(100),
       getRandomInt(100),
@@ -188,6 +191,7 @@ const data3 = {
       getRandomInt(100),
     ],
     [
+      "Total Variation",
       getRandomInt(1000),
       getRandomInt(100),
       getRandomInt(100),
@@ -195,13 +199,7 @@ const data3 = {
       getRandomInt(100),
     ],
     [
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
+      "Another Measure",
       getRandomInt(1000),
       getRandomInt(100),
       getRandomInt(100),
