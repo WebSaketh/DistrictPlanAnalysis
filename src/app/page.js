@@ -270,6 +270,7 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
+            view={view}
             state={state}
             ensemble={ensemble}
             distanceMeasure={distanceMeasure}
@@ -337,6 +338,7 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
+            view={view}
             state={state}
             ensemble={ensemble}
             distanceMeasure={distanceMeasure}
@@ -374,6 +376,7 @@ export default function Home() {
     <main>
       <div className="flex min-h-screen max-h-screen flex flex-col justify-between p-0 pb-0 pt-0">
         <Navbar
+          view={view}
           state={state}
           ensemble={ensemble}
           distanceMeasure={distanceMeasure}

@@ -40,7 +40,12 @@ const table = (props) => {
           <TableHead>
             <TableRow>
               {props.data.columns.map((column, index) => (
-                <StyledTableCell key={index}>{column}</StyledTableCell>
+                <StyledTableCell
+                  style={{ "background-color": "red" }}
+                  key={index}
+                >
+                  {column}
+                </StyledTableCell>
               ))}
             </TableRow>
           </TableHead>
