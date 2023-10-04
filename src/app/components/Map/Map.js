@@ -75,18 +75,12 @@ const Map = (props) => {
     fillOpacity: 0.3, // Fill opacity (0 to 1)
   };
 
-  const style1 = {
-    minHeight: "700px",
-    minWidth: "600px",
-    maxWidth: "600px",
-    height: "100%",
-  };
-
   const style2 = {
+    height: "100px",
     minHeight: "820px",
     maxHeight: "820px",
-    minWidth: "1725px",
-    maxWidth: "100%",
+    minWidth: "100%",
+    width: "100%",
   };
 
   return (
