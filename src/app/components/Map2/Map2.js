@@ -90,7 +90,7 @@ const Map2 = (props) => {
   };
 
   const style1 = {
-    minHeight: "700px",
+    minHeight: "100px",
     minWidth: "600px",
     maxWidth: "600px",
     height: "100%",
