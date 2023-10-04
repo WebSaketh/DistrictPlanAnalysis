@@ -6,6 +6,7 @@ import {
   GeoJSON,
   Popup,
   Tooltip,
+  Polygon,
 } from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
 import { ohio2020, ill2020, colo2020 } from "./const";
@@ -88,6 +89,26 @@ const Map2 = (props) => {
     }
   };
 
+  const polygon1 = [
+    [39.515, -100.09],
+    [39.52, -106.1],
+    [41.52, -106.12],
+  ];
+
+  const polygon2 = [
+    [39.515, -83.09],
+    [39.52, -89.1],
+    [41.52, -89.12],
+  ];
+
+  const polygon3 = [
+    [39.515, -77.09],
+    [39.52, -83.1],
+    [41.52, -83.12],
+  ];
+
+  const purpleOptions = { color: "purple" };
+
   const geoJsonStyle = {
     fillColor: "#B59410", // Fill color for the boundary
     color: "black", // Stroke color for the boundary
@@ -134,6 +155,9 @@ const Map2 = (props) => {
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         >
+          {props.districtPlan ? (
+            <Polygon pathOptions={purpleOptions} positions={polygon1} />
+          ) : null}
           <Tooltip direction="center" offset={[0, -150]} permanent>
             STATE SENATE
           </Tooltip>
@@ -145,6 +169,9 @@ const Map2 = (props) => {
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         >
+          {props.districtPlan ? (
+            <Polygon pathOptions={purpleOptions} positions={polygon2} />
+          ) : null}
           <Tooltip direction="center" offset={[0, -150]} permanent>
             FEDERAL CONGRESSIONAL DISTRICT
           </Tooltip>
@@ -156,6 +183,9 @@ const Map2 = (props) => {
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         >
+          {props.districtPlan ? (
+            <Polygon pathOptions={purpleOptions} positions={polygon3} />
+          ) : null}
           <Tooltip direction="center" offset={[0, -150]} permanent>
             FEDERAL CONGRESSIONAL DISTRICT
           </Tooltip>

@@ -293,13 +293,18 @@ export default function Home() {
                 zoom={zoom}
                 ensemble={ensemble}
                 district={district}
+                districtPlan={districtPlan}
                 changeDistrict={changeDistrict}
                 changeState={changeState}
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
               {ensemble && distanceMeasure && !cluster && !districtPlan ? (
-                <Table data={data1} settingSomething={changingCluster} />
+                <Table
+                  data={data1}
+                  settingSomething={changingCluster}
+                  headerStyle={{ "background-color": "#CD5C5C" }}
+                />
               ) : null}
               {ensemble && distanceMeasure && cluster ? (
                 <div className="flex flex-col">
@@ -322,6 +327,7 @@ export default function Home() {
                     data={data2}
                     settingSomething={changingDistrictPlan}
                     districtPlan={districtPlan}
+                    headerStyle={{ "background-color": "#DAA520" }}
                   />
                 </div>
               ) : null}
@@ -364,6 +370,7 @@ export default function Home() {
                 zoom={zoom}
                 ensemble={ensemble}
                 district={district}
+                districtPlan={districtPlan}
                 changeDistrict={changeDistrict}
                 changeState={changeState}
               ></Map2>
