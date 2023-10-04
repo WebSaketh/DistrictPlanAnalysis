@@ -135,7 +135,7 @@ const Map2 = (props) => {
           onEachFeature={onEachFeature}
         >
           <Tooltip direction="center" offset={[0, -150]} permanent>
-            TYPE OF DATA
+            STATE SENATE
           </Tooltip>
         </GeoJSON>
       ) : null}
@@ -146,7 +146,7 @@ const Map2 = (props) => {
           onEachFeature={onEachFeature}
         >
           <Tooltip direction="center" offset={[0, -150]} permanent>
-            TYPE OF DATA
+            FEDERAL CONGRESSIONAL DISTRICT
           </Tooltip>
         </GeoJSON>
       ) : null}
@@ -157,7 +157,7 @@ const Map2 = (props) => {
           onEachFeature={onEachFeature}
         >
           <Tooltip direction="center" offset={[0, -150]} permanent>
-            TYPE OF DATA
+            FEDERAL CONGRESSIONAL DISTRICT
           </Tooltip>
         </GeoJSON>
       ) : null}

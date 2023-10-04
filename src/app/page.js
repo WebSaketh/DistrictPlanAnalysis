@@ -10,8 +10,8 @@ import Map2 from "./components/Map2";
 import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
 
 const data = Array.from({ length: 20 }, () => ({
-  x: (Math.random() * 300) + 5, // Random X value between 0 and 100
-  y: (Math.random() * 300) + 5, // Random Y value between 0 and 100
+  x: Math.random() * 300 + 5, // Random X value between 0 and 100
+  y: Math.random() * 300 + 5, // Random Y value between 0 and 100
 }));
 
 function getRandomInt(max) {
@@ -97,21 +97,22 @@ export default function Home() {
   const [ensemble, setEnsemble] = useState(null);
   const [distanceMeasure, setDistanceMeasure] = useState(null);
   const [cluster, setCluster] = useState(null);
-    
+
   const changingCluster = (id) => {
     setCluster(id);
-  }
-    
+  };
+
   const changeDistanceMeasure = (e) => {
     var k = e.target.text;
     console.log(k);
     setDistanceMeasure(k);
-
+    setCluster(null);
   };
 
   const changeEnsemble = (e) => {
     var k = e.target.text;
     setEnsemble(k);
+    setCluster(null);
   };
 
   const changeDistrict = (e) => {
@@ -130,30 +131,33 @@ export default function Home() {
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
+        setEnsemble(null);
+        setDistanceMeasure(null);
+        setCluster(null);
       }
       setState("Colorado");
       setCenter([39.4, -106]);
       setZoom(6.5);
-      setEnsemble(null);
-      setDistanceMeasure(null);
     } else if (k === "Ohio") {
       if (state !== k) {
         setDistrict(null);
+        setEnsemble(null);
+        setDistanceMeasure(null);
+        setCluster(null);
       }
       setState("Ohio");
       setCenter([40, -83]);
       setZoom(6.5);
-      setEnsemble(null);
-      setDistanceMeasure(null);
     } else if (k === "Illinois") {
       if (state !== k) {
         setDistrict(null);
+        setEnsemble(null);
+        setDistanceMeasure(null);
+        setCluster(null);
       }
       setState("Illinois");
       setCenter([40, -89.5]);
       setZoom(6.5);
-      setEnsemble(null);
-      setDistanceMeasure(null);
     } else if (k === "Reset Map") {
       setState(null);
       console.log("RESETMAP");
@@ -162,6 +166,7 @@ export default function Home() {
       setDistrict(null);
       setEnsemble(null);
       setDistanceMeasure(null);
+      setCluster(null);
     }
   };
 
@@ -195,10 +200,15 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-              {ensemble && distanceMeasure ? <Table data={data1} settingCluster={changingCluster} /> : null}
-              {ensemble && distanceMeasure && cluster? <Table data={data1} />: null}
-              {false? <Scatterplot data={data} width={400} height={300} />:null}
-
+              {ensemble && distanceMeasure ? (
+                <Table data={data1} settingCluster={changingCluster} />
+              ) : null}
+              {ensemble && distanceMeasure && cluster ? (
+                <Table data={data1} />
+              ) : null}
+              {false ? (
+                <Scatterplot data={data} width={400} height={300} />
+              ) : null}
             </div>
           </div>
         </div>
