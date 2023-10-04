@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Tile from "./components/Tile";
 import React, { useEffect, useState } from "react";
 import Map2 from "./components/Map2";
+import button from "daisyui";
 import SimpleBoxPlot from "src/app/components/SimpleBoxPlot.js";
 
 import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
@@ -90,6 +91,71 @@ const data1 = {
   ],
 };
 
+const data2 = {
+  columns: [
+    "District Plan",
+    "Opportunity Districts",
+    "Republican %",
+    "Democratic %",
+    "White %",
+    "African American %",
+    "Asians %",
+    "Hispanic %",
+  ],
+  rows: [
+    [
+      "Average DP",
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      1,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      2,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      3,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+    [
+      4,
+      getRandomInt(1000),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+      getRandomInt(100),
+    ],
+  ],
+};
+
 export default function Home() {
   const [state, setState] = useState(null);
   const [center, setCenter] = useState([40, -96]);
@@ -98,9 +164,15 @@ export default function Home() {
   const [ensemble, setEnsemble] = useState(null);
   const [distanceMeasure, setDistanceMeasure] = useState(null);
   const [cluster, setCluster] = useState(null);
+  const [districtPlan, setDistrictPlan] = useState(null);
 
   const changingCluster = (id) => {
     setCluster(id);
+  };
+
+  const changingDistrictPlan = (id) => {
+    console.log("district plan...", id);
+    setDistrictPlan(id);
   };
 
   const changeDistanceMeasure = (e) => {
@@ -119,6 +191,11 @@ export default function Home() {
   const changeDistrict = (e) => {
     console.log("District:", e);
     setDistrict(e);
+  };
+
+  const clickClusterButton = () => {
+    setCluster(null);
+    setDistrictPlan(null);
   };
 
   const changeState = (e) => {
@@ -201,14 +278,23 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-            
 
-              {ensemble && distanceMeasure ? (
-                <Table data={data1} settingCluster={changingCluster} />
+              {ensemble && distanceMeasure && !cluster && !districtPlan ? (
+                <Table data={data1} settingSomething={changingCluster} />
               ) : null}
               {ensemble && distanceMeasure && cluster ? (
-                <Table data={data1} />
+                <div>
+                  <h2>Cluster {cluster}</h2>
+                  <button
+                    className="btn btn-ghost"
+                    onClick={clickClusterButton}
+                  >
+                    View Clusters
+                  </button>
+                  <Table data={data2} settingSomething={changingDistrictPlan} />
+                </div>
               ) : null}
+
               {false ? (
                 <Scatterplot data={data} width={400} height={300} />
               ) : null}
