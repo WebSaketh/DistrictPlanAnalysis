@@ -125,6 +125,13 @@ export default function Home() {
   const [zoom, setZoom] = useState(4.6);
   const [district, setDistrict] = useState(null);
   const [ensemble, setEnsemble] = useState("2020");
+  const [distanceMeasure, setDistanceMeasure] = useState(null);
+
+  const changeDistanceMeasure = (e) => {
+    var k = e.target.text;
+    console.log(k);
+    setDistanceMeasure(k);
+  };
 
   const changeEnsemble = (e) => {
     var k = e.target.text;
@@ -174,6 +181,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    console.log("useEffect");
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
   }, [state, zoom, center]);
@@ -182,7 +190,11 @@ export default function Home() {
     return (
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
-          <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
+          <Navbar
+            changeState={changeState}
+            changeEnsemble={changeEnsemble}
+            changeDistanceMeasure={changeDistanceMeasure}
+          >
             HEY
           </Navbar>
           <div className="flex flex-row flex-1">
@@ -209,7 +221,11 @@ export default function Home() {
   return (
     <main>
       <div className="flex min-h-screen max-h-screen flex flex-col justify-between p-0 pb-0 pt-0">
-        <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
+        <Navbar
+          changeState={changeState}
+          changeEnsemble={changeEnsemble}
+          changeDistanceMeasure={changeDistanceMeasure}
+        >
           HEY
         </Navbar>
         <Map
