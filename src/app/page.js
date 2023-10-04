@@ -69,12 +69,11 @@ export default function Home() {
   if (state) {
     return (
       <main>
-        <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
-          HEY
-        </Navbar>
-
-        <div className="flex min-h-screen  justify-between p-0 pb-20 pt-0">
-          <div className="flex flex-row text-center lg:w-full lg:mb-0  lg:text-left">
+        <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
+          <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
+            HEY
+          </Navbar>
+          <div className="flex flex-row flex-1">
             <div className="aspect-square">
               <Map2
                 state={state}
@@ -86,7 +85,9 @@ export default function Home() {
                 changeState={changeState}
               ></Map2>
             </div>
-            <div className="flex flex-row text-center lg:w-full lg:mb-0  lg:text-left">
+            <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
+              <Table />
+              <Table />
               <Table />
             </div>
           </div>
@@ -97,10 +98,10 @@ export default function Home() {
 
   return (
     <main>
-      <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
-        HEY
-      </Navbar>
-      <div className="flex min-h-screen  justify-between p-0 pb-20 pt-0">
+      <div className="flex min-h-screen  flex flex-col justify-between p-0 pb-0 pt-0">
+        <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
+          HEY
+        </Navbar>
         <Map
           state={state}
           center={center}
