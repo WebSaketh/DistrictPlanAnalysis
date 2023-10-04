@@ -92,6 +92,13 @@ const data1 = {
   ],
 };
 
+console.log(data1.rows);
+var total = 0;
+for (var x = 0; x < data1.rows.length; x++) {
+  total += data1.rows[x][1];
+}
+console.log(total);
+
 const data2 = {
   columns: [
     "District Plan",
@@ -330,6 +337,7 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
+            total={total}
             view={view}
             state={state}
             ensemble={ensemble}
@@ -385,14 +393,18 @@ export default function Home() {
                     districtPlan={districtPlan}
                     headerStyle={{ "background-color": "#DAA520" }}
                   />
-                  <div className="flex flex-row">
-                    <Scatterplot
-                      data={data}
-                      width={600}
-                      height={400}
-                      settingDistrictPlan={setDistrictPlan}
-                    />
-                    <SimpleBoxPlot />
+                  <div className="flex flex-row overflow-hidden">
+                    <div>
+                      <SimpleBoxPlot />
+                    </div>
+                    <div>
+                      <Scatterplot
+                        data={data}
+                        width={600}
+                        height={400}
+                        settingDistrictPlan={setDistrictPlan}
+                      />
+                    </div>
                   </div>
                 </div>
               ) : null}
@@ -408,6 +420,7 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
+            total={total}
             view={view}
             state={state}
             ensemble={ensemble}
@@ -453,6 +466,7 @@ export default function Home() {
     <main>
       <div className="flex min-h-screen max-h-screen flex flex-col justify-between p-0 pb-0 pt-0">
         <Navbar
+          total={total}
           view={view}
           state={state}
           ensemble={ensemble}
