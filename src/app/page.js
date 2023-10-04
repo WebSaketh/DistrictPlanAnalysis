@@ -104,21 +104,16 @@ export default function Home() {
       <Navbar changeState={changeState} changeYear={changeYear}>
         HEY
       </Navbar>
-
       <div className="flex min-h-screen  justify-between p-0 pb-20 pt-0">
-        <div className="flex flex-row text-center lg:w-full lg:mb-0  lg:text-left">
-          <div className="aspect-square">
-            <Map
-              state={state}
-              center={center}
-              zoom={zoom}
-              year={year}
-              district={district}
-              changeDistrict={changeDistrict}
-              changeState={changeState}
-            ></Map>
-          </div>
-        </div>
+        <Map
+          state={state}
+          center={center}
+          zoom={zoom}
+          year={year}
+          district={district}
+          changeDistrict={changeDistrict}
+          changeState={changeState}
+        ></Map>
       </div>
     </main>
   );
