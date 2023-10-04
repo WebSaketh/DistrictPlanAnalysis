@@ -447,8 +447,8 @@ export default function Home() {
             </div>
 
             <div className="flex flex-1 justify-center items-center">
-              <div className="flex flex-col">
-                <div className="m-5">
+              <div className="flex flex-1 flex-col ">
+                <div className="m-5 flex flex-row">
                   <SimpleLineChart />
                 </div>
                 <div className="m-5">

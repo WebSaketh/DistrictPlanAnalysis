@@ -16,6 +16,8 @@ import * as d3 from "d3";
 import { useEffect } from "react";
 
 const MapControl = (props) => {
+  const [mousePos, setMousePos] = useState(null);
+
   const map = useMapEvents({
     click: () => {
       map.flyTo(L.latLng(props.center), props.zoom);
@@ -83,6 +85,7 @@ const Map2 = (props) => {
     const point = [e.latlng.lng, e.latlng.lat];
     for (var i = 0; i < polygons.length; i++) {
       if (d3.polygonContains(polygons[i].coordinates[0], point)) {
+        setMousePos(e.latLng);
         props.changeDistrict(i + 1);
         return;
       }
