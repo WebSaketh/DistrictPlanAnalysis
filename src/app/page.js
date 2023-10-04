@@ -12,16 +12,12 @@ export default function Home() {
   const [center, setCenter] = useState([40, -96]);
   const [zoom, setZoom] = useState(4.6);
   const [district, setDistrict] = useState(null);
-  const [year, setYear] = useState("2020");
+  const [ensemble, setEnsemble] = useState("2020");
 
-  const changeYear = (e) => {
+  const changeEnsemble = (e) => {
     var k = e.target.text;
     console.log(k);
-    if (k === "2020") {
-      setYear(k);
-    } else if (k === "2023") {
-      setYear(k);
-    }
+    setEnsemble(k);
   };
 
   const changeDistrict = (e) => {
@@ -73,7 +69,7 @@ export default function Home() {
   if (state) {
     return (
       <main>
-        <Navbar changeState={changeState} changeYear={changeYear}>
+        <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
           HEY
         </Navbar>
 
@@ -84,7 +80,7 @@ export default function Home() {
                 state={state}
                 center={center}
                 zoom={zoom}
-                year={year}
+                ensemble={ensemble}
                 district={district}
                 changeDistrict={changeDistrict}
                 changeState={changeState}
@@ -101,7 +97,7 @@ export default function Home() {
 
   return (
     <main>
-      <Navbar changeState={changeState} changeYear={changeYear}>
+      <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
         HEY
       </Navbar>
       <div className="flex min-h-screen  justify-between p-0 pb-20 pt-0">
@@ -109,7 +105,7 @@ export default function Home() {
           state={state}
           center={center}
           zoom={zoom}
-          year={year}
+          ensemble={ensemble}
           district={district}
           changeDistrict={changeDistrict}
           changeState={changeState}
@@ -117,59 +113,4 @@ export default function Home() {
       </div>
     </main>
   );
-}
-
-{
-  /* <div className="aspect-square bg-slate-50 group border border-transparent px-5 py-4 transition-colors ">
-  <div className="h-full overflow-scroll">
-    <Tile state={state} district={district} year={year} title="Thing 1">
-      null
-    </Tile>
-    <Tile state={state} district={district} year={year} title="Thing 2">
-      null
-    </Tile>
-    <Tile state={state} district={district} year={year} title="Thing 3">
-      null
-    </Tile>
-    <Tile state={state} district={district} year={year} title="Thing 4">
-      null
-    </Tile>
-    <Tile state={state} district={district} year={year} title="Thing 5">
-      null
-    </Tile>
-    <Tile state={state} district={district} year={year} title="Thing 6">
-      null
-    </Tile>
-    <Tile state={state} district={district} year={year} title="Thing 7">
-      null
-    </Tile>
-    <Tile state={state} district={district} year={year} title="Thing 8">
-      null
-    </Tile>
-  </div>
-  <div className="grid grid-cols-12 mt-4">
-    <div className="col-span-3">
-      <Dropdown
-        title="Select State"
-        items={["Colorado", "Illinois", "Ohio"]}
-        changeState={changeState}
-      ></Dropdown>
-    </div>
-    <div className="col-span-3">
-      <Dropdown
-        title="District Plans"
-        items={["2020", "2023"]}
-        changeState={changeYear}
-      ></Dropdown>
-    </div>
-    <div className="col-span-4"></div>
-    <button
-      text="Reset Map"
-      onClick={changeState}
-      className="col-span-2 m-1 btn btn-error self-end"
-    >
-      <a>Reset Map</a>
-    </button>
-  </div>
-</div>; */
 }

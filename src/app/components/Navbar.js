@@ -27,8 +27,8 @@ const Navbar = (props) => {
         <div className="col-span-2">
           <Dropdown
             title="District Plans"
-            items={["2020", "2023"]}
-            changeState={props.changeYear}
+            items={["Ensemble 1", "Ensemble 2", "Ensemble 3"]}
+            changeState={props.changeEnsemble}
           ></Dropdown>
         </div>
         <button
