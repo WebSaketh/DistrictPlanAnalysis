@@ -229,8 +229,11 @@ export default function Home() {
   };
 
   const changingDistrictPlan = (id) => {
-    console.log("district plan...", id);
-    setDistrictPlan(id);
+    if (districtPlan !== null) {
+      setDistrictPlan(null);
+    } else {
+      setDistrictPlan(id);
+    }
   };
 
   const changeDistanceMeasure = (e) => {
@@ -393,7 +396,6 @@ export default function Home() {
                   </div>
                 </div>
               ) : null}
-
             </div>
           </div>
         </div>
