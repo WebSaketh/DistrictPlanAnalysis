@@ -389,10 +389,10 @@ export default function Home() {
                 <Scatterplot data={data} width={400} height={300} />
               ) : null}
             </div>
-            <div>
+            {/* <div>
               
               <SimpleBoxPlot />{" "} 
-            </div>
+            </div> */}
           </div>
         </div>
       </main>
