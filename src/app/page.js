@@ -7,6 +7,13 @@ import Tile from "./components/Tile";
 import React, { useEffect, useState } from "react";
 import Map2 from "./components/Map2";
 
+import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
+
+const data = Array.from({ length: 20 }, () => ({
+  x: (Math.random() * 300) + 5, // Random X value between 0 and 100
+  y: (Math.random() * 300) + 5, // Random Y value between 0 and 100
+}));
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
@@ -198,7 +205,11 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-              <Table data={data1} />
+              {/* <Table data={data1} /> */}
+              <div>
+                <h1>Scatterplot Example</h1>
+                <Scatterplot data={data} width={400} height={300} />
+              </div>
             </div>
           </div>
         </div>
