@@ -90,6 +90,9 @@ export default function Home() {
                 changeState={changeState}
               ></Map2>
             </div>
+            <div className="flex flex-row text-center lg:w-full lg:mb-0  lg:text-left">
+              <Table />
+            </div>
           </div>
         </div>
       </main>
@@ -115,9 +118,6 @@ export default function Home() {
               changeState={changeState}
             ></Map>
           </div>
-        </div>
-        <div className="flex flex-row text-center lg:w-full lg:mb-0  lg:text-left">
-          <Table />
         </div>
       </div>
     </main>
