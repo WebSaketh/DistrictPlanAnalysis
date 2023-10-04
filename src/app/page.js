@@ -390,8 +390,8 @@ export default function Home() {
               ) : null}
             </div>
             <div>
-              {/* {" "}
-              <SimpleLineChart />{" "} */}
+              
+              <SimpleBoxPlot />{" "} 
             </div>
           </div>
         </div>
