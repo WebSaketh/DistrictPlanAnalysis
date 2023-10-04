@@ -82,53 +82,20 @@ const data1 = {
   ],
 };
 
-/*const data1 = {
-  columns: [
-    "Cluster",
-    "Number of Plans",
-    "Avg Distance between Plans",
-    "Republican %",
-    "Democratic %",
-    "White %",
-  ],
-  rows: [
-    [
-      3,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      4,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      5,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-  ],
-};*/
-
 export default function Home() {
   const [state, setState] = useState(null);
   const [center, setCenter] = useState([40, -96]);
   const [zoom, setZoom] = useState(4.6);
   const [district, setDistrict] = useState(null);
   const [ensemble, setEnsemble] = useState("2020");
+  const [cluster, setCluster] = useState(null);
+
+  const changingCluster = (id) => {
+    setCluster(id);
+  };
 
   const changeEnsemble = (e) => {
     var k = e.target.text;
-    console.log(k);
     setEnsemble(k);
   };
 
@@ -198,7 +165,8 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-              <Table data={data1} />
+              <Table data={data1} settingCluster={changingCluster} />
+              {cluster !== null && <Table data={data1} />}
             </div>
           </div>
         </div>

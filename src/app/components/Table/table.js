@@ -30,30 +30,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const table = (props) => {
+  const handleClick = (id) => {
+    props.settingCluster(id);
+  };
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              {props.data.columns.map((column) => (
-                <StyledTableCell>{column}</StyledTableCell>
+              {props.data.columns.map((column, index) => (
+                <StyledTableCell key={index}>{column}</StyledTableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {props.data.rows.map((row) => (
-              <StyledTableRow key={row[0]}>
+              <StyledTableRow
+                onClick={() => {
+                  handleClick(row[0]);
+                }}
+                key={row[0]}
+              >
                 {row.map((data) => (
                   <StyledTableCell align="middle">{data}</StyledTableCell>
                 ))}
-                {/*<StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-            <StyledTableCell align="right">{row.protein}</StyledTableCell>*/}
               </StyledTableRow>
             ))}
           </TableBody>
