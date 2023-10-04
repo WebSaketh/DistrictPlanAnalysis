@@ -1,6 +1,12 @@
 "use client";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  GeoJSON,
+  Popup,
+  Tooltip,
+} from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
 import { ohio2020, ill2020, colo2020 } from "./const";
 import { colobound, illbound, ohiobound } from "./const";
@@ -127,21 +133,33 @@ const Map2 = (props) => {
           data={colo2020}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
-        />
+        >
+          <Tooltip direction="center" offset={[0, -150]} permanent>
+            TYPE OF DATA
+          </Tooltip>
+        </GeoJSON>
       ) : null}
       {props.state === "Illinois" ? (
         <GeoJSON
           data={ill2020}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
-        />
+        >
+          <Tooltip direction="center" offset={[0, -150]} permanent>
+            TYPE OF DATA
+          </Tooltip>
+        </GeoJSON>
       ) : null}
       {props.state === "Ohio" ? (
         <GeoJSON
           data={ohio2020}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
-        />
+        >
+          <Tooltip direction="center" offset={[0, -150]} permanent>
+            TYPE OF DATA
+          </Tooltip>
+        </GeoJSON>
       ) : null}
       {props.state === null ? (
         <GeoJSON
