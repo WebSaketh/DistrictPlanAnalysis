@@ -160,8 +160,9 @@ const Map2 = (props) => {
           {props.districtPlan ? (
             <Polygon pathOptions={purpleOptions} positions={polygon1} />
           ) : null}
-          <Tooltip direction="center" offset={[0, -150]} permanent>
-            STATE SENATE
+          <Tooltip direction="center" offset={[0, -190]} permanent>
+            STATE SENATE{" "}
+            {props.district ? "|  District: " + props.district : ""}
           </Tooltip>
         </GeoJSON>
       ) : null}
@@ -174,8 +175,9 @@ const Map2 = (props) => {
           {props.districtPlan ? (
             <Polygon pathOptions={purpleOptions} positions={polygon2} />
           ) : null}
-          <Tooltip direction="center" offset={[0, -150]} permanent>
-            FEDERAL CONGRESSIONAL DISTRICT
+          <Tooltip direction="center" offset={[0, -300]} permanent>
+            FEDERAL CONGRESSIONAL DISTRICTS{" "}
+            {props.district ? "|  District: " + props.district : ""}
           </Tooltip>
         </GeoJSON>
       ) : null}
@@ -188,8 +190,9 @@ const Map2 = (props) => {
           {props.districtPlan ? (
             <Polygon pathOptions={purpleOptions} positions={polygon3} />
           ) : null}
-          <Tooltip direction="center" offset={[0, -150]} permanent>
+          <Tooltip direction="center" offset={[0, -200]} permanent>
             FEDERAL CONGRESSIONAL DISTRICT
+            {props.district ? "|  District: " + props.district : ""}
           </Tooltip>
         </GeoJSON>
       ) : null}
