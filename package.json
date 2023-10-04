@@ -16,10 +16,12 @@
     "d3": "^7.8.5",
     "leaflet": "^1.9.4",
     "next": "latest",
+    "plotly.js": "^2.26.1",
     "react": "^18.2.0",
     "react-d3": "^0.4.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
+    "react-plotly.js": "^2.6.0",
     "tw-elements": "^1.0.0"
   },
   "devDependencies": {
@@ -29,6 +31,7 @@
     "eslint": "latest",
     "eslint-config-next": "latest",
     "postcss": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "typescript": "5.2.2"
   }
 }
