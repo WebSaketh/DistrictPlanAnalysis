@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import Map2 from "./components/Map2";
 import button from "daisyui";
 import SimpleBoxPlot from "src/app/components/SimpleBoxPlot.js";
-
+import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
 
 const data = Array.from({ length: 20 }, () => ({
@@ -307,7 +307,10 @@ export default function Home() {
                 <Scatterplot data={data} width={400} height={300} />
               ) : null}
             </div>
-            {/* <div> <SimpleBoxPlot /> </div> */}
+            <div>
+              {/* {" "}
+              <SimpleLineChart />{" "} */}
+            </div>
           </div>
         </div>
       </main>
