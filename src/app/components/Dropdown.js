@@ -3,12 +3,12 @@
 const Dropdown = (props) => {
   const names = props.items;
   const listItems = names.map((item, index) => (
-    <li key={index} onClick={props.changeState}>
+    <li key={index} onClick={props.changeState} style={{ "z-index": 900 }}>
       <a>{item}</a>
     </li>
   ));
   return (
-    <div className="dropdown dropdown-hover mt-0">
+    <div className="dropdown dropdown-hover mt-0" style={{ "z-index": 900 }}>
       <label
         tabIndex={0}
         className="btn m-1 bg-gray-300 border-gray-300 text-sm opacity-75 text-black"
