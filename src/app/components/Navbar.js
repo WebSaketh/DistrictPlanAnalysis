@@ -63,7 +63,11 @@ const Navbar = (props) => {
         <div className="col-span-2">
           <Dropdown
             title="District Plans"
-            items={["Ensemble 1", "Ensemble 2", "Ensemble 3"]}
+            items={[
+              "Ensemble 1 " + "[" + props.total.toLocaleString() + "]",
+              "Ensemble 2 " + "[" + props.total.toLocaleString() + "]",
+              "Ensemble 3 " + "[" + props.total.toLocaleString() + "]",
+            ]}
             changeState={props.changeEnsemble}
             itemName={props.ensemble}
           ></Dropdown>
