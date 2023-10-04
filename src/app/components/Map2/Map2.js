@@ -21,9 +21,18 @@ const maxBounds = L.latLngBounds(
   L.latLng(5.49955, -167.276413), // Southwest
   L.latLng(83.162102, -52.23304) // Northeast
 );
-const center = [40, -96];
+var center = [40, -96];
 
 const Map2 = (props) => {
+  if (props.state == "Colorado") {
+    center = [39.4, -106];
+  }
+  if (props.state == "Ohio") {
+    center = [40, -83];
+  }
+  if (props.state == "Illinois") {
+    center = [40, -89.5];
+  }
   useEffect(() => {
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
@@ -81,7 +90,7 @@ const Map2 = (props) => {
   };
 
   const style1 = {
-    minHeight: "700px",
+    minHeight: "100px",
     minWidth: "600px",
     maxWidth: "600px",
     height: "100%",
@@ -100,7 +109,7 @@ const Map2 = (props) => {
       maxBounds={maxBounds}
       style={style1}
       center={center}
-      zoom={4.6}
+      zoom={6.0}
       scrollWheelZoom={true}
       dragging={false}
     >

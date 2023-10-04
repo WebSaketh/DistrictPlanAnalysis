@@ -16,22 +16,21 @@ const Navbar = (props) => {
           CHIEFS GERRYMANDERING
         </span>
       </div>
-      <div className="grid grid-cols-12">
-        <div className="col-span-3">
+      <div className="flex flex-row">
+        <div className="col-span-2">
           <Dropdown
             title="Select State"
             items={["Colorado", "Illinois", "Ohio"]}
             changeState={props.changeState}
           ></Dropdown>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-2">
           <Dropdown
             title="District Plans"
-            items={["2020", "2023"]}
-            changeState={props.changeYear}
+            items={["Ensemble 1", "Ensemble 2", "Ensemble 3"]}
+            changeState={props.changeEnsemble}
           ></Dropdown>
         </div>
-        <div className="col-span-4"></div>
         <button
           text="Reset Map"
           onClick={props.changeState}
