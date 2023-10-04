@@ -412,16 +412,16 @@ export default function Home() {
                     headerStyle={{ "background-color": "#DAA520" }}
                   />
                   <div className="flex flex-row overflow-hidden">
-                    <div>
-                      <SimpleBoxPlot />
-                    </div>
-                    <div>
+                    <div className="ml-5">
                       <Scatterplot
                         data={data}
                         width={600}
                         height={400}
                         settingDistrictPlan={setDistrictPlan}
                       />
+                    </div>
+                    <div>
+                      <SimpleBoxPlot />
                     </div>
                   </div>
                 </div>

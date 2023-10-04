@@ -89,17 +89,17 @@ const Scatterplot = ({ data, width, height, settingDistrictPlan }) => {
 
     // Add X and Y axis titles
     g.append("text")
-      .attr("x", innerWidth / 2)
+      .attr("x", innerWidth / 2 + 40)
       .attr("y", innerHeight + margin.bottom / 2)
       .attr("text-anchor", "middle")
-      .text("X Axis Title");
+      .text("% African American");
 
     g.append("text")
       .attr("x", -innerHeight / 2)
       .attr("y", -margin.left)
       .attr("transform", "rotate(-90)")
       .attr("text-anchor", "middle")
-      .text("Y Axis Title");
+      .text("% Democrats");
   }, [data, width, height]);
 
   return <svg ref={svgRef}></svg>;
