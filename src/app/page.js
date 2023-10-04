@@ -278,20 +278,28 @@ export default function Home() {
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left overflow-scroll">
-
               {ensemble && distanceMeasure && !cluster && !districtPlan ? (
                 <Table data={data1} settingSomething={changingCluster} />
               ) : null}
               {ensemble && distanceMeasure && cluster ? (
-                <div>
-                  <h2>Cluster {cluster}</h2>
-                  <button
-                    className="btn btn-ghost"
-                    onClick={clickClusterButton}
-                  >
-                    View Clusters
-                  </button>
-                  <Table data={data2} settingSomething={changingDistrictPlan} />
+                <div className="flex flex-col">
+                  <div className="grid grid-cols-8 items-center">
+                    <span className="badge m-4 col-span-1">
+                      Cluster {cluster}
+                    </span>
+                    <div className="col-span-6"></div>
+                    <button
+                      className="btn btn-ghost col-span-1"
+                      onClick={clickClusterButton}
+                    >
+                      <p className="m-2">View Clusters</p>
+                    </button>
+                  </div>
+                  <Table
+                    data={data2}
+                    settingSomething={changingDistrictPlan}
+                    districtPlan={districtPlan}
+                  />
                 </div>
               ) : null}
 
@@ -299,7 +307,7 @@ export default function Home() {
                 <Scatterplot data={data} width={400} height={300} />
               ) : null}
             </div>
-            <div> <SimpleBoxPlot /> </div>
+            {/* <div> <SimpleBoxPlot /> </div> */}
           </div>
         </div>
       </main>

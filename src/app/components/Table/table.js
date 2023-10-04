@@ -52,8 +52,18 @@ const table = (props) => {
                 }}
                 key={row[0]}
               >
-                {row.map((data) => (
-                  <StyledTableCell align="middle">{data}</StyledTableCell>
+                {row.map((data, index) => (
+                  <StyledTableCell
+                    style={
+                      props.districtPlan == row[0]
+                        ? { "background-color": "grey" }
+                        : {}
+                    }
+                    align="middle"
+                    key={index}
+                  >
+                    {data}
+                  </StyledTableCell>
                 ))}
               </StyledTableRow>
             ))}
