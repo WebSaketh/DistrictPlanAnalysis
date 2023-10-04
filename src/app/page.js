@@ -392,7 +392,7 @@ export default function Home() {
                 <div className="flex flex-col flex-1">
                   <div className="grid grid-cols-8 items-center">
                     <span
-                      className="badge m-4 col-span-1 bg-[#CD5C5C] border-[#CD5C5C] text-white"
+                      className="badge m-4 col-span-1 bg-[#DAA520] border-[#DAA520] text-white"
                       // style={{ "background-color": "IndianRed" }}
                     >
                       Cluster {cluster}
@@ -402,7 +402,7 @@ export default function Home() {
                       className="btn btn-ghost col-span-1"
                       onClick={clickClusterButton}
                     >
-                      <p className="m-2 text-[#CD5C5C]">View Clusters</p>
+                      <p className="m-2 text-[#DAA520]">View Clusters</p>
                     </button>
                   </div>
                   <Table
@@ -463,7 +463,6 @@ export default function Home() {
                 changeState={changeState}
               ></Map2>
             </div>
-
             <div className="flex flex-1 justify-center items-center">
               <div className="flex flex-1 flex-col ">
                 <div className="m-5 flex flex-row">
