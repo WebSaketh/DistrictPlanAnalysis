@@ -208,7 +208,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="flex min-h-screen  flex flex-col justify-between p-0 pb-0 pt-0">
+      <div className="flex min-h-screen max-h-screen flex flex-col justify-between p-0 pb-0 pt-0">
         <Navbar changeState={changeState} changeEnsemble={changeEnsemble}>
           HEY
         </Navbar>
