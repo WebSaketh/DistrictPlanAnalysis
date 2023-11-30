@@ -1,9 +1,9 @@
 "use client";
-import Map from "./components/Map";
+import Map from "./components/Maps/Map";
 import Table from "./components/Table/Table";
 import Navbar from "./components/Navbar/Navbar";
 import React, { useEffect, useState } from "react";
-import Map2 from "./components/Map2";
+import Map2 from "./components/Maps/Map2";
 import SimpleBoxPlot from "src/app/components/SimpleBoxPlot/SimpleBoxPlot.js";
 import SimpleLineChart from "src/app/components/SimpleLineChart/SimpleLineChart.js";
 import Scatterplot from "./components/Scatterplot/Scatterplot";

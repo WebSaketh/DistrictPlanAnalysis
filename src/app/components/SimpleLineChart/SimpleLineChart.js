@@ -44,10 +44,30 @@ const SimpleLineChart = () => {
         label={{ value: "# of Clusters", angle: -90, position: "insideLeft" }}
       />
       <CartesianGrid stroke="#ccc" />
-      <Line type="monotone" dataKey="value1" stroke="blue" name="Optimal Transport" />
-      <Line type="monotone" dataKey="value2" stroke="red" name="Hamming Distance" />
-      <Line type="monotone" dataKey="value3" stroke="green" name="Total Variation" />
-      <Line type="monotone" dataKey="value4" stroke="purple" name="Another Measure" />
+      <Line
+        type="monotone"
+        dataKey="value1"
+        stroke="blue"
+        name="Optimal Transport"
+      />
+      <Line
+        type="monotone"
+        dataKey="value2"
+        stroke="red"
+        name="Hamming Distance"
+      />
+      <Line
+        type="monotone"
+        dataKey="value3"
+        stroke="green"
+        name="Total Variation"
+      />
+      <Line
+        type="monotone"
+        dataKey="value4"
+        stroke="purple"
+        name="Another Measure"
+      />
       <Tooltip />
       <Legend layout="vertical" align="right" verticalAlign="middle" />
     </LineChart>
