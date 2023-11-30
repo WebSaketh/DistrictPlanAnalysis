@@ -4,7 +4,6 @@ import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
 import { ohio2020, ill2020, colo2020 } from "./const";
 import { colobound, illbound, ohiobound } from "./const";
-import { latLng, polygon } from "leaflet";
 import * as d3 from "d3";
 
 const MapControl = (props) => {

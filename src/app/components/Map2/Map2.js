@@ -11,7 +11,6 @@ import {
 import { useMapEvents } from "react-leaflet/hooks";
 import { ohio2020, ill2020, colo2020 } from "./const";
 import { colobound, illbound, ohiobound } from "./const";
-import { latLng, polygon } from "leaflet";
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
 
@@ -31,7 +30,6 @@ const maxBounds = L.latLngBounds(
 var center = [40, -96];
 
 const Map2 = (props) => {
-  const [mousePos, setMousePos] = useState(null);
   if (props.state == "Colorado") {
     center = [39.4, -106];
   }
@@ -41,18 +39,14 @@ const Map2 = (props) => {
   if (props.state == "Illinois") {
     center = [40, -89.5];
   }
+
   useEffect(() => {
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
   });
+
   const onEachFeature = (feature, layer) => {
-    // console.log("feature:", feature);
-    // if (feature.properties) {
-    //   layer.bindPopup("Your text or whatever");
-    // }
     layer.on({
-      // mouseover: onMouseOver,
-      // mouseout: onMouseOut,
       click: clickMap,
     });
   };
@@ -84,7 +78,6 @@ const Map2 = (props) => {
     const point = [e.latlng.lng, e.latlng.lat];
     for (var i = 0; i < polygons.length; i++) {
       if (d3.polygonContains(polygons[i].coordinates[0], point)) {
-        setMousePos(e.latLng);
         props.changeDistrict(i + 1);
         return;
       }

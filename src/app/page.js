@@ -1,17 +1,13 @@
 "use client";
-import Dropdown from "./components/Dropdown";
 import Map from "./components/Map";
-import Table from "./components/Table/table";
-import Navbar from "./components/Navbar";
-import Tile from "./components/Tile";
+import Table from "./components/Table/Table";
+import Navbar from "./components/Navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import Map2 from "./components/Map2";
-import button from "daisyui";
-import SimpleBoxPlot from "src/app/components/SimpleBoxPlot.js";
-import SimpleLineChart from "src/app/components/SimpleLineChart.js";
-import Scatterplot from "./components/Scatterplot/Scatterplot"; // Update the path to your Scatterplot component
+import SimpleBoxPlot from "src/app/components/SimpleBoxPlot/SimpleBoxPlot.js";
+import SimpleLineChart from "src/app/components/SimpleLineChart/SimpleLineChart.js";
+import Scatterplot from "./components/Scatterplot/Scatterplot";
 import About from "./components/About";
-import { Encode_Sans } from "next/font/google";
 
 const data = Array.from({ length: 20 }, () => ({
   x: Math.random() * 300 + 5, // Random X value between 0 and 100
@@ -218,7 +214,7 @@ export default function Home() {
   const [ensemble, setEnsemble] = useState(null);
   const [distanceMeasure, setDistanceMeasure] = useState(null);
   const [cluster, setCluster] = useState(null);
-  const [districtPlan, setDistrictPlan] = useState(null);
+  const [districtPlan, setDistrictPlan] = useState(new Set());
   const [view, setView] = useState("Cluster Analysis");
   const [about, setAbout] = useState(false);
 
@@ -241,11 +237,9 @@ export default function Home() {
   };
 
   const changingDistrictPlan = (id) => {
-    if (districtPlan !== null) {
-      setDistrictPlan(null);
-    } else {
-      setDistrictPlan(id);
-    }
+    console.log(districtPlan);
+    const a = new Set();
+    console.log(a);
   };
 
   const changeDistanceMeasure = (e) => {
@@ -416,11 +410,23 @@ export default function Home() {
                 </div>
               )}
               {ensemble && distanceMeasure && !cluster && !districtPlan ? (
-                <Table
-                  data={data1}
-                  settingSomething={changingCluster}
-                  headerStyle={{ "background-color": "#CD5C5C" }}
-                />
+                <div className="flex flex-col flex-1">
+                  <Table
+                    data={data1}
+                    settingSomething={changingCluster}
+                    headerStyle={{ backgroundColor: "#CD5C5C" }}
+                  />
+                  <div className="flex flex-row overflow-hidden">
+                    <div className="ml-5">
+                      <Scatterplot
+                        data={data}
+                        width={600}
+                        height={400}
+                        settingDistrictPlan={setCluster}
+                      />
+                    </div>
+                  </div>
+                </div>
               ) : null}
               {ensemble && distanceMeasure && cluster ? (
                 <div className="flex flex-col flex-1">
@@ -443,7 +449,7 @@ export default function Home() {
                     data={data2}
                     settingSomething={changingDistrictPlan}
                     districtPlan={districtPlan}
-                    headerStyle={{ "background-color": "#DAA520" }}
+                    headerStyle={{ backgroundColor: "#DAA520" }}
                   />
                   <div className="flex flex-row overflow-hidden">
                     <div className="ml-5">
@@ -528,9 +534,7 @@ export default function Home() {
           changeEnsemble={changeEnsemble}
           changeDistanceMeasure={changeDistanceMeasure}
           goToAbout={goToAbout}
-        >
-          HEY
-        </Navbar>
+        ></Navbar>
         <Map
           state={state}
           center={center}

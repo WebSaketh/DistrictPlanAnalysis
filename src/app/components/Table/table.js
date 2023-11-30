@@ -58,10 +58,10 @@ const table = (props) => {
                   <StyledTableCell
                     style={
                       props.districtPlan == row[0]
-                        ? { "background-color": "grey" }
+                        ? { backgroundColor: "grey" }
                         : {}
                     }
-                    align="middle"
+                    align="center"
                     key={index}
                   >
                     {data}
