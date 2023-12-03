@@ -10,7 +10,6 @@ import {
 } from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
 import { ohio2020, ill2020, colo2020 } from "./const";
-import { colobound, illbound, ohiobound } from "./const";
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
 
@@ -43,7 +42,16 @@ const Map2 = (props) => {
   useEffect(() => {
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
-  });
+
+    /*const getData = async () => {
+      let res = await initializationApis.getState(props.state);
+      let data = res.data;
+      if (props.state === "Ohio") setStateData(data.ohio2020);
+      else if (props.state === "Colorado") setStateData(data.colo2020);
+      else if (props.state === "Illinois") setStateData(data.ill2020);
+    };
+    getData();*/
+  }, [props.state]);
 
   const onEachFeature = (feature, layer) => {
     layer.on({
@@ -58,7 +66,6 @@ const Map2 = (props) => {
   };
 
   const clickMapState = (e) => {
-    console.log(e);
     const k = e?.target?.feature?.properties?.name;
     const i = e?.target?.feature?.properties?.NAME;
     var name = i ? i : k;
@@ -144,9 +151,11 @@ const Map2 = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {props.state === "Colorado" ? (
+
+      {props.stateDistrictMap !== null ? (
         <GeoJSON
-          data={colo2020}
+          key={props.state}
+          data={props.stateDistrictMap}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         >
@@ -159,9 +168,27 @@ const Map2 = (props) => {
           </Tooltip>
         </GeoJSON>
       ) : null}
-      {props.state === "Illinois" ? (
+
+      {/*{props.state === "Colorado" && stateData.length !== 0 ? (
         <GeoJSON
-          data={ill2020}
+          // key="Colorado"
+          data={stateData}
+          style={geoJsonStyle}
+          onEachFeature={onEachFeature}
+        >
+          {props.districtPlan ? (
+            <Polygon pathOptions={purpleOptions} positions={polygon1} />
+          ) : null}
+          <Tooltip direction="center" offset={[0, -190]} permanent>
+            STATE SENATE{" "}
+            {props.district ? "|  District: " + props.district : ""}
+          </Tooltip>
+        </GeoJSON>
+      ) : null}
+      {props.state === "Illinois" && stateData.length !== 0 ? (
+        <GeoJSON
+          // key="Illinois"
+          data={stateData}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         >
@@ -174,9 +201,10 @@ const Map2 = (props) => {
           </Tooltip>
         </GeoJSON>
       ) : null}
-      {props.state === "Ohio" ? (
+      {props.state === "Ohio" && stateData.length !== 0 ? (
         <GeoJSON
-          data={ohio2020}
+          // key="Ohio"
+          data={stateData}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         >
@@ -188,28 +216,7 @@ const Map2 = (props) => {
             {props.district ? "|  District: " + props.district : ""}
           </Tooltip>
         </GeoJSON>
-      ) : null}
-      {props.state === null ? (
-        <GeoJSON
-          data={colobound}
-          style={geoJsonStyle}
-          onEachFeature={onEachFeatureState}
-        />
-      ) : null}
-      {props.state === null ? (
-        <GeoJSON
-          data={illbound}
-          style={geoJsonStyle}
-          onEachFeature={onEachFeatureState}
-        />
-      ) : null}
-      {props.state === null ? (
-        <GeoJSON
-          data={ohiobound}
-          style={geoJsonStyle}
-          onEachFeature={onEachFeatureState}
-        />
-      ) : null}
+          ) : null}*/}
     </MapContainer>
   );
 };
