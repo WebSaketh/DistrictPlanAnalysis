@@ -1,6 +1,7 @@
 import Dropdown from "../Dropdown/Dropdown";
 
 const Navbar = (props) => {
+  console.log(props.ensembleList);
   return (
     <nav className="w-full flex items-center justify-between flex-wrap bg-[#990000] p-2">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -70,15 +71,7 @@ const Navbar = (props) => {
         <div className="col-span-2">
           <Dropdown
             title="Ensembles"
-            items={
-              props.state
-                ? [
-                    "Ensemble 1 " + "[" + props.total.toLocaleString() + "]",
-                    "Ensemble 2 " + "[" + props.total.toLocaleString() + "]",
-                    "Ensemble 3 " + "[" + props.total.toLocaleString() + "]",
-                  ]
-                : []
-            }
+            items={props.ensembleList}
             changeState={props.changeEnsemble}
             itemName={props.ensemble}
           ></Dropdown>
