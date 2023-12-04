@@ -14,5 +14,4 @@ const Tile = (props) => {
     </div>
   );
 };
-//rounded-lg p-3 hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30
 export default Tile;

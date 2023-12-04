@@ -8,6 +8,7 @@ import SimpleBoxPlot from "src/app/components/SimpleBoxPlot/SimpleBoxPlot.js";
 import SimpleLineChart from "src/app/components/SimpleLineChart/SimpleLineChart.js";
 import Scatterplot from "./components/Scatterplot/Scatterplot";
 import About from "./components/About";
+import InfoPanel from "./components/InfoPanel/InfoPanel";
 import { ApiError } from "next/dist/server/api-utils";
 import apis from "./Api/index.js";
 
@@ -235,11 +236,11 @@ export default function Home() {
     else setAbout(true);
   };
 
-  const changingCluster = (id) => {
+  const changeCluster = (id) => {
     setCluster(id);
   };
 
-  const changingDistrictPlan = (id) => {
+  const changeDistrictPlan = (id) => {
     const a = new Set();
   };
 
@@ -342,11 +343,45 @@ export default function Home() {
       setEnsembleList([]);
     }
   };
-
+  
   const getStateInfo = async (state) => {
     let json = await apis.getState(state);
     return json.data;
   };
+
+  const conglomerate = () => {
+    state,
+      setState,
+      center,
+      setCenter,
+      zoom,
+      setZoom,
+      district,
+      setDistrict,
+      ensemble,
+      setEnsemble,
+      distanceMeasure,
+      setDistanceMeasure,
+      cluster,
+      setCluster,
+      districtPlan,
+      setDistrictPlan,
+      view,
+      setView,
+      about,
+      setAbout,
+      changeView,
+      goToAbout,
+      changeCluster,
+      changeDistrict,
+      changeDistrictPlan,
+      changeDistanceMeasure,
+      changeEnsemble,
+      clickClusterButton,
+      changeState;
+  };
+  
+  
 
   useEffect(() => {
     document.getElementById("map")?.click();
@@ -368,14 +403,49 @@ export default function Home() {
             changeEnsemble={changeEnsemble}
             changeDistanceMeasure={changeDistanceMeasure}
             goToAbout={goToAbout}
+          ></Navbar>
+          <div className="flex flex-row flex-1">
+            <div className="flex flex-1">
+              <About goBack={goToAbout} />
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+  if (state && view == "Cluster Analysis") {
+    return (
+      <main>
+        <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
+          <Navbar
+            total={total}
+            view={view}
+            state={state}
+            ensemble={ensemble}
+            distanceMeasure={distanceMeasure}
+            changeView={changeView}
+            changeState={changeState}
+            changeEnsemble={changeEnsemble}
+            changeDistanceMeasure={changeDistanceMeasure}
+            goToAbout={goToAbout}
             ensembleList={ensembleList}
           >
             HEY
           </Navbar>
           <div className="flex flex-row flex-1">
-            <div className="flex flex-1">
-              <About goBack={goToAbout} />
+            <div className="aspect-square">
+              <Map2
+                state={state}
+                center={center}
+                zoom={zoom}
+                ensemble={ensemble}
+                district={district}
+                districtPlan={districtPlan}
+                changeDistrict={changeDistrict}
+                changeState={changeState}
+              ></Map2>
             </div>
+            <InfoPanel conglomerate={conglomerate} />
           </div>
         </div>
       </main>
@@ -438,7 +508,7 @@ export default function Home() {
                 <div className="flex flex-col flex-1">
                   <Table
                     data={data1}
-                    settingSomething={changingCluster}
+                    settingSomething={changeCluster}
                     headerStyle={{ backgroundColor: "#CD5C5C" }}
                   />
                   <div className="flex flex-row overflow-hidden">
@@ -472,7 +542,7 @@ export default function Home() {
                   </div>
                   <Table
                     data={data2}
-                    settingSomething={changingDistrictPlan}
+                    settingSomething={changeDistrictPlan}
                     districtPlan={districtPlan}
                     headerStyle={{ backgroundColor: "#DAA520" }}
                   />
@@ -536,7 +606,7 @@ export default function Home() {
                   <SimpleLineChart />
                 </div>
                 <div className="m-5">
-                  <Table data={data3} settingSomething={changingCluster} />
+                  <Table data={data3} settingSomething={changeCluster} />
                 </div>
               </div>
             </div>
@@ -548,7 +618,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="flex min-h-screen max-h-screen flex flex-col justify-between p-0 pb-0 pt-0">
+      <div className="flex min-h-screen max-h-screen min-w-screen max-w-screen flex flex-col justify-between p-0 pb-0 pt-0">
         <Navbar
           total={total}
           view={view}
