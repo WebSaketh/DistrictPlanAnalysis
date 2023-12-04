@@ -355,38 +355,6 @@ export default function Home() {
     return json.data;
   };
 
-  const conglomerate = () => {
-    state,
-      setState,
-      center,
-      setCenter,
-      zoom,
-      setZoom,
-      district,
-      setDistrict,
-      ensemble,
-      setEnsemble,
-      distanceMeasure,
-      setDistanceMeasure,
-      cluster,
-      setCluster,
-      districtPlan,
-      setDistrictPlan,
-      view,
-      setView,
-      about,
-      setAbout,
-      changeView,
-      goToAbout,
-      changeCluster,
-      changeDistrict,
-      changeDistrictPlan,
-      changeDistanceMeasure,
-      changeEnsemble,
-      clickClusterButton,
-      changeState;
-  };
-
   useEffect(() => {
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
@@ -417,7 +385,7 @@ export default function Home() {
       </main>
     );
   }
-  if (state && view == "Cluster Analysis") {
+  if (view == "Cluster Analysis") {
     return (
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
@@ -450,128 +418,132 @@ export default function Home() {
                 stateDistrictMap={stateDistrictMap}
               ></Map2>
             </div>
-            <InfoPanel conglomerate={conglomerate} clusters={clusters} />
+            <InfoPanel
+              setCluster={setCluster}
+              clusters={clusters}
+              cluster={cluster}
+            />
           </div>
         </div>
       </main>
     );
   }
 
-  if (state && view == "Cluster Analysis") {
-    return (
-      <main>
-        <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
-          <Navbar
-            total={total}
-            view={view}
-            state={state}
-            ensemble={ensemble}
-            distanceMeasure={distanceMeasure}
-            changeView={changeView}
-            changeState={changeState}
-            changeEnsemble={changeEnsemble}
-            changeDistanceMeasure={changeDistanceMeasure}
-            goToAbout={goToAbout}
-            ensembleList={ensembleList}
-          >
-            HEY
-          </Navbar>
-          <div className="flex flex-row flex-1">
-            <div className="aspect-square">
-              <Map2
-                state={state}
-                center={center}
-                zoom={zoom}
-                ensemble={ensemble}
-                district={district}
-                districtPlan={districtPlan}
-                changeDistrict={changeDistrict}
-                changeState={changeState}
-                stateDistrictMap={stateDistrictMap}
-              ></Map2>
-            </div>
-            <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left flex-1">
-              {ensemble && distanceMeasure && state ? null : (
-                <div
-                  className="flex flex-1 text-center w-full"
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100vh", // 100% of the viewport height
-                    width: "100%", // 100% of the parent container width
-                    textAlign: "center",
-                    color: "grey", // Change text color to grey
-                    fontFamily: "Helvetica-Bold", // Use Roboto font
-                    fontSize: "24px", // Set font size to 24 pixels
-                  }}
-                >
-                  <p>Please Select State, Ensemble, and DM</p>
-                </div>
-              )}
-              {ensemble && distanceMeasure && !cluster && !districtPlan ? (
-                <div className="flex flex-col flex-1">
-                  <Table
-                    data={data1}
-                    settingSomething={changeCluster}
-                    headerStyle={{ backgroundColor: "#CD5C5C" }}
-                  />
-                  <div className="flex flex-row overflow-hidden">
-                    <div className="ml-5">
-                      <Scatterplot
-                        data={data}
-                        width={600}
-                        height={400}
-                        settingDistrictPlan={setCluster}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-              {ensemble && distanceMeasure && cluster ? (
-                <div className="flex flex-col flex-1">
-                  <div className="grid grid-cols-8 items-center">
-                    <span
-                      className="badge m-4 col-span-1 bg-[#DAA520] border-[#DAA520] text-white"
-                      // style={{ "background-color": "IndianRed" }}
-                    >
-                      Cluster {cluster}
-                    </span>
-                    <div className="col-span-6"></div>
-                    <button
-                      className="btn btn-ghost col-span-1"
-                      onClick={clickClusterButton}
-                    >
-                      <p className="m-2 text-[#DAA520]">View Clusters</p>
-                    </button>
-                  </div>
-                  <Table
-                    data={data2}
-                    settingSomething={changeDistrictPlan}
-                    districtPlan={districtPlan}
-                    headerStyle={{ backgroundColor: "#DAA520" }}
-                  />
-                  <div className="flex flex-row overflow-hidden">
-                    <div className="ml-5">
-                      <Scatterplot
-                        data={data}
-                        width={600}
-                        height={400}
-                        settingDistrictPlan={setDistrictPlan}
-                      />
-                    </div>
-                    <div>
-                      <SimpleBoxPlot />
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </main>
-    );
-  }
+  // if (state && view == "Cluster Analysis") {
+  //   return (
+  //     <main>
+  //       <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
+  //         <Navbar
+  //           total={total}
+  //           view={view}
+  //           state={state}
+  //           ensemble={ensemble}
+  //           distanceMeasure={distanceMeasure}
+  //           changeView={changeView}
+  //           changeState={changeState}
+  //           changeEnsemble={changeEnsemble}
+  //           changeDistanceMeasure={changeDistanceMeasure}
+  //           goToAbout={goToAbout}
+  //           ensembleList={ensembleList}
+  //         >
+  //           HEY
+  //         </Navbar>
+  //         <div className="flex flex-row flex-1">
+  //           <div className="aspect-square">
+  //             <Map2
+  //               state={state}
+  //               center={center}
+  //               zoom={zoom}
+  //               ensemble={ensemble}
+  //               district={district}
+  //               districtPlan={districtPlan}
+  //               changeDistrict={changeDistrict}
+  //               changeState={changeState}
+  //               stateDistrictMap={stateDistrictMap}
+  //             ></Map2>
+  //           </div>
+  //           <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left flex-1">
+  //             {ensemble && distanceMeasure && state ? null : (
+  //               <div
+  //                 className="flex flex-1 text-center w-full"
+  //                 style={{
+  //                   display: "flex",
+  //                   justifyContent: "center",
+  //                   alignItems: "center",
+  //                   height: "100vh", // 100% of the viewport height
+  //                   width: "100%", // 100% of the parent container width
+  //                   textAlign: "center",
+  //                   color: "grey", // Change text color to grey
+  //                   fontFamily: "Helvetica-Bold", // Use Roboto font
+  //                   fontSize: "24px", // Set font size to 24 pixels
+  //                 }}
+  //               >
+  //                 <p>Please Select State, Ensemble, and DM</p>
+  //               </div>
+  //             )}
+  //             {ensemble && distanceMeasure && !cluster && !districtPlan ? (
+  //               <div className="flex flex-col flex-1">
+  //                 <Table
+  //                   data={data1}
+  //                   settingSomething={changeCluster}
+  //                   headerStyle={{ backgroundColor: "#CD5C5C" }}
+  //                 />
+  //                 <div className="flex flex-row overflow-hidden">
+  //                   <div className="ml-5">
+  //                     <Scatterplot
+  //                       data={data}
+  //                       width={600}
+  //                       height={400}
+  //                       settingDistrictPlan={setCluster}
+  //                     />
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //             ) : null}
+  //             {ensemble && distanceMeasure && cluster ? (
+  //               <div className="flex flex-col flex-1">
+  //                 <div className="grid grid-cols-8 items-center">
+  //                   <span
+  //                     className="badge m-4 col-span-1 bg-[#DAA520] border-[#DAA520] text-white"
+  //                     // style={{ "background-color": "IndianRed" }}
+  //                   >
+  //                     Cluster {cluster}
+  //                   </span>
+  //                   <div className="col-span-6"></div>
+  //                   <button
+  //                     className="btn btn-ghost col-span-1"
+  //                     onClick={clickClusterButton}
+  //                   >
+  //                     <p className="m-2 text-[#DAA520]">View Clusters</p>
+  //                   </button>
+  //                 </div>
+  //                 <Table
+  //                   data={data2}
+  //                   settingSomething={changeDistrictPlan}
+  //                   districtPlan={districtPlan}
+  //                   headerStyle={{ backgroundColor: "#DAA520" }}
+  //                 />
+  //                 <div className="flex flex-row overflow-hidden">
+  //                   <div className="ml-5">
+  //                     <Scatterplot
+  //                       data={data}
+  //                       width={600}
+  //                       height={400}
+  //                       settingDistrictPlan={setDistrictPlan}
+  //                     />
+  //                   </div>
+  //                   <div>
+  //                     <SimpleBoxPlot />
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //             ) : null}
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </main>
+  //   );
+  // }
 
   if (state && view == "Distance Measure Analysis") {
     return (

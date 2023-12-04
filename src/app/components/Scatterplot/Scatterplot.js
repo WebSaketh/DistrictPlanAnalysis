@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-const Scatterplot = ({ data, width, height, settingDistrictPlan }) => {
+const Scatterplot = ({ data, width, height, onClick }) => {
   const svgRef = useRef();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Scatterplot = ({ data, width, height, settingDistrictPlan }) => {
     const handleClickedPoint = () => {
       let val = Math.floor(Math.random() * 5);
       if (val == 0) val = 1;
-      settingDistrictPlan(val);
+      onClick(val);
     };
 
     // Create data points with click functionality
@@ -70,7 +70,6 @@ const Scatterplot = ({ data, width, height, settingDistrictPlan }) => {
       .on("click", () => {
         handleClickedPoint();
       });
-
     // Create '+' symbols for green data points
     points
       .filter((d, i) => i < data.length / 2)
@@ -83,7 +82,7 @@ const Scatterplot = ({ data, width, height, settingDistrictPlan }) => {
     points
       .filter((d, i) => i >= data.length / 2)
       .append("path")
-      .attr("d", d3.symbol().type(d3.symbolSquare).size(60)) // Use square symbol for red
+      .attr("d", d3.symbol().type(d3.symbolCircle).size(60)) // Use square symbol for red
       .style("fill", "red")
       .style("opacity", 0.7);
 
