@@ -1,6 +1,8 @@
 import ClusterCard from "./ClusterCard";
 
 const ClusterTable = (props) => {
+  const [page, setPage] = useState(1);
+  const pageLength = 15;
   return (
     <div className="bg-gray-100">
       {props.data
