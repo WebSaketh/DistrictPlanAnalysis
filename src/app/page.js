@@ -9,7 +9,6 @@ import SimpleLineChart from "src/app/components/SimpleLineChart/SimpleLineChart.
 import Scatterplot from "./components/Scatterplot/Scatterplot";
 import About from "./components/About";
 import InfoPanel from "./components/InfoPanel/InfoPanel";
-import { ApiError } from "next/dist/server/api-utils";
 import apis from "./Api/index.js";
 
 const data = Array.from({ length: 20 }, () => ({
@@ -276,6 +275,7 @@ export default function Home() {
   };
 
   const changeState = (e) => {
+    console.log("State Changed");
     var k = e?.target?.text;
     if (e.target.text === "Default") {
       setState(null);
@@ -296,10 +296,10 @@ export default function Home() {
       getStateInfo("Colorado").then((res) => {
         setStateDistrictMap(res.colo2020);
         setEnsembleList(res.ensembles);
+        setState("Colorado");
+        setCenter([39.4, -106]);
+        setZoom(6.5);
       });
-      setState("Colorado");
-      setCenter([39.4, -106]);
-      setZoom(6.5);
     } else if (k === "Ohio") {
       if (state !== k) {
         setDistrict(null);
@@ -311,10 +311,10 @@ export default function Home() {
       getStateInfo("Ohio").then((res) => {
         setStateDistrictMap(res.ohio2020);
         setEnsembleList(res.ensembles);
+        setState("Ohio");
+        setCenter([40, -83]);
+        setZoom(6.5);
       });
-      setState("Ohio");
-      setCenter([40, -83]);
-      setZoom(6.5);
     } else if (k === "Illinois") {
       if (state !== k) {
         setDistrict(null);
@@ -326,10 +326,10 @@ export default function Home() {
       getStateInfo("Illinois").then((res) => {
         setStateDistrictMap(res.ill2020);
         setEnsembleList(res.ensembles);
+        setState("Illinois");
+        setCenter([40, -89.5]);
+        setZoom(6.5);
       });
-      setState("Illinois");
-      setCenter([40, -89.5]);
-      setZoom(6.5);
     } else if (k === "Reset Map") {
       setState(null);
       setCenter([40, -96]);
@@ -441,6 +441,7 @@ export default function Home() {
                 districtPlan={districtPlan}
                 changeDistrict={changeDistrict}
                 changeState={changeState}
+                stateDistrictMap={stateDistrictMap}
               ></Map2>
             </div>
             <InfoPanel conglomerate={conglomerate} clusters={clusters} />
@@ -596,6 +597,7 @@ export default function Home() {
                 districtPlan={districtPlan}
                 changeDistrict={changeDistrict}
                 changeState={changeState}
+                stateDistrictMap={stateDistrictMap}
               ></Map2>
             </div>
             <div className="flex flex-1 justify-center items-center">
