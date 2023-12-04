@@ -11,7 +11,14 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 const columns = [
-  { id: "ClusterId", label: "ClusterId", minWidth: 100 },
+  { id: "Row", label: "Row", minWidth: 100 },
+  {
+    id: "ClusterId",
+    label: "ClusterId",
+    minWidth: 100,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
   {
     id: "Democratic",
     label: "Democratic",
@@ -57,6 +64,7 @@ const columns = [
 ];
 
 function createData(
+  Row,
   ClusterId,
   Democratic,
   Republican,
@@ -65,7 +73,16 @@ function createData(
   Hispanic,
   Asian
 ) {
-  return { ClusterId, Democratic, Republican, White, Black, Hispanic, Asian };
+  return {
+    Row,
+    ClusterId,
+    Democratic,
+    Republican,
+    White,
+    Black,
+    Hispanic,
+    Asian,
+  };
 }
 
 const ClusterTable = (props) => {
@@ -80,6 +97,7 @@ const ClusterTable = (props) => {
       d.push(
         createData(
           k + 1,
+          cluster.clusterId,
           cluster.clusterDemographics.democratic,
           cluster.clusterDemographics.republican,
           cluster.clusterDemographics.white,
@@ -89,7 +107,6 @@ const ClusterTable = (props) => {
         )
       );
     }
-    console.log(d);
     setData(d);
   }, [props]);
 
@@ -100,6 +117,11 @@ const ClusterTable = (props) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleClusterClick = (event) => {
+    let clusterId = event.currentTarget.id;
+    props.changeCluster(clusterId);
   };
 
   return (
@@ -124,7 +146,14 @@ const ClusterTable = (props) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.code}
+                    id={row.ClusterId}
+                    onClick={handleClusterClick}
+                  >
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
