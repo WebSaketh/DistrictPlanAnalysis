@@ -252,7 +252,7 @@ export default function Home() {
       setCluster(null);
       setDistrictPlan(null);
       apis.getClusters(state, ensemble, k).then((res) => {
-        setClusters(res);
+        setClusters(res.data);
       });
     }
   };
@@ -343,7 +343,7 @@ export default function Home() {
       setEnsembleList([]);
     }
   };
-  
+
   const getStateInfo = async (state) => {
     let json = await apis.getState(state);
     return json.data;
@@ -380,8 +380,6 @@ export default function Home() {
       clickClusterButton,
       changeState;
   };
-  
-  
 
   useEffect(() => {
     document.getElementById("map")?.click();
@@ -445,7 +443,7 @@ export default function Home() {
                 changeState={changeState}
               ></Map2>
             </div>
-            <InfoPanel conglomerate={conglomerate} />
+            <InfoPanel conglomerate={conglomerate} clusters={clusters} />
           </div>
         </div>
       </main>
