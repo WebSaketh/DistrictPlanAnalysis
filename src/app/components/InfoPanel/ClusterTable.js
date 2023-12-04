@@ -1,4 +1,6 @@
+import { useState } from "react";
 import ClusterCard from "./ClusterCard";
+import 
 
 const ClusterTable = (props) => {
   const [page, setPage] = useState(1);
@@ -8,7 +10,7 @@ const ClusterTable = (props) => {
       {props.data
         .slice(
           page * pageLength,
-          Math.min(data.length, page * pageLength + pageLength)
+          Math.min(props.data.length, page * pageLength + pageLength)
         )
         .map((row) => (
           <ClusterCard row={row}></ClusterCard>
