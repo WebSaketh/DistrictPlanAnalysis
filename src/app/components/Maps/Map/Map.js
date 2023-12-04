@@ -75,9 +75,8 @@ const Map = (props) => {
   };
 
   const style2 = {
-    height: "100px",
-    minHeight: "820px",
-    maxHeight: "820px",
+    minHeight: "60rem",
+    height: "100%",
     minWidth: "100%",
     width: "100%",
   };
