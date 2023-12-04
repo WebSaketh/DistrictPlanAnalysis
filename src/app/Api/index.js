@@ -15,19 +15,18 @@ export const getClusters = (stateName, ensembleName, distanceMeasure) =>
     "/cluster/getAll/" + stateName + "/" + ensembleName + "/" + distanceMeasure
   );
 
-export const getDistrictPlanInformationForSelectedCluster = (clusterId) => {
+export const getDistrictPlanInformationForSelectedCluster = (clusterId) =>
   api.get("/dp/getDistrictPlanInfo/" + clusterId);
-};
 
-export const getDistrictPlanGeoJson = (dpId) => {
+export const getDistrictPlanGeoJson = (dpId) =>
   api.get("/dp/getDistrictPlan/" + dpId);
-};
 
 const apis = {
   getInitialization,
   getState,
   getClusters,
   getDistrictPlanInformationForSelectedCluster,
+  getDistrictPlanGeoJson,
 };
 
 export default apis;

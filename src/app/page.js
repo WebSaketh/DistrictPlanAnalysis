@@ -220,6 +220,7 @@ export default function Home() {
   const [view, setView] = useState("Cluster Analysis");
   const [about, setAbout] = useState(false);
   const [clusters, setClusters] = useState([]);
+  const [districtPlanInfo, setDistrictPlanInfo] = useState([]);
 
   const changeView = (e) => {
     var k = e?.target?.innerHTML;
@@ -235,8 +236,18 @@ export default function Home() {
     else setAbout(true);
   };
 
+  const getClusterInfo = async (clusterId) => {
+    let json = await apis.getDistrictPlanInformationForSelectedCluster(
+      clusterId
+    );
+    return json.data;
+  };
+
   const changeCluster = (id) => {
-    setCluster(id);
+    getClusterInfo(id).then((res) => {
+      setCluster(id);
+      setDistrictPlanInfo(res);
+    });
   };
 
   const changeDistrictPlan = (id) => {
@@ -385,7 +396,7 @@ export default function Home() {
       </main>
     );
   }
-  if (view == "Cluster Analysis") {
+  if (state && view == "Cluster Analysis") {
     return (
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
@@ -422,6 +433,8 @@ export default function Home() {
               setCluster={setCluster}
               clusters={clusters}
               cluster={cluster}
+              districtPlanInfo={districtPlanInfo}
+              changeCluster={changeCluster}
             />
           </div>
         </div>

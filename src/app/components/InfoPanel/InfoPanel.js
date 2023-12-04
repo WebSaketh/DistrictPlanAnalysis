@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ClusterTable from "src/app/components/InfoPanel/ClusterTable.js";
+import DistrictPlanTable from "./DistrictPlanTable.js";
 import InfoTabs from "src/app/components/InfoPanel/InfoTabs.js";
 import Scatterplot from "src/app/components/Scatterplot/Scatterplot.js";
 
@@ -98,7 +99,10 @@ const InfoPanel = (props) => {
           tabList={["Clusters", "Scatterplot"]}
         ></InfoTabs>
         <div hidden={tabValue !== "Clusters"}>
-          <ClusterTable clusters={props.clusters}></ClusterTable>
+          <DistrictPlanTable
+            districtPlanInfo={props.districtPlanInfo}
+            changeCluster={props.changeCluster}
+          ></DistrictPlanTable>
         </div>
         <div hidden={tabValue !== "Scatterplot"}>
           <Scatterplot
@@ -119,7 +123,10 @@ const InfoPanel = (props) => {
         tabList={["Clusters", "Scatterplot"]}
       ></InfoTabs>
       <div hidden={tabValue !== "Clusters"}>
-        <ClusterTable clusters={props.clusters}></ClusterTable>
+        <ClusterTable
+          clusters={props.clusters}
+          changeCluster={props.changeCluster}
+        ></ClusterTable>
       </div>
       <div hidden={tabValue !== "Scatterplot"}>
         <Scatterplot
