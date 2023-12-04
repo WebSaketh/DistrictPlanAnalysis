@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ClusterCard from "src/app/components/InfoPanel/ClusterCard.js";
+import ClusterTable from "src/app/components/InfoPanel/ClusterTable.js";
 const data = [
   { id: 1, name: "John Doe" },
   { id: 2, name: "Victor Wayne" },
@@ -32,16 +32,7 @@ const InfoPanel = (props) => {
   return (
     <div className="flex-1 m-5 text-center content-center lg:h-full lg:w-full lg:mb-0  lg:text-left flex-1">
       <div className="bg-gray-100">PROGRESSBAR</div>
-      <div className="bg-gray-100">
-        {data
-          .slice(
-            page * pageLength,
-            Math.min(data.length, page * pageLength + pageLength)
-          )
-          .map((row) => (
-            <ClusterCard row={row}></ClusterCard>
-          ))}
-      </div>
+      <ClusterTable data={data}></ClusterTable>
       <div className="bg-gray-100">HEY</div>
     </div>
   );
