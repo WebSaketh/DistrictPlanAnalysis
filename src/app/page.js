@@ -262,6 +262,7 @@ export default function Home() {
       setEnsemble(k);
       setCluster(null);
       setDistrictPlan(null);
+      setClusters([]);
     }
   };
 
@@ -285,6 +286,7 @@ export default function Home() {
       setEnsemble(null);
       setDistanceMeasure(null);
       setEnsembleList([]);
+      setClusters([]);
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
@@ -292,6 +294,7 @@ export default function Home() {
         setDistanceMeasure(null);
         setCluster(null);
         setDistrictPlan(null);
+        setClusters([]);
       }
       getStateInfo("Colorado").then((res) => {
         setStateDistrictMap(res.colo2020);
@@ -307,6 +310,7 @@ export default function Home() {
         setDistanceMeasure(null);
         setCluster(null);
         setDistrictPlan(null);
+        setClusters([]);
       }
       getStateInfo("Ohio").then((res) => {
         setStateDistrictMap(res.ohio2020);
@@ -322,6 +326,7 @@ export default function Home() {
         setDistanceMeasure(null);
         setCluster(null);
         setDistrictPlan(null);
+        setClusters([]);
       }
       getStateInfo("Illinois").then((res) => {
         setStateDistrictMap(res.ill2020);
@@ -341,6 +346,7 @@ export default function Home() {
       setDistrictPlan(null);
       setStateDistrictMap(null);
       setEnsembleList([]);
+      setClusters([]);
     }
   };
 
