@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ClusterCard from "./ClusterCard";
-import 
 
 const ClusterTable = (props) => {
   const [page, setPage] = useState(1);
