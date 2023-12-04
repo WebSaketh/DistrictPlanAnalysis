@@ -219,6 +219,7 @@ export default function Home() {
   const [districtPlan, setDistrictPlan] = useState(new Set());
   const [view, setView] = useState("Cluster Analysis");
   const [about, setAbout] = useState(false);
+  const [clusters, setClusters] = useState([]);
 
   const changeView = (e) => {
     var k = e?.target?.innerHTML;
@@ -249,6 +250,9 @@ export default function Home() {
       setDistanceMeasure(k);
       setCluster(null);
       setDistrictPlan(null);
+      apis.getClusters(state, ensemble, k).then((res) => {
+        setClusters(res);
+      });
     }
   };
 
