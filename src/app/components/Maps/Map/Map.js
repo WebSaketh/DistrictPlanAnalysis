@@ -1,9 +1,11 @@
 "use client";
 import "leaflet/dist/leaflet.css";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
 import { useMapEvents } from "react-leaflet/hooks";
-import { ohio2020, ill2020, colo2020 } from "./const";
-import { colobound, illbound, ohiobound } from "./const";
+import { ohio2020, ill2020, colo2020 } from "../Map2/const";
+// import { colobound, illbound, ohiobound } from "../Map2/const";
+import apis from "../../../Api/index.js";
 import * as d3 from "d3";
 
 const MapControl = (props) => {
@@ -22,6 +24,20 @@ const maxBounds = L.latLngBounds(
 const center = [40, -96];
 
 const Map = (props) => {
+  const [ohio, setOhio] = useState([]);
+  const [illinois, setIllinois] = useState([]);
+  const [colorado, setColorado] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      let res = await apis.getInitialization();
+      let data = res.data;
+      setOhio(data[0].ohiobound);
+      setColorado(data[1].colobound);
+      setIllinois(data[2].illbound);
+    };
+    getData();
+  }, []);
   const onEachFeature = (feature, layer) => {
     // console.log("feature:", feature);
     // if (feature.properties) {
@@ -41,7 +57,6 @@ const Map = (props) => {
   };
 
   const clickMapState = (e) => {
-    console.log(e);
     const k = e?.target?.feature?.properties?.name;
     const i = e?.target?.feature?.properties?.NAME;
     var name = i ? i : k;
@@ -80,7 +95,7 @@ const Map = (props) => {
     minWidth: "100%",
     width: "100%",
   };
-
+  // console.log(ohio);
   return (
     <MapContainer
       id="map"
@@ -100,44 +115,24 @@ const Map = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {props.state === "Colorado" ? (
+
+      {props.state === null && colorado.length !== 0 ? (
         <GeoJSON
-          data={colo2020}
-          style={geoJsonStyle}
-          onEachFeature={onEachFeature}
-        />
-      ) : null}
-      {props.state === "Illinois" ? (
-        <GeoJSON
-          data={ill2020}
-          style={geoJsonStyle}
-          onEachFeature={onEachFeature}
-        />
-      ) : null}
-      {props.state === "Ohio" ? (
-        <GeoJSON
-          data={ohio2020}
-          style={geoJsonStyle}
-          onEachFeature={onEachFeature}
-        />
-      ) : null}
-      {props.state === null ? (
-        <GeoJSON
-          data={colobound}
+          data={colorado}
           style={geoJsonStyle}
           onEachFeature={onEachFeatureState}
         />
       ) : null}
-      {props.state === null ? (
+      {props.state === null && illinois.length !== 0 ? (
         <GeoJSON
-          data={illbound}
+          data={illinois}
           style={geoJsonStyle}
           onEachFeature={onEachFeatureState}
         />
       ) : null}
-      {props.state === null ? (
+      {props.state === null && ohio.length !== 0 ? (
         <GeoJSON
-          data={ohiobound}
+          data={ohio}
           style={geoJsonStyle}
           onEachFeature={onEachFeatureState}
         />

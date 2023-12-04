@@ -9,6 +9,8 @@ import SimpleLineChart from "src/app/components/SimpleLineChart/SimpleLineChart.
 import Scatterplot from "./components/Scatterplot/Scatterplot";
 import About from "./components/About";
 import InfoPanel from "./components/InfoPanel/InfoPanel";
+import { ApiError } from "next/dist/server/api-utils";
+import apis from "./Api/index.js";
 
 const data = Array.from({ length: 20 }, () => ({
   x: Math.random() * 300 + 5, // Random X value between 0 and 100
@@ -90,12 +92,10 @@ const data1 = {
   ],
 };
 
-console.log(data1.rows);
 var total = 0;
 for (var x = 0; x < data1.rows.length; x++) {
   total += data1.rows[x][1];
 }
-console.log(total);
 
 const data2 = {
   columns: [
@@ -209,15 +209,18 @@ const data3 = {
 
 export default function Home() {
   const [state, setState] = useState(null);
+  const [stateDistrictMap, setStateDistrictMap] = useState(null);
   const [center, setCenter] = useState([40, -96]);
   const [zoom, setZoom] = useState(4.6);
   const [district, setDistrict] = useState(null);
   const [ensemble, setEnsemble] = useState(null);
+  const [ensembleList, setEnsembleList] = useState([]);
   const [distanceMeasure, setDistanceMeasure] = useState(null);
   const [cluster, setCluster] = useState(null);
   const [districtPlan, setDistrictPlan] = useState(new Set());
   const [view, setView] = useState("Cluster Analysis");
   const [about, setAbout] = useState(false);
+  const [clusters, setClusters] = useState([]);
 
   const changeView = (e) => {
     var k = e?.target?.innerHTML;
@@ -238,18 +241,19 @@ export default function Home() {
   };
 
   const changeDistrictPlan = (id) => {
-    console.log(districtPlan);
     const a = new Set();
-    console.log(a);
   };
 
   const changeDistanceMeasure = (e) => {
     var k = e.target.text;
-    console.log(k);
+
     if (k !== distanceMeasure) {
       setDistanceMeasure(k);
       setCluster(null);
       setDistrictPlan(null);
+      apis.getClusters(state, ensemble, k).then((res) => {
+        setClusters(res);
+      });
     }
   };
 
@@ -263,7 +267,6 @@ export default function Home() {
   };
 
   const changeDistrict = (e) => {
-    console.log("District:", e);
     setDistrict(e);
   };
 
@@ -276,10 +279,12 @@ export default function Home() {
     var k = e?.target?.text;
     if (e.target.text === "Default") {
       setState(null);
+      setStateDistrictMap([]);
       setCenter([40, -96]);
       setZoom(4.6);
       setEnsemble(null);
       setDistanceMeasure(null);
+      setEnsembleList([]);
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
@@ -288,6 +293,10 @@ export default function Home() {
         setCluster(null);
         setDistrictPlan(null);
       }
+      getStateInfo("Colorado").then((res) => {
+        setStateDistrictMap(res.colo2020);
+        setEnsembleList(res.ensembles);
+      });
       setState("Colorado");
       setCenter([39.4, -106]);
       setZoom(6.5);
@@ -299,6 +308,10 @@ export default function Home() {
         setCluster(null);
         setDistrictPlan(null);
       }
+      getStateInfo("Ohio").then((res) => {
+        setStateDistrictMap(res.ohio2020);
+        setEnsembleList(res.ensembles);
+      });
       setState("Ohio");
       setCenter([40, -83]);
       setZoom(6.5);
@@ -310,12 +323,15 @@ export default function Home() {
         setCluster(null);
         setDistrictPlan(null);
       }
+      getStateInfo("Illinois").then((res) => {
+        setStateDistrictMap(res.ill2020);
+        setEnsembleList(res.ensembles);
+      });
       setState("Illinois");
       setCenter([40, -89.5]);
       setZoom(6.5);
     } else if (k === "Reset Map") {
       setState(null);
-      console.log("RESETMAP");
       setCenter([40, -96]);
       setZoom(4.6);
       setDistrict(null);
@@ -323,7 +339,14 @@ export default function Home() {
       setDistanceMeasure(null);
       setCluster(null);
       setDistrictPlan(null);
+      setStateDistrictMap(null);
+      setEnsembleList([]);
     }
+  };
+  
+  const getStateInfo = async (state) => {
+    let json = await apis.getState(state);
+    return json.data;
   };
 
   const conglomerate = () => {
@@ -357,9 +380,10 @@ export default function Home() {
       clickClusterButton,
       changeState;
   };
+  
+  
 
   useEffect(() => {
-    console.log("useEffect");
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
   }, [state, zoom, center]);
@@ -404,6 +428,7 @@ export default function Home() {
             changeEnsemble={changeEnsemble}
             changeDistanceMeasure={changeDistanceMeasure}
             goToAbout={goToAbout}
+            ensembleList={ensembleList}
           >
             HEY
           </Navbar>
@@ -442,6 +467,7 @@ export default function Home() {
             changeEnsemble={changeEnsemble}
             changeDistanceMeasure={changeDistanceMeasure}
             goToAbout={goToAbout}
+            ensembleList={ensembleList}
           >
             HEY
           </Navbar>
@@ -456,6 +482,7 @@ export default function Home() {
                 districtPlan={districtPlan}
                 changeDistrict={changeDistrict}
                 changeState={changeState}
+                stateDistrictMap={stateDistrictMap}
               ></Map2>
             </div>
             <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left flex-1">
@@ -556,6 +583,7 @@ export default function Home() {
             changeEnsemble={changeEnsemble}
             changeDistanceMeasure={changeDistanceMeasure}
             goToAbout={goToAbout}
+            ensembleList={ensembleList}
           >
             HEY
           </Navbar>
@@ -602,6 +630,7 @@ export default function Home() {
           changeEnsemble={changeEnsemble}
           changeDistanceMeasure={changeDistanceMeasure}
           goToAbout={goToAbout}
+          ensembleList={ensembleList}
         ></Navbar>
         <Map
           state={state}
