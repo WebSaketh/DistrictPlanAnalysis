@@ -1,7 +1,6 @@
 import Dropdown from "../Dropdown/Dropdown";
 
 const Navbar = (props) => {
-  console.log(props.ensembleList);
   return (
     <nav className="w-full flex items-center justify-between flex-wrap bg-[#990000] p-2">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
