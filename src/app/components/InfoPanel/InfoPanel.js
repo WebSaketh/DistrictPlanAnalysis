@@ -102,6 +102,8 @@ const InfoPanel = (props) => {
           tabValue={tabValue}
           setTabValue={setTabValue}
           tabList={["District Plans", "District Scatterplot"]}
+          cluster={props.cluster}
+          clickClusterButton={props.clickClusterButton}
         ></InfoTabs>
         <div hidden={tabValue !== "District Plans"}>
           <DistrictPlanTable
