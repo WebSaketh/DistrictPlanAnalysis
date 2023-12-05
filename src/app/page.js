@@ -293,6 +293,8 @@ export default function Home() {
               clickClusterButton={clickClusterButton}
               changeDistrictPlan={changeDistrictPlan}
               clusterADP={clusterADP}
+              responses={responses}
+              districtPlan={districtPlan}
             />
           </div>
         </div>

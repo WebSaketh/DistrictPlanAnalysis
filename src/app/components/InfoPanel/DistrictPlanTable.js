@@ -106,7 +106,8 @@ const columns = [
 ];
 
 const DistrictPlanTable = (props) => {
-  const [selected, setSelected] = useState([]);
+  const selected = props.selected;
+  const setSelected = props.setSelected;
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);

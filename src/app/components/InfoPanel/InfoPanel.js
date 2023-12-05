@@ -8,6 +8,7 @@ import SelectionMessage from "src/app/components/InfoPanel/SelectionMessage.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Clusters");
+  const [selected, setSelected] = useState([]);
 
   if (!props.distanceMeasure) {
     return <SelectionMessage></SelectionMessage>;
@@ -29,12 +30,17 @@ const InfoPanel = (props) => {
             changeCluster={props.changeCluster}
             changeDistrictPlan={props.changeDistrictPlan}
             clusterADP={props.clusterADP}
+            selected={selected}
+            setSelected={setSelected}
           ></DistrictPlanTable>
         </div>
         <div hidden={tabValue !== "District Plan Scatterplot"}>
           <DistrictPlanPlot
+            districtPlan={props.districtPlan}
             districtPlanInfo={props.districtPlanInfo}
             changeDistrictPlan={props.changeDistrictPlan}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
       </div>
