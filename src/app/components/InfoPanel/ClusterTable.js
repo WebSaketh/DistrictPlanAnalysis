@@ -121,6 +121,7 @@ const ClusterTable = (props) => {
 
   const handleClusterClick = (event) => {
     let clusterId = event.currentTarget.id;
+    props.setTabValue(props.tabValue.replace("Cluster", "District Plan"));
     props.changeCluster(clusterId);
   };
 
@@ -144,13 +145,13 @@ const ClusterTable = (props) => {
           <TableBody>
             {data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+              .map((row, indx) => {
                 return (
                   <TableRow
                     hover
                     role="checkbox"
                     tabIndex={-1}
-                    key={row.code}
+                    key={indx}
                     id={row.ClusterId}
                     onClick={handleClusterClick}
                   >
@@ -180,86 +181,6 @@ const ClusterTable = (props) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
-
-    /*<TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>ClusterId</StyledTableCell>
-            <StyledTableCell align="right">Democratic</StyledTableCell>
-            <StyledTableCell align="right">Republic</StyledTableCell>
-            <StyledTableCell align="right">White</StyledTableCell>
-            <StyledTableCell align="right">Black</StyledTableCell>
-            <StyledTableCell align="right">Hispanic</StyledTableCell>
-            <StyledTableCell align="right">Asian</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.clusters
-            .slice(
-              currentPage * pageLength,
-              Math.min(
-                props.clusters.length,
-                currentPage * pageLength + pageLength
-              )
-            )
-            .map((cluster) => (
-              <StyledTableRow key={cluster.clusterId}>
-                <StyledTableCell component="th" scope="row">
-                  {currentPage * pageLength + i + 1}
-                </StyledTableCell>
-                <StyledTableCell align="right" p={i++}>
-                  {cluster.clusterDemographics.democratic}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {cluster.clusterDemographics.republican}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {cluster.clusterDemographics.white}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {cluster.clusterDemographics.black}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {cluster.clusterDemographics.hispanic}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {cluster.clusterDemographics.asian}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-        </TableBody>
-      </Table>
-      <Pagination
-        count={totalPages}
-        onChange={handlePageChange}
-        color="primary"
-      />
-    </TableContainer>*/
-
-    /*<div className="bg-gray-100">
-      <div className="flex flex-row">
-        <div className="m-2">Cluster Id</div>
-        <div className="m-2">Republican</div>
-        <div className="m-2">Democratic</div>
-        <div className="m-2">White</div>
-        <div className="m-2">Black</div>
-        <div className="m-2">Hispanic</div>
-        <div className="m-2">Asian</div>
-      </div>
-      {props.clusters
-        .slice(
-          page * pageLength,
-          Math.min(props.clusters.length, page * pageLength + pageLength)
-        )
-        .map((cluster) => (
-          <ClusterCard
-            cluster={cluster}
-            id={page * pageLength + i + 1}
-            cs={i++}
-          ></ClusterCard>
-        ))}
-        </div>*/
   );
 };
 export default ClusterTable;
