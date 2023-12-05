@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import ClusterTable from "src/app/components/InfoPanel/ClusterTable.js";
+import ClusterTable from "src/app/components/ClusterTable.js";
 import DistrictPlanTable from "./DistrictPlanTable.js";
-import InfoTabs from "src/app/components/InfoPanel/InfoTabs.js";
-import Scatterplot from "src/app/components/Scatterplot/Scatterplot.js";
-import DistrictPlanPlot from "src/app/components/Scatterplot/DistrictPlanPlot.js";
-import SelectionMessage from "src/app/components/InfoPanel/SelectionMessage.js";
+import InfoTabs from "src/app/components/InfoTabs.js";
+import Scatterplot from "src/app/components/Scatterplot.js";
+import DistrictPlanPlot from "src/app/components/DistrictPlanPlot.js";
+import SelectionMessage from "src/app/components/SelectionMessage.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Clusters");

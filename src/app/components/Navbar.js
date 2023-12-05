@@ -1,4 +1,4 @@
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "./Dropdown";
 
 const Navbar = (props) => {
   return (

@@ -1,14 +1,11 @@
 "use client";
 import Map from "./components/Maps/Map";
-import Table from "./components/Table/Table";
-import Navbar from "./components/Navbar/Navbar";
+import Table from "./components/Table";
+import Navbar from "./components/Navbar";
 import React, { useEffect, useState } from "react";
 import Map2 from "./components/Maps/Map2";
-import SimpleBoxPlot from "src/app/components/SimpleBoxPlot/SimpleBoxPlot.js";
-import SimpleLineChart from "src/app/components/SimpleLineChart/SimpleLineChart.js";
-import Scatterplot from "./components/Scatterplot/Scatterplot";
-import About from "./components/About";
-import InfoPanel from "./components/InfoPanel/InfoPanel";
+import SimpleLineChart from "src/app/components/SimpleLineChart.js";
+import InfoPanel from "./components/InfoPanel";
 import apis from "./Api/index.js";
 
 function getRandomInt(max) {
