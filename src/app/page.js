@@ -435,6 +435,7 @@ export default function Home() {
               cluster={cluster}
               districtPlanInfo={districtPlanInfo}
               changeCluster={changeCluster}
+              distanceMeasure={distanceMeasure}
             />
           </div>
         </div>

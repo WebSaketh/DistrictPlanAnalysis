@@ -3,6 +3,7 @@ import ClusterTable from "src/app/components/InfoPanel/ClusterTable.js";
 import DistrictPlanTable from "./DistrictPlanTable.js";
 import InfoTabs from "src/app/components/InfoPanel/InfoTabs.js";
 import Scatterplot from "src/app/components/Scatterplot/Scatterplot.js";
+import SelectionMessage from "src/app/components/InfoPanel/SelectionMessage.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Clusters");
@@ -90,21 +91,25 @@ const InfoPanel = (props) => {
     },
   ];
 
+  if (!props.distanceMeasure) {
+    return <SelectionMessage></SelectionMessage>;
+  }
+
   if (props.cluster) {
     return (
       <div className="flex-1 m-5 text-center content-center lg:h-full lg:w-full lg:mb-0  lg:text-left flex-1">
         <InfoTabs
           tabValue={tabValue}
           setTabValue={setTabValue}
-          tabList={["Clusters", "Scatterplot"]}
+          tabList={["District Plans", "District Scatterplot"]}
         ></InfoTabs>
-        <div hidden={tabValue !== "Clusters"}>
+        <div hidden={tabValue !== "District Plans"}>
           <DistrictPlanTable
             districtPlanInfo={props.districtPlanInfo}
             changeCluster={props.changeCluster}
           ></DistrictPlanTable>
         </div>
-        <div hidden={tabValue !== "Scatterplot"}>
+        <div hidden={tabValue !== "District Plans Scatterplot"}>
           <Scatterplot
             data={data}
             width={600}
@@ -115,20 +120,23 @@ const InfoPanel = (props) => {
       </div>
     );
   }
+
   return (
     <div className="flex-1 m-5 text-center content-center lg:h-full lg:w-full lg:mb-0  lg:text-left flex-1">
       <InfoTabs
         tabValue={tabValue}
         setTabValue={setTabValue}
-        tabList={["Clusters", "Scatterplot"]}
+        tabList={["Clusters", "Cluster Scatterplot"]}
       ></InfoTabs>
       <div hidden={tabValue !== "Clusters"}>
         <ClusterTable
           clusters={props.clusters}
           changeCluster={props.changeCluster}
+          tabValue={tabValue}
+          setTabValue={setTabValue}
         ></ClusterTable>
       </div>
-      <div hidden={tabValue !== "Scatterplot"}>
+      <div hidden={tabValue !== "Cluster Scatterplot"}>
         <Scatterplot
           data={data}
           width={600}
