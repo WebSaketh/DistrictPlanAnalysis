@@ -88,20 +88,30 @@ export default function Home() {
     else setAbout(true);
   };
   const getClusterInfo = async (clusterId) => {
-    let json = await apis.getDistrictPlanInformationForSelectedCluster(
-      clusterId
-    );
-    return json.data;
+    try {
+      let json = await apis.getDistrictPlanInformationForSelectedCluster(
+        clusterId
+      );
+      return json.data;
+    } catch (error) {
+      return "Error";
+    }
   };
   const getClusterADP = async (clusterId) => {
-    let json = await apis.getAverageDistrictPlanGeoJson(clusterId);
-    console.log(json);
-    return json.data;
+    try {
+      let json = await apis.getAverageDistrictPlanGeoJson(clusterId);
+      if (json.data === "Error") throw new Error("error getting cluster ADP");
+      return json.data;
+    } catch (error) {
+      return "Error";
+    }
   };
   const changeCluster = (id) => {
     getClusterInfo(id).then((res) => {
-      setCluster(id);
-      setDistrictPlanInfo(res);
+      if (res !== "Error") {
+        setCluster(id);
+        setDistrictPlanInfo(res);
+      }
     });
 
     // getClusterADP(id).then((res) => setClusterADP(res));
@@ -113,13 +123,19 @@ export default function Home() {
     var k = e.target.text;
 
     if (k !== distanceMeasure) {
-      setDistanceMeasure(k);
-      setCluster(null);
-      setClusterADP(null);
-      setDistrictPlan([]);
-      apis.getClusters(state, ensemble, k).then((res) => {
-        setClusters(res.data);
-      });
+      try {
+        apis.getClusters(state, ensemble, k).then((res) => {
+          if (res.data === "Error")
+            throw new Error("error getting clusters...");
+          setClusters(res.data);
+          setDistanceMeasure(k);
+          setCluster(null);
+          setClusterADP(null);
+          setDistrictPlan([]);
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   };
   const changeEnsemble = (e) => {
@@ -164,11 +180,13 @@ export default function Home() {
         setClusters([]);
       }
       getStateInfo("Colorado").then((res) => {
-        setStateDistrictMap(res.colo2020);
-        setEnsembleList(res.ensembles);
-        setState("Colorado");
-        setCenter([39.4, -106]);
-        setZoom(6.5);
+        if (res !== "Error") {
+          setStateDistrictMap(res.colo2020);
+          setEnsembleList(res.ensembles);
+          setState("Colorado");
+          setCenter([39.4, -106]);
+          setZoom(6.5);
+        }
       });
     } else if (k === "Ohio") {
       if (state !== k) {
@@ -181,11 +199,13 @@ export default function Home() {
         setClusters([]);
       }
       getStateInfo("Ohio").then((res) => {
-        setStateDistrictMap(res.ohio2020);
-        setEnsembleList(res.ensembles);
-        setState("Ohio");
-        setCenter([40, -83]);
-        setZoom(6.5);
+        if (res !== "Error") {
+          setStateDistrictMap(res.ohio2020);
+          setEnsembleList(res.ensembles);
+          setState("Ohio");
+          setCenter([40, -83]);
+          setZoom(6.5);
+        }
       });
     } else if (k === "Illinois") {
       if (state !== k) {
@@ -198,11 +218,13 @@ export default function Home() {
         setClusters([]);
       }
       getStateInfo("Illinois").then((res) => {
-        setStateDistrictMap(res.ill2020);
-        setEnsembleList(res.ensembles);
-        setState("Illinois");
-        setCenter([40, -89.5]);
-        setZoom(6.5);
+        if (res !== "Error") {
+          setStateDistrictMap(res.ill2020);
+          setEnsembleList(res.ensembles);
+          setState("Illinois");
+          setCenter([40, -89.5]);
+          setZoom(6.5);
+        }
       });
     } else if (k === "Reset Map") {
       setState(null);
@@ -220,8 +242,14 @@ export default function Home() {
     }
   };
   const getStateInfo = async (state) => {
-    let json = await apis.getState(state);
-    return json.data;
+    try {
+      let json = await apis.getState(state);
+      if (json.data === "Error")
+        throw new Error("error getting state information...");
+      return json.data;
+    } catch (error) {
+      return "Error";
+    }
   };
 
   useEffect(() => {
@@ -235,6 +263,8 @@ export default function Home() {
           apis.getDistrictPlanGeoJson(id)
         );
         const allResponses = await Promise.all(requestPromises);
+        if (allResponses === "error")
+          throw new Error("error with getting district plan geo json");
         setResponses(allResponses);
         if (allResponses.length > 0) {
           console.log("All responses received successfully!");

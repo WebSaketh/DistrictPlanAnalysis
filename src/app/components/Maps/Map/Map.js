@@ -29,14 +29,20 @@ const Map = (props) => {
   const [colorado, setColorado] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
-      let res = await apis.getInitialization();
-      let data = res.data;
-      setOhio(data[0].ohiobound);
-      setColorado(data[1].colobound);
-      setIllinois(data[2].illbound);
-    };
-    getData();
+    try {
+      const getData = async () => {
+        let res = await apis.getInitialization();
+        let data = res.data;
+        if (data === "Error") throw new Error("error getting initial data");
+        setOhio(data[0].ohiobound);
+        setColorado(data[1].colobound);
+        setIllinois(data[2].illbound);
+      };
+      getData();
+    } catch (error) {
+      console.log("Hello");
+      console.log(error.message);
+    }
   }, []);
   const onEachFeature = (feature, layer) => {
     // console.log("feature:", feature);

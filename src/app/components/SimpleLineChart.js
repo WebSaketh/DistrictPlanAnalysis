@@ -38,36 +38,20 @@ const SimpleLineChart = () => {
     >
       <XAxis
         dataKey="name"
-        label={{ value: "# of Districts", position: "bottom" }}
+        label={{ value: "# of Clusters", position: "bottom" }}
       />
       <YAxis
-        label={{ value: "# of Clusters", angle: -90, position: "insideLeft" }}
+        label={{
+          value: "# of District Plans",
+          angle: -90,
+          position: "insideLeft",
+        }}
       />
       <CartesianGrid stroke="#ccc" />
-      <Line
-        type="monotone"
-        dataKey="value1"
-        stroke="blue"
-        name="Optimal Transport"
-      />
-      <Line
-        type="monotone"
-        dataKey="value2"
-        stroke="red"
-        name="Hamming Distance"
-      />
-      <Line
-        type="monotone"
-        dataKey="value3"
-        stroke="green"
-        name="Total Variation"
-      />
-      <Line
-        type="monotone"
-        dataKey="value4"
-        stroke="purple"
-        name="Another Measure"
-      />
+      <Line type="monotone" dataKey="value1" stroke="blue" name="Ensemble1" />
+      <Line type="monotone" dataKey="value2" stroke="red" name="Ensemble2" />
+      <Line type="monotone" dataKey="value3" stroke="green" name="Ensemble3" />
+
       <Tooltip />
       <Legend layout="vertical" align="right" verticalAlign="middle" />
     </LineChart>
