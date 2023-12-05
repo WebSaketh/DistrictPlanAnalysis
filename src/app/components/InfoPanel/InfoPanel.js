@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClusterTable from "src/app/components/InfoPanel/ClusterTable.js";
 import DistrictPlanTable from "./DistrictPlanTable.js";
 import InfoTabs from "src/app/components/InfoPanel/InfoTabs.js";
 import Scatterplot from "src/app/components/Scatterplot/Scatterplot.js";
+import DistrictPlanPlot from "src/app/components/Scatterplot/DistrictPlanPlot.js";
 import SelectionMessage from "src/app/components/InfoPanel/SelectionMessage.js";
 
 const InfoPanel = (props) => {
@@ -101,7 +102,7 @@ const InfoPanel = (props) => {
         <InfoTabs
           tabValue={tabValue}
           setTabValue={setTabValue}
-          tabList={["District Plans", "District Scatterplot"]}
+          tabList={["District Plans", "District Plan Scatterplot"]}
           cluster={props.cluster}
           clickClusterButton={props.clickClusterButton}
         ></InfoTabs>
@@ -111,13 +112,8 @@ const InfoPanel = (props) => {
             changeCluster={props.changeCluster}
           ></DistrictPlanTable>
         </div>
-        <div hidden={tabValue !== "District Plans Scatterplot"}>
-          <Scatterplot
-            data={data}
-            width={600}
-            height={400}
-            onClick={props.setCluster}
-          />
+        <div hidden={tabValue !== "District Plan Scatterplot"}>
+          <DistrictPlanPlot />
         </div>
       </div>
     );
@@ -143,7 +139,10 @@ const InfoPanel = (props) => {
           data={data}
           width={600}
           height={400}
-          onClick={props.setCluster}
+          clusters={props.clusters}
+          setTabValue={setTabValue}
+          tabValue={tabValue}
+          onClick={props.changeCluster}
         />
       </div>
     </div>

@@ -12,7 +12,6 @@ const InfoTabs = (props) => {
   const handleChange = (event, newValue) => {
     props.setTabValue(newValue);
   };
-  console.log("hey");
   return (
     <Box className="flex justify-between items-center" sx={{ width: "100%" }}>
       <Tabs

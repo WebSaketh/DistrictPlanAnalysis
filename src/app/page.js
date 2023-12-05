@@ -14,6 +14,7 @@ import apis from "./Api/index.js";
 const data = Array.from({ length: 20 }, () => ({
   x: Math.random() * 300 + 5, // Random X value between 0 and 100
   y: Math.random() * 300 + 5, // Random Y value between 0 and 100
+  count: Math.random * 15,
 }));
 
 function getRandomInt(max) {
