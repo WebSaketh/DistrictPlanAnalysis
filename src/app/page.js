@@ -76,6 +76,8 @@ export default function Home() {
   const [clusters, setClusters] = useState([]);
   const [districtPlanInfo, setDistrictPlanInfo] = useState([]);
   const [responses, setResponses] = useState([]);
+  const [clusterADP, setClusterADP] = useState(null);
+
   const changeView = (e) => {
     var k = e?.target?.innerHTML;
     if (k == "Cluster Analysis") {
@@ -84,63 +86,64 @@ export default function Home() {
       setView(k);
     }
   };
-
   const goToAbout = () => {
     if (about) setAbout(false);
     else setAbout(true);
   };
-
   const getClusterInfo = async (clusterId) => {
     let json = await apis.getDistrictPlanInformationForSelectedCluster(
       clusterId
     );
     return json.data;
   };
-
+  const getClusterADP = async (clusterId) => {
+    let json = await apis.getAverageDistrictPlanGeoJson(clusterId);
+    console.log(json);
+    return json.data;
+  };
   const changeCluster = (id) => {
     getClusterInfo(id).then((res) => {
       setCluster(id);
       setDistrictPlanInfo(res);
     });
-  };
 
+    // getClusterADP(id).then((res) => setClusterADP(res));
+  };
   const changeDistrictPlan = (newList) => {
     setDistrictPlan(newList);
   };
-
   const changeDistanceMeasure = (e) => {
     var k = e.target.text;
 
     if (k !== distanceMeasure) {
       setDistanceMeasure(k);
       setCluster(null);
+      setClusterADP(null);
       setDistrictPlan([]);
       apis.getClusters(state, ensemble, k).then((res) => {
         setClusters(res.data);
       });
     }
   };
-
   const changeEnsemble = (e) => {
     var k = e.target.text;
     if (k !== ensemble) {
       setEnsemble(k);
       setDistanceMeasure(null);
       setCluster(null);
+      setClusterADP(null);
       setDistrictPlan([]);
       setClusters([]);
     }
   };
-
   const changeDistrict = (e) => {
     setDistrict(e);
   };
-
   const clickClusterButton = () => {
     setCluster(null);
+    setClusterADP(null);
     setDistrictPlan([]);
   };
-
   const changeState = (e) => {
     console.log("State Changed");
     var k = e?.target?.text;
@@ -159,6 +162,7 @@ export default function Home() {
         setEnsemble(null);
         setDistanceMeasure(null);
         setCluster(null);
+        setClusterADP(null);
         setDistrictPlan([]);
         setClusters([]);
       }
@@ -175,6 +179,7 @@ export default function Home() {
         setEnsemble(null);
         setDistanceMeasure(null);
         setCluster(null);
+        setClusterADP(null);
         setDistrictPlan([]);
         setClusters([]);
       }
@@ -191,6 +196,7 @@ export default function Home() {
         setEnsemble(null);
         setDistanceMeasure(null);
         setCluster(null);
+        setClusterADP(null);
         setDistrictPlan([]);
         setClusters([]);
       }
@@ -209,13 +215,13 @@ export default function Home() {
       setEnsemble(null);
       setDistanceMeasure(null);
       setCluster(null);
+      setClusterADP(null);
       setDistrictPlan([]);
       setStateDistrictMap(null);
       setEnsembleList([]);
       setClusters([]);
     }
   };
-
   const getStateInfo = async (state) => {
     let json = await apis.getState(state);
     return json.data;
@@ -225,7 +231,6 @@ export default function Home() {
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
   }, [state, zoom, center]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -287,13 +292,13 @@ export default function Home() {
               distanceMeasure={distanceMeasure}
               clickClusterButton={clickClusterButton}
               changeDistrictPlan={changeDistrictPlan}
+              clusterADP={clusterADP}
             />
           </div>
         </div>
       </main>
     );
   }
-
   if (state && view == "Distance Measure Analysis") {
     return (
       <main>
@@ -342,7 +347,6 @@ export default function Home() {
       </main>
     );
   }
-
   return (
     <main>
       <div className="flex min-h-screen max-h-screen min-w-screen max-w-screen flex flex-col justify-between p-0 pb-0 pt-0">
@@ -371,119 +375,3 @@ export default function Home() {
     </main>
   );
 }
-
-// if (state && view == "Cluster Analysis") {
-//   return (
-//     <main>
-//       <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
-//         <Navbar
-//           total={total}
-//           view={view}
-//           state={state}
-//           ensemble={ensemble}
-//           distanceMeasure={distanceMeasure}
-//           changeView={changeView}
-//           changeState={changeState}
-//           changeEnsemble={changeEnsemble}
-//           changeDistanceMeasure={changeDistanceMeasure}
-//           goToAbout={goToAbout}
-//           ensembleList={ensembleList}
-//         >
-//           HEY
-//         </Navbar>
-//         <div className="flex flex-row flex-1">
-//           <div className="aspect-square">
-//             <Map2
-//               state={state}
-//               center={center}
-//               zoom={zoom}
-//               ensemble={ensemble}
-//               district={district}
-//               districtPlan={districtPlan}
-//               changeDistrict={changeDistrict}
-//               changeState={changeState}
-//               stateDistrictMap={stateDistrictMap}
-//             ></Map2>
-//           </div>
-//           <div className="flex flex-col text-center max-h-full lg:w-full lg:mb-0  lg:text-left flex-1">
-//             {ensemble && distanceMeasure && state ? null : (
-//               <div
-//                 className="flex flex-1 text-center w-full"
-//                 style={{
-//                   display: "flex",
-//                   justifyContent: "center",
-//                   alignItems: "center",
-//                   height: "100vh", // 100% of the viewport height
-//                   width: "100%", // 100% of the parent container width
-//                   textAlign: "center",
-//                   color: "grey", // Change text color to grey
-//                   fontFamily: "Helvetica-Bold", // Use Roboto font
-//                   fontSize: "24px", // Set font size to 24 pixels
-//                 }}
-//               >
-//                 <p>Please Select State, Ensemble, and DM</p>
-//               </div>
-//             )}
-//             {ensemble && distanceMeasure && !cluster && !districtPlan ? (
-//               <div className="flex flex-col flex-1">
-//                 <Table
-//                   data={data1}
-//                   settingSomething={changeCluster}
-//                   headerStyle={{ backgroundColor: "#CD5C5C" }}
-//                 />
-//                 <div className="flex flex-row overflow-hidden">
-//                   <div className="ml-5">
-//                     <Scatterplot
-//                       data={data}
-//                       width={600}
-//                       height={400}
-//                       settingDistrictPlan={setCluster}
-//                     />
-//                   </div>
-//                 </div>
-//               </div>
-//             ) : null}
-//             {ensemble && distanceMeasure && cluster ? (
-//               <div className="flex flex-col flex-1">
-//                 <div className="grid grid-cols-8 items-center">
-//                   <span
-//                     className="badge m-4 col-span-1 bg-[#DAA520] border-[#DAA520] text-white"
-//                     // style={{ "background-color": "IndianRed" }}
-//                   >
-//                     Cluster {cluster}
-//                   </span>
-//                   <div className="col-span-6"></div>
-//                   <button
-//                     className="btn btn-ghost col-span-1"
-//                     onClick={clickClusterButton}
-//                   >
-//                     <p className="m-2 text-[#DAA520]">View Clusters</p>
-//                   </button>
-//                 </div>
-//                 <Table
-//                   data={data2}
-//                   settingSomething={changeDistrictPlan}
-//                   districtPlan={districtPlan}
-//                   headerStyle={{ backgroundColor: "#DAA520" }}
-//                 />
-//                 <div className="flex flex-row overflow-hidden">
-//                   <div className="ml-5">
-//                     <Scatterplot
-//                       data={data}
-//                       width={600}
-//                       height={400}
-//                       settingDistrictPlan={setDistrictPlan}
-//                     />
-//                   </div>
-//                   <div>
-//                     <SimpleBoxPlot />
-//                   </div>
-//                 </div>
-//               </div>
-//             ) : null}
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   );
-// }

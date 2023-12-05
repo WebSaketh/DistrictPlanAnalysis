@@ -28,6 +28,7 @@ const InfoPanel = (props) => {
             districtPlanInfo={props.districtPlanInfo}
             changeCluster={props.changeCluster}
             changeDistrictPlan={props.changeDistrictPlan}
+            clusterADP={props.clusterADP}
           ></DistrictPlanTable>
         </div>
         <div hidden={tabValue !== "District Plan Scatterplot"}>

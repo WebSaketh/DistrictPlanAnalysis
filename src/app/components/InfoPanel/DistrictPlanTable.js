@@ -114,6 +114,7 @@ const DistrictPlanTable = (props) => {
 
   useEffect(() => {
     let d = [];
+    d.push(createData(0, "Average", "no", 0, 0, 0, 0, 0, 0));
     for (let k = 0; k < props.districtPlanInfo.length; k++) {
       let districtPlan = props.districtPlanInfo[k];
       d.push(
@@ -134,7 +135,7 @@ const DistrictPlanTable = (props) => {
   }, [props]);
 
   const handleClick = (event, id) => {
-    if (data[id - 1].IsAvailable === "yes") {
+    if (data[id].IsAvailable === "yes") {
       const selectedIndex = selected.indexOf(id);
       let newSelected = [];
 
@@ -151,9 +152,8 @@ const DistrictPlanTable = (props) => {
         );
       }
       setSelected(newSelected);
-
       props.changeDistrictPlan(
-        newSelected.map((indx) => data[indx - 1].DistrictPlanId)
+        newSelected.map((indx) => data[indx].DistrictPlanId)
       );
     }
   };
