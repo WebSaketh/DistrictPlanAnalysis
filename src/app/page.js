@@ -271,6 +271,7 @@ export default function Home() {
     var k = e.target.text;
     if (k !== ensemble) {
       setEnsemble(k);
+      setDistanceMeasure(null);
       setCluster(null);
       setDistrictPlan(null);
       setClusters([]);
@@ -436,6 +437,7 @@ export default function Home() {
               districtPlanInfo={districtPlanInfo}
               changeCluster={changeCluster}
               distanceMeasure={distanceMeasure}
+              clickClusterButton={clickClusterButton}
             />
           </div>
         </div>
