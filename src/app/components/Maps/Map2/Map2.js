@@ -152,7 +152,7 @@ const Map2 = (props) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {props.responses.length === 0 && props.stateDistrictMap !== null ? (
+      {props.responses?.length === 0 && props.stateDistrictMap !== null ? (
         <GeoJSON
           key={props.state}
           data={props.stateDistrictMap}

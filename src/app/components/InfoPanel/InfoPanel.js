@@ -101,7 +101,7 @@ const InfoPanel = (props) => {
         <InfoTabs
           tabValue={tabValue}
           setTabValue={setTabValue}
-          tabList={["District Plans", "District Scatterplot"]}
+          tabList={["District Plans", "District Plan Scatterplot"]}
           cluster={props.cluster}
           clickClusterButton={props.clickClusterButton}
         ></InfoTabs>
@@ -112,7 +112,7 @@ const InfoPanel = (props) => {
             changeDistrictPlan={props.changeDistrictPlan}
           ></DistrictPlanTable>
         </div>
-        <div hidden={tabValue !== "District Plans Scatterplot"}>
+        <div hidden={tabValue !== "District Plan Scatterplot"}>
           <Scatterplot
             data={data}
             width={600}
@@ -129,7 +129,7 @@ const InfoPanel = (props) => {
       <InfoTabs
         tabValue={tabValue}
         setTabValue={setTabValue}
-        tabList={["Clusters", "Cluster Scatterplot"]}
+        tabList={["Clusters", "Cluster Scatterplot", "MDS Cluster Scatterplot"]}
       ></InfoTabs>
       <div hidden={tabValue !== "Clusters"}>
         <ClusterTable
@@ -140,6 +140,14 @@ const InfoPanel = (props) => {
         ></ClusterTable>
       </div>
       <div hidden={tabValue !== "Cluster Scatterplot"}>
+        <Scatterplot
+          data={data}
+          width={600}
+          height={400}
+          onClick={props.changeCluster}
+        />
+      </div>
+      <div hidden={tabValue !== "MDS Cluster Scatterplot"}>
         <Scatterplot
           data={data}
           width={600}
