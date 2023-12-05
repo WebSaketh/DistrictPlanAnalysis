@@ -98,7 +98,7 @@ const Scatterplot = (props) => {
 
     function handleClickedPoint(event, d) {
       console.log(props.tabValue);
-      props.setTabValue(props.tabValue.replace("Cluster", "District Plan"));
+      props.setTabValue(props.nextTab);
       props.onClick(d.clusterId);
     }
   }, [props.clusters]);

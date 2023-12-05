@@ -165,7 +165,7 @@ const Map2 = (props) => {
           </Tooltip>
         </GeoJSON>
       ) : null}
-      {props.responses.map((res, index) =>
+      {props.responses?.map((res, index) =>
         JSON.stringify(res.data.geoJsonData) === "{}" ? null : (
           <GeoJSON key={index} data={res?.data?.geoJsonData}></GeoJSON>
         )
