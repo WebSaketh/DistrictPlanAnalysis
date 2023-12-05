@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 
 const InfoTabs = (props) => {
   const handleButtonClick = (ev, value) => {
-    props.setTabValue(props.tabValue.replace("District Plan", "Cluster"));
+    props.setTabValue("Clusters");
     props.clickClusterButton();
   };
   const handleChange = (event, newValue) => {

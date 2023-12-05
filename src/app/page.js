@@ -11,156 +11,9 @@ import About from "./components/About";
 import InfoPanel from "./components/InfoPanel/InfoPanel";
 import apis from "./Api/index.js";
 
-const data = Array.from({ length: 20 }, () => ({
-  x: Math.random() * 300 + 5, // Random X value between 0 and 100
-  y: Math.random() * 300 + 5, // Random Y value between 0 and 100
-  count: Math.random * 15,
-}));
-
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
-
-const data1 = {
-  columns: [
-    "Cluster",
-    "Number of Plans",
-    "Avg Distance between Plans",
-    "Republican %",
-    "Democratic %",
-    "White %",
-    "African American %",
-    "Asians %",
-    "Hispanic %",
-  ],
-  rows: [
-    [
-      1,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      2,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      3,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      4,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      5,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-  ],
-};
-
-var total = 0;
-for (var x = 0; x < data1.rows.length; x++) {
-  total += data1.rows[x][1];
-}
-
-const data2 = {
-  columns: [
-    "District Plan",
-    "Opportunity Districts",
-    "Republican %",
-    "Democratic %",
-    "White %",
-    "African American %",
-    "Asians %",
-    "Hispanic %",
-  ],
-  rows: [
-    [
-      "Average DP",
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      1,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      2,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      3,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      4,
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-  ],
-};
 
 const data3 = {
   columns: [
@@ -376,18 +229,11 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Array to store individual request promises
         const requestPromises = districtPlan.map((id) =>
           apis.getDistrictPlanGeoJson(id)
         );
-
-        // Use Promise.all to wait for all requests to complete
         const allResponses = await Promise.all(requestPromises);
-
-        // Set the responses in the component state
         setResponses(allResponses);
-
-        // Continue with other logic after all requests have completed
         if (allResponses.length > 0) {
           console.log("All responses received successfully!");
         }
@@ -404,7 +250,6 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
-            total={total}
             view={view}
             state={state}
             ensemble={ensemble}
@@ -454,7 +299,6 @@ export default function Home() {
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
           <Navbar
-            total={total}
             view={view}
             state={state}
             ensemble={ensemble}
@@ -480,6 +324,7 @@ export default function Home() {
                 changeDistrict={changeDistrict}
                 changeState={changeState}
                 stateDistrictMap={stateDistrictMap}
+                responses={responses}
               ></Map2>
             </div>
             <div className="flex flex-1 justify-center items-center">
@@ -502,7 +347,6 @@ export default function Home() {
     <main>
       <div className="flex min-h-screen max-h-screen min-w-screen max-w-screen flex flex-col justify-between p-0 pb-0 pt-0">
         <Navbar
-          total={total}
           view={view}
           state={state}
           ensemble={ensemble}
