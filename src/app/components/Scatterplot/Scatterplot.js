@@ -1,10 +1,23 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-const Scatterplot = ({ data, width, height, onClick }) => {
+const width = 800;
+const height = 400;
+
+const Scatterplot = (props) => {
   const svgRef = useRef();
+  const [hoverCluster, setHoverCluster] = useState(null);
+  const [districtPlans, setDistrictPlans] = useState(null);
 
   useEffect(() => {
+    let i = 0;
+    const data = Array.from({ length: props.clusters.length }, () => ({
+      x: Math.random() * 100, // Random X value between 0 and 100
+      y: Math.random() * 100, // Random Y value between 0 and 100
+      count: props.clusters[i].districtPlanIds.length,
+      clusterId: props.clusters[i++].clusterId,
+    }));
+
     const margin = { top: 40, right: 40, bottom: 60, left: 60 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -31,6 +44,11 @@ const Scatterplot = ({ data, width, height, onClick }) => {
       .range([innerHeight, 0])
       .nice();
 
+    const radiusScale = d3
+      .scaleSqrt()
+      .domain([0, d3.max(data, (d) => d.count)])
+      .range([0, 10]);
+
     // Draw X and Y axes with gridlines and smaller ticks
     const xAxis = d3.axisBottom(xScale).ticks(5);
     g.append("g")
@@ -52,56 +70,46 @@ const Scatterplot = ({ data, width, height, onClick }) => {
       .attr("y2", -innerHeight) // Extend the gridlines upwards
       .style("stroke", "#f0f0f0"); // Subtle gridline color
 
-    const handleClickedPoint = () => {
-      let val = Math.floor(Math.random() * 5);
-      if (val == 0) val = 1;
-      onClick(val);
-    };
-
     // Create data points with click functionality
-    const points = g
-      .selectAll(".data-point")
+    // Create data points with click functionality
+    g.selectAll(".data-point")
       .data(data)
       .enter()
-      .append("g")
-      .attr("class", "data-point")
+      .append("circle")
+      .attr("class", (d) => "data-point-" + d.clusterId)
       .attr("transform", (d) => `translate(${xScale(d.x)},${yScale(d.y)})`)
+      .on("mouseover", handleMouseOver)
+      .on("mouseout", handleMouseOut)
+      .attr("r", (d) => radiusScale(d.count))
       .style("cursor", "pointer")
-      .on("click", () => {
-        handleClickedPoint();
-      });
-    // Create '+' symbols for green data points
-    points
-      .filter((d, i) => i < data.length / 2)
-      .append("path")
-      .attr("d", d3.symbol().type(d3.symbolCross).size(60)) // Use cross symbol
-      .style("fill", "green")
-      .style("opacity", 0.7);
+      .style("fill", "steelblue")
+      .style("opacity", 0.7)
+      .on("mousedown", handleClickedPoint);
 
-    // Create square symbols for red data points
-    points
-      .filter((d, i) => i >= data.length / 2)
-      .append("path")
-      .attr("d", d3.symbol().type(d3.symbolCircle).size(60)) // Use square symbol for red
-      .style("fill", "red")
-      .style("opacity", 0.7);
+    function handleMouseOver(event, d) {
+      setHoverCluster(d.clusterId);
+      setDistrictPlans(d.count);
+    }
 
-    // Add X and Y axis titles
-    g.append("text")
-      .attr("x", innerWidth / 2 + 40)
-      .attr("y", innerHeight + margin.bottom / 2)
-      .attr("text-anchor", "middle")
-      .text("% African American");
+    function handleMouseOut() {
+      setHoverCluster(null);
+      setDistrictPlans(null);
+    }
 
-    g.append("text")
-      .attr("x", -innerHeight / 2)
-      .attr("y", -margin.left)
-      .attr("transform", "rotate(-90)")
-      .attr("text-anchor", "middle")
-      .text("% Democrats");
-  }, [data, width, height]);
+    function handleClickedPoint(event, d) {
+      console.log(props.tabValue);
+      props.setTabValue(props.tabValue.replace("Cluster", "District Plan"));
+      props.onClick(d.clusterId);
+    }
+  }, [props.clusters]);
 
-  return <svg ref={svgRef}></svg>;
+  return (
+    <div>
+      <svg ref={svgRef}></svg>
+      <p>Cluster: {hoverCluster}</p>
+      <p>Number of District Plans: {districtPlans}</p>
+    </div>
+  );
 };
 
 export default Scatterplot;

@@ -140,6 +140,7 @@ const ClusterTable = (props) => {
   };
 
   const handleClusterClick = (event) => {
+    console.log(props.tabValue);
     let clusterId = event.currentTarget.id;
     props.setTabValue(props.tabValue.replace("Cluster", "District Plan"));
     props.changeCluster(clusterId);

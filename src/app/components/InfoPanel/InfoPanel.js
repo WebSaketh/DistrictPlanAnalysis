@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClusterTable from "src/app/components/InfoPanel/ClusterTable.js";
 import DistrictPlanTable from "./DistrictPlanTable.js";
 import InfoTabs from "src/app/components/InfoPanel/InfoTabs.js";
 import Scatterplot from "src/app/components/Scatterplot/Scatterplot.js";
+import DistrictPlanPlot from "src/app/components/Scatterplot/DistrictPlanPlot.js";
 import SelectionMessage from "src/app/components/InfoPanel/SelectionMessage.js";
 
 const InfoPanel = (props) => {
@@ -113,12 +114,7 @@ const InfoPanel = (props) => {
           ></DistrictPlanTable>
         </div>
         <div hidden={tabValue !== "District Plan Scatterplot"}>
-          <Scatterplot
-            data={data}
-            width={600}
-            height={400}
-            onClick={props.setCluster}
-          />
+          <DistrictPlanPlot />
         </div>
       </div>
     );
@@ -144,6 +140,9 @@ const InfoPanel = (props) => {
           data={data}
           width={600}
           height={400}
+          clusters={props.clusters}
+          setTabValue={setTabValue}
+          tabValue={tabValue}
           onClick={props.changeCluster}
         />
       </div>
