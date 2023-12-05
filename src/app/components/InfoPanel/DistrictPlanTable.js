@@ -151,6 +151,10 @@ const DistrictPlanTable = (props) => {
         );
       }
       setSelected(newSelected);
+
+      props.changeDistrictPlan(
+        newSelected.map((indx) => data[indx - 1].DistrictPlanId)
+      );
     }
   };
 

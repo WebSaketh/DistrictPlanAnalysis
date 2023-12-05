@@ -152,24 +152,32 @@ const Map2 = (props) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {props.stateDistrictMap !== null ? (
+      {props.responses.length === 0 && props.stateDistrictMap !== null ? (
         <GeoJSON
           key={props.state}
           data={props.stateDistrictMap}
           style={geoJsonStyle}
           onEachFeature={onEachFeature}
         >
-          {props.districtPlan ? (
-            <Polygon pathOptions={purpleOptions} positions={polygon1} />
-          ) : null}
           <Tooltip direction="center" offset={[0, -190]} permanent>
-            STATE SENATE{" "}
+            {"STATE SENATE"}
             {props.district ? "|  District: " + props.district : ""}
           </Tooltip>
         </GeoJSON>
       ) : null}
+      {props.responses.map((res, index) =>
+        JSON.stringify(res.data.geoJsonData) === "{}" ? null : (
+          <GeoJSON key={index} data={res?.data?.geoJsonData}></GeoJSON>
+        )
+      )}
+    </MapContainer>
+  );
+};
 
-      {/*{props.state === "Colorado" && stateData.length !== 0 ? (
+export default Map2;
+
+{
+  /*{props.state === "Colorado" && stateData.length !== 0 ? (
         <GeoJSON
           // key="Colorado"
           data={stateData}
@@ -216,9 +224,5 @@ const Map2 = (props) => {
             {props.district ? "|  District: " + props.district : ""}
           </Tooltip>
         </GeoJSON>
-          ) : null}*/}
-    </MapContainer>
-  );
-};
-
-export default Map2;
+          ) : null}*/
+}
