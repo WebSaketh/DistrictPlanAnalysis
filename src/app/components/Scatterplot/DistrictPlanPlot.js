@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-const width = 800;
-const height = 400;
+const width = 1000;
+const height = 600;
 
 const DistrictPlanPlot = (props) => {
   const svgRef = useRef();
