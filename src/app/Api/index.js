@@ -24,6 +24,12 @@ export const getDistrictPlanGeoJson = (dpId) =>
 export const getAverageDistrictPlanGeoJson = (dpId) =>
   api.get("/dp/getAverageDistrictPlan/" + dpId);
 
+export const getComparisonDistrictMeasures = (stateName, ensembleName) =>
+  api.get("/ensemble/" + stateName + "/" + ensembleName);
+
+export const getEnsembleAssoication = (stateName) =>
+  api.get("/ensemble/" + stateName);
+
 const apis = {
   getInitialization,
   getState,
@@ -31,6 +37,8 @@ const apis = {
   getDistrictPlanInformationForSelectedCluster,
   getDistrictPlanGeoJson,
   getAverageDistrictPlanGeoJson,
+  getComparisonDistrictMeasures,
+  getEnsembleAssoication,
 };
 
 export default apis;
