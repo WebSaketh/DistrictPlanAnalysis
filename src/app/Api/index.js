@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "http://172.25.237.177:8080",
 });
 
 export const getInitialization = () => api.get(`/initialize/`);
@@ -21,12 +21,16 @@ export const getDistrictPlanInformationForSelectedCluster = (clusterId) =>
 export const getDistrictPlanGeoJson = (dpId) =>
   api.get("/dp/getDistrictPlan/" + dpId);
 
+export const getAverageDistrictPlanGeoJson = (dpId) =>
+  api.get("/dp/getAverageDistrictPlan/" + dpId);
+
 const apis = {
   getInitialization,
   getState,
   getClusters,
   getDistrictPlanInformationForSelectedCluster,
   getDistrictPlanGeoJson,
+  getAverageDistrictPlanGeoJson,
 };
 
 export default apis;

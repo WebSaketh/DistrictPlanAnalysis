@@ -106,7 +106,33 @@ const DistrictPlanPlot = (props) => {
   }
 
   function handleClickedPoint(event, d) {
-    props.changeDistrictPlan([d.districtPlanId]);
+    var t = d.districtPlanId;
+    var p = [...props.districtPlan];
+    var q = [...props.selected];
+
+    var x = 0;
+    for (x = 0; x < props.districtPlanInfo.length; x++) {
+      if (props.districtPlanInfo[x].districtPlanId == t) {
+        x++;
+        break;
+      }
+    }
+
+    if (q.indexOf(x) != -1) {
+      q.splice(q.indexOf(x), 1);
+      props.setSelected(q);
+    } else {
+      q.push(x);
+      props.setSelected(q);
+    }
+
+    if (p.indexOf(t) != -1) {
+      p.splice(p.indexOf(t), 1);
+      props.changeDistrictPlan(p);
+    } else {
+      p.push(t);
+      props.changeDistrictPlan(p);
+    }
   }
 
   return (
