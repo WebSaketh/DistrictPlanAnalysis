@@ -31,7 +31,10 @@ const InfoPanel = (props) => {
           ></DistrictPlanTable>
         </div>
         <div hidden={tabValue !== "District Plan Scatterplot"}>
-          <DistrictPlanPlot />
+          <DistrictPlanPlot
+            districtPlanInfo={props.districtPlanInfo}
+            changeDistrictPlan={props.changeDistrictPlan}
+          />
         </div>
       </div>
     );
