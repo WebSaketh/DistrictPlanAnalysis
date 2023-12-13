@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import Map2 from "./components/Maps/Map2";
 import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import InfoPanel from "./components/InfoPanel";
+import EnsembleTable from "./components/EnsembleTable";
 import apis from "./Api/index.js";
 
 function getRandomInt(max) {
@@ -74,6 +75,8 @@ export default function Home() {
   const [districtPlanInfo, setDistrictPlanInfo] = useState([]);
   const [responses, setResponses] = useState([]);
   const [clusterADP, setClusterADP] = useState(null);
+  const [ensembleTableInfo, setEnsembleTableInfo] = useState([]);
+  const [distanceMeasureDropDown, setDistanceMeasureDropDown] = useState([]);
 
   const changeView = (e) => {
     var k = e?.target?.innerHTML;
@@ -147,6 +150,9 @@ export default function Home() {
       setClusterADP(null);
       setDistrictPlan([]);
       setClusters([]);
+
+      let index = parseInt(k.slice(-1)) - 1;
+      setDistanceMeasureDropDown(ensembleTableInfo[index].distanceMeasureArray);
     }
   };
   const changeDistrict = (e) => {
@@ -169,6 +175,8 @@ export default function Home() {
       setDistanceMeasure(null);
       setEnsembleList([]);
       setClusters([]);
+      setEnsembleTableInfo([]);
+      setDistanceMeasureDropDown([]);
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
@@ -177,15 +185,20 @@ export default function Home() {
         setCluster(null);
         setClusterADP(null);
         setDistrictPlan([]);
+        setStateDistrictMap(null);
+        setEnsembleList([]);
         setClusters([]);
+        setEnsembleTableInfo([]);
+        setDistanceMeasureDropDown([]);
       }
       getStateInfo("Colorado").then((res) => {
         if (res !== "Error") {
-          setStateDistrictMap(res.colo2020);
-          setEnsembleList(res.ensembles);
+          setStateDistrictMap(res[0].colo2020);
+          setEnsembleList(res[0].ensembles);
           setState("Colorado");
           setCenter([39.4, -106]);
           setZoom(6.5);
+          setEnsembleTableInfo(res[1]);
         }
       });
     } else if (k === "Ohio") {
@@ -196,15 +209,20 @@ export default function Home() {
         setCluster(null);
         setClusterADP(null);
         setDistrictPlan([]);
+        setStateDistrictMap(null);
+        setEnsembleList([]);
         setClusters([]);
+        setEnsembleTableInfo([]);
+        setDistanceMeasureDropDown([]);
       }
       getStateInfo("Ohio").then((res) => {
         if (res !== "Error") {
-          setStateDistrictMap(res.ohio2020);
-          setEnsembleList(res.ensembles);
+          setStateDistrictMap(res[0].ohio2020);
+          setEnsembleList(res[0].ensembles);
           setState("Ohio");
           setCenter([40, -83]);
           setZoom(6.5);
+          setEnsembleTableInfo(res[1]);
         }
       });
     } else if (k === "Illinois") {
@@ -215,15 +233,20 @@ export default function Home() {
         setCluster(null);
         setClusterADP(null);
         setDistrictPlan([]);
+        setStateDistrictMap(null);
+        setEnsembleList([]);
         setClusters([]);
+        setEnsembleTableInfo([]);
+        setDistanceMeasureDropDown([]);
       }
       getStateInfo("Illinois").then((res) => {
         if (res !== "Error") {
-          setStateDistrictMap(res.ill2020);
-          setEnsembleList(res.ensembles);
+          setStateDistrictMap(res[0].ill2020);
+          setEnsembleList(res[0].ensembles);
           setState("Illinois");
           setCenter([40, -89.5]);
           setZoom(6.5);
+          setEnsembleTableInfo(res[1]);
         }
       });
     } else if (k === "Reset Map") {
@@ -239,14 +262,24 @@ export default function Home() {
       setStateDistrictMap(null);
       setEnsembleList([]);
       setClusters([]);
+      setEnsembleTableInfo([]);
+      setDistanceMeasureDropDown([]);
     }
   };
   const getStateInfo = async (state) => {
+    let res = [];
     try {
       let json = await apis.getState(state);
       if (json.data === "Error")
         throw new Error("error getting state information...");
-      return json.data;
+      let json2 = await apis.getEnsemble(state);
+      if (json2.data === "Error")
+        throw new Error("error getting ensemble informaation...");
+
+      res.push(json.data);
+      res.push(json2.data);
+      console.log(res);
+      return res;
     } catch (error) {
       return "Error";
     }
@@ -292,6 +325,7 @@ export default function Home() {
             changeDistanceMeasure={changeDistanceMeasure}
             goToAbout={goToAbout}
             ensembleList={ensembleList}
+            dmList={distanceMeasureDropDown}
           >
             HEY
           </Navbar>
@@ -309,6 +343,8 @@ export default function Home() {
                 stateDistrictMap={stateDistrictMap}
                 responses={responses}
               ></Map2>
+              <br></br>
+              <EnsembleTable ensembleTableInfo={ensembleTableInfo} />
             </div>
             <InfoPanel
               setCluster={setCluster}
@@ -343,6 +379,7 @@ export default function Home() {
             changeDistanceMeasure={changeDistanceMeasure}
             goToAbout={goToAbout}
             ensembleList={ensembleList}
+            dmList={distanceMeasureDropDown}
           >
             HEY
           </Navbar>
@@ -390,6 +427,7 @@ export default function Home() {
           changeDistanceMeasure={changeDistanceMeasure}
           goToAbout={goToAbout}
           ensembleList={ensembleList}
+          dmList={distanceMeasureDropDown}
         ></Navbar>
         <Map
           state={state}
