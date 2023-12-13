@@ -160,7 +160,9 @@ const Map2 = (props) => {
           onEachFeature={onEachFeature}
         >
           <Tooltip direction="center" offset={[0, -190]} permanent>
-            {"STATE SENATE"}
+            {props.state === "Colorado"
+              ? "State Senate District Plan"
+              : "Federal Congressional District Plan"}
             {props.district ? "|  District: " + props.district : ""}
           </Tooltip>
         </GeoJSON>

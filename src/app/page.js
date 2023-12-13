@@ -6,57 +6,9 @@ import React, { useEffect, useState } from "react";
 import Map2 from "./components/Maps/Map2";
 import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import InfoPanel from "./components/InfoPanel";
+import InfoTabs from "src/app/components/InfoTabs.js";
 import EnsembleTable from "./components/EnsembleTable";
 import apis from "./Api/index.js";
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
-
-const data3 = {
-  columns: [
-    "Metric Name",
-    "Cluster Purity", //Cluster purity measures the proportion of data points in a cluster that belong to the majority class. Higher purity indicates more homogeneous clusters.
-    "Execution Time",
-    "Resource Utilization",
-    "Silhouette Score", //The silhouette score quantifies how similar each data point is to its own cluster compared to other clusters. Higher scores indicate better-defined clusters.
-    "Inertia", //Inertia measures the total distance between data points and their cluster centroids. Lower inertia indicates tighter clusters.
-  ],
-  rows: [
-    [
-      "Optimal Transport",
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      "Hamming Distance",
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      "Total Variation",
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-    [
-      "Another Measure",
-      getRandomInt(1000),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-      getRandomInt(100),
-    ],
-  ],
-};
 
 export default function Home() {
   const [state, setState] = useState(null);
@@ -69,7 +21,7 @@ export default function Home() {
   const [distanceMeasure, setDistanceMeasure] = useState(null);
   const [cluster, setCluster] = useState(null);
   const [districtPlan, setDistrictPlan] = useState([]);
-  const [view, setView] = useState("Cluster Analysis");
+  const [view, setView] = useState("Ensemble & Cluster Analysis");
   const [about, setAbout] = useState(false);
   const [clusters, setClusters] = useState([]);
   const [districtPlanInfo, setDistrictPlanInfo] = useState([]);
@@ -80,7 +32,7 @@ export default function Home() {
 
   const changeView = (e) => {
     var k = e?.target?.innerHTML;
-    if (k == "Cluster Analysis") {
+    if (k == "Ensemble & Cluster Analysis") {
       setView(k);
     } else if (k == "Distance Measure Analysis") {
       setView(k);
@@ -278,7 +230,6 @@ export default function Home() {
 
       res.push(json.data);
       res.push(json2.data);
-      console.log(res);
       return res;
     } catch (error) {
       return "Error";
@@ -310,7 +261,7 @@ export default function Home() {
     fetchData();
   }, [districtPlan]);
 
-  if (state && view == "Cluster Analysis") {
+  if (state && view == "Ensemble & Cluster Analysis") {
     return (
       <main>
         <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
@@ -331,6 +282,7 @@ export default function Home() {
           </Navbar>
           <div className="flex flex-row flex-1">
             <div className="aspect-square">
+              <h1></h1>
               <Map2
                 state={state}
                 center={center}
@@ -346,7 +298,10 @@ export default function Home() {
               <br></br>
               <EnsembleTable ensembleTableInfo={ensembleTableInfo} />
             </div>
+
             <InfoPanel
+              view={view}
+              changeView={changeView}
               setCluster={setCluster}
               clusters={clusters}
               cluster={cluster}
@@ -364,55 +319,7 @@ export default function Home() {
       </main>
     );
   }
-  if (state && view == "Distance Measure Analysis") {
-    return (
-      <main>
-        <div className="flex min-h-screen max-h-screen flex-col justify-between p-0 pb-0 pt-0">
-          <Navbar
-            view={view}
-            state={state}
-            ensemble={ensemble}
-            distanceMeasure={distanceMeasure}
-            changeView={changeView}
-            changeState={changeState}
-            changeEnsemble={changeEnsemble}
-            changeDistanceMeasure={changeDistanceMeasure}
-            goToAbout={goToAbout}
-            ensembleList={ensembleList}
-            dmList={distanceMeasureDropDown}
-          >
-            HEY
-          </Navbar>
-          <div className="flex flex-row flex-1">
-            <div>
-              <Map2
-                state={state}
-                center={center}
-                zoom={zoom}
-                ensemble={ensemble}
-                district={district}
-                districtPlan={districtPlan}
-                changeDistrict={changeDistrict}
-                changeState={changeState}
-                stateDistrictMap={stateDistrictMap}
-                responses={responses}
-              ></Map2>
-            </div>
-            <div className="flex flex-1 justify-center items-center">
-              <div className="flex flex-1 flex-col ">
-                <div className="m-5 flex flex-row">
-                  <SimpleLineChart />
-                </div>
-                <div className="m-5">
-                  <Table data={data3} settingSomething={changeCluster} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    );
-  }
+
   return (
     <main>
       <div className="flex min-h-screen max-h-screen min-w-screen max-w-screen flex flex-col justify-between p-0 pb-0 pt-0">

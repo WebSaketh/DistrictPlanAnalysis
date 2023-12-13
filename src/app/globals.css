@@ -25,3 +25,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.special-table-cell {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
