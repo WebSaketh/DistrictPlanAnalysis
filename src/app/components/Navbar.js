@@ -35,28 +35,6 @@ const Navbar = (props) => {
         >
           CHIEFS
         </span>
-        <button
-          text="Cluster Analysis"
-          onClick={props.changeView}
-          className={
-            props.view == "Cluster Analysis"
-              ? "col-span-2 m-1 ml-4 btn btn-error self-end bg-red-200"
-              : "col-span-2 m-1 ml-4 btn btn-error self-end"
-          }
-        >
-          <a>Cluster Analysis</a>
-        </button>
-        <button
-          text="Distance Measure Analysis"
-          onClick={props.changeView}
-          className={
-            props.view == "Distance Measure Analysis"
-              ? "col-span-2 m-1 ml-4 btn btn-error self-end bg-red-200"
-              : "col-span-2 m-1 ml-4 btn btn-error self-end"
-          }
-        >
-          <a>Distance Measure Analysis</a>
-        </button>
       </div>
       <div className="flex flex-row">
         <div className="col-span-2">
@@ -67,22 +45,26 @@ const Navbar = (props) => {
             itemName={props.state}
           ></Dropdown>
         </div>
-        <div className="col-span-2">
-          <Dropdown
-            title="Ensembles"
-            items={props.ensembleList}
-            changeState={props.changeEnsemble}
-            itemName={props.ensemble}
-          ></Dropdown>
-        </div>
-        <div className="col-span-2">
-          <Dropdown
-            title="Distance Measure"
-            items={props.dmList}
-            changeState={props.changeDistanceMeasure}
-            itemName={props.distanceMeasure}
-          ></Dropdown>
-        </div>
+        {props.ensembleList.length > 0 && (
+          <div className="col-span-2">
+            <Dropdown
+              title="Select Ensemble"
+              items={props.ensembleList}
+              changeState={props.changeEnsemble}
+              itemName={props.ensemble}
+            ></Dropdown>
+          </div>
+        )}
+        {props.dmList.length > 0 && (
+          <div className="col-span-2">
+            <Dropdown
+              title="Select Distance Measure"
+              items={props.dmList}
+              changeState={props.changeDistanceMeasure}
+              itemName={props.distanceMeasure}
+            ></Dropdown>
+          </div>
+        )}
         <button
           text="Reset Map"
           onClick={props.changeState}

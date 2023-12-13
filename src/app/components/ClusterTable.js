@@ -10,6 +10,24 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: "white",
+  },
+  "&:nth-of-type(even)": {
+    // backgroundColor: "#FFC6C4",
+    backgroundColor: "#ECECEC",
+  },
+}));
+
+const styles = (theme) => ({
+  tableRow: {
+    "&:hover": {
+      backgroundColor: "blue !important",
+    },
+  },
+});
+
 const columns = [
   { id: "Row", label: "Row", minWidth: 100 },
   {
@@ -115,7 +133,7 @@ const ClusterTable = (props) => {
       d.push(
         createData(
           k + 1,
-          cluster.clusterId,
+          "Cluster " + cluster.clusterId,
           cluster.districtPlanIds.length,
           Math.random(),
           cluster.clusterDemographics.democratic,
@@ -141,7 +159,7 @@ const ClusterTable = (props) => {
 
   const handleClusterClick = (event) => {
     console.log(props.tabValue);
-    let clusterId = event.currentTarget.id;
+    let clusterId = event.currentTarget.id.slice(8);
     props.setTabValue(props.tabValue.replace("Cluster", "District Plan"));
     props.changeCluster(clusterId);
   };
@@ -149,7 +167,16 @@ const ClusterTable = (props) => {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table
+          stickyHeader
+          aria-label="sticky table"
+          sx={{
+            "& .MuiTableRow-root:hover": {
+              backgroundColor: "#FFC6C4",
+            },
+          }}
+          size={"small"}
+        >
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -163,13 +190,12 @@ const ClusterTable = (props) => {
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody sx={{ maxHeight: "100px" }}>
             {data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, indx) => {
                 return (
-                  <TableRow
-                    hover
+                  <StyledTableRow
                     role="checkbox"
                     tabIndex={-1}
                     key={indx}
@@ -178,7 +204,17 @@ const ClusterTable = (props) => {
                   >
                     {columns.map((column) => {
                       const value = row[column.id];
-                      return (
+                      return column.id === "ClusterId" ? (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          className="special-table-cell"
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      ) : (
                         <TableCell key={column.id} align={column.align}>
                           {column.format && typeof value === "number"
                             ? column.format(value)
@@ -186,7 +222,7 @@ const ClusterTable = (props) => {
                         </TableCell>
                       );
                     })}
-                  </TableRow>
+                  </StyledTableRow>
                 );
               })}
           </TableBody>

@@ -18,7 +18,18 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import { styled } from "@mui/material/styles";
 import { visuallyHidden } from "@mui/utils";
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: "white",
+  },
+  "&:nth-of-type(even)": {
+    // backgroundColor: "#FFC6C4",
+    backgroundColor: "#ECECEC",
+  },
+}));
 
 function createData(
   Row,
@@ -109,7 +120,7 @@ const DistrictPlanTable = (props) => {
   const selected = props.selected;
   const setSelected = props.setSelected;
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
+  const [dense, setDense] = useState(true);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data, setData] = useState([]);
 
@@ -168,10 +179,6 @@ const DistrictPlanTable = (props) => {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const emptyRows =
@@ -182,7 +189,12 @@ const DistrictPlanTable = (props) => {
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{
+              "& .MuiTableRow-root:hover": {
+                backgroundColor: "#FFC6C4",
+              },
+              minWidth: 750,
+            }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -207,7 +219,7 @@ const DistrictPlanTable = (props) => {
                   const isItemSelected = isSelected(row.Row);
                   const labelId = `enhanced-table-checkbox-${row.Row}`;
                   return (
-                    <TableRow
+                    <StyledTableRow
                       hover
                       role="checkbox"
                       tabIndex={-1}
@@ -245,7 +257,7 @@ const DistrictPlanTable = (props) => {
                           );
                         }
                       })}
-                    </TableRow>
+                    </StyledTableRow>
                   );
                 })}
             </TableBody>
@@ -261,10 +273,6 @@ const DistrictPlanTable = (props) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 };
