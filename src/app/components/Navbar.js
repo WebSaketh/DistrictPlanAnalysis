@@ -78,7 +78,7 @@ const Navbar = (props) => {
         <div className="col-span-2">
           <Dropdown
             title="Distance Measure"
-            items={props.ensemble ? ["DM1", "DM2", "DM3"] : []}
+            items={props.dmList}
             changeState={props.changeDistanceMeasure}
             itemName={props.distanceMeasure}
           ></Dropdown>

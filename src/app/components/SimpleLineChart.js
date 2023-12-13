@@ -38,11 +38,11 @@ const SimpleLineChart = () => {
     >
       <XAxis
         dataKey="name"
-        label={{ value: "# of Clusters", position: "bottom" }}
+        label={{ value: "# of District Plans", position: "bottom" }}
       />
       <YAxis
         label={{
-          value: "# of District Plans",
+          value: "# of Clusters",
           angle: -90,
           position: "insideLeft",
         }}

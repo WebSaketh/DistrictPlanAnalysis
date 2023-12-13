@@ -122,7 +122,7 @@ const Map2 = (props) => {
     minHeight: "100px",
     minWidth: "600px",
     maxWidth: "600px",
-    height: "100%",
+    minHeight: "70%",
   };
 
   const style2 = {
