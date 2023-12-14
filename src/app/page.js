@@ -277,6 +277,8 @@ export default function Home() {
             goToAbout={goToAbout}
             ensembleList={ensembleList}
             dmList={distanceMeasureDropDown}
+            cluster={cluster}
+            districtPlan={districtPlan}
           >
             HEY
           </Navbar>

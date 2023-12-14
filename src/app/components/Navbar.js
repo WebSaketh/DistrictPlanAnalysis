@@ -1,6 +1,25 @@
 import Dropdown from "./Dropdown";
+import { useEffect, useState } from "react";
 
 const Navbar = (props) => {
+  const [header, setHeader] = useState("");
+
+  useEffect(() => {
+    let temp = "";
+    if (props.state !== null) {
+      temp += props.state;
+    }
+    if (props.ensemble !== null) {
+      temp += " > " + props.ensemble;
+    }
+    if (props.distanceMeasure !== null) {
+      temp += " > " + props.distanceMeasure;
+    }
+    if (props.cluster !== null) {
+      temp += " > Cluster " + props.cluster;
+    }
+    setHeader(temp);
+  }, [props]);
   return (
     <nav className="w-full flex items-center justify-between flex-wrap bg-[#990000] p-2">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -35,6 +54,9 @@ const Navbar = (props) => {
         >
           CHIEFS
         </span>
+        <div>
+          <h1>{header}</h1>
+        </div>
       </div>
       <div className="flex flex-row">
         <div className="col-span-2">
