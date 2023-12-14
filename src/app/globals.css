@@ -31,3 +31,8 @@ body {
   color: blue;
   text-decoration: underline;
 }
+
+.chart-container {
+  width: 1000px;
+  height: 500px;
+}

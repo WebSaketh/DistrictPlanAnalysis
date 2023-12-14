@@ -11,6 +11,12 @@ import Table from "./Table";
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
   const [selected, setSelected] = useState([]);
+  const [tableValue, setTableValue] = useState(1);
+
+  const changeTableValue = (value) => {
+    console.log(value);
+    setTableValue(value);
+  };
 
   const [mainTabValue, setMainTabValue] = useState(
     "Ensemble & Cluster Analysis"
@@ -48,8 +54,10 @@ const InfoPanel = (props) => {
           </div>
           <div hidden={tabValue !== "Cluster Scatterplot"}>
             <Scatterplot
-              width={600}
-              height={400}
+              tableValue={tableValue}
+              changeTableValue={changeTableValue}
+              maxWidth={600}
+              maxHeight={400}
               clusters={props.clusters}
               setTabValue={setTabValue}
               tabValue={tabValue}
@@ -81,6 +89,8 @@ const InfoPanel = (props) => {
           </div>
           <div hidden={tabValue !== "District Plan Scatterplot"}>
             <DistrictPlanPlot
+              tableValue={tableValue}
+              changeTableValue={changeTableValue}
               districtPlan={props.districtPlan}
               districtPlanInfo={props.districtPlanInfo}
               changeDistrictPlan={props.changeDistrictPlan}
