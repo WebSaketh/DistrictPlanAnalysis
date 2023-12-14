@@ -36,3 +36,7 @@ body {
   width: 1000px;
   height: 500px;
 }
+
+.header-navbar {
+  margin-left: 30px;
+}

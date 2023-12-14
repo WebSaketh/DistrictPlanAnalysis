@@ -5,6 +5,7 @@ const Navbar = (props) => {
   const [header, setHeader] = useState("");
 
   useEffect(() => {
+    console.log(props);
     let temp = "";
     if (props.state !== null) {
       temp += props.state;
@@ -55,7 +56,7 @@ const Navbar = (props) => {
           CHIEFS
         </span>
         <div>
-          <h1>{header}</h1>
+          <h1 className="header-navbar">{header}</h1>
         </div>
       </div>
       <div className="flex flex-row">
