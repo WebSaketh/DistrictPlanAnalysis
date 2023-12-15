@@ -318,6 +318,7 @@ export default function Home() {
                     distanceMeasureInfo={ensembleTableInfo}
                     ensembleName={ensemble}
                     changeDistanceMeasure={changeDistanceMeasure}
+                    distanceMeasure={distanceMeasure}
                   />
                 </div>
               )}
