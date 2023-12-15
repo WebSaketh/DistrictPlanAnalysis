@@ -1,117 +1,136 @@
 import React, { useEffect, useRef, useState } from "react";
-import * as d3 from "d3";
+import Chart from "chart.js/auto";
+import { Select, MenuItem } from "@mui/material";
 
-const width = 1000;
-const height = 600;
+const axisLabels = [
+  {
+    xAxis: "X Mds Value",
+    yAxis: "Y Mds Value",
+    title: "X mds vs Y mds",
+  },
+  {
+    xAxis: "Asians",
+    yAxis: "Hispanics",
+    title: "Asians vs Hispanics",
+  },
+  {
+    xAxis: "Whites",
+    yAxis: "Blacks",
+    title: "Whites vs Blacks",
+  },
+];
 
 const Scatterplot = (props) => {
-  const svgRef = useRef();
-  const [data, setData] = useState([]);
-  const [hoverCluster, setHoverCluster] = useState(null);
-  const [districtPlans, setDistrictPlans] = useState(null);
+  const chartRef = useRef(null);
+  const chartInstance = useRef(null);
+  const [selector, setSelector] = useState(0);
+
+  const handleChange = (event) => {
+    props.changeTableValue(event.target.value);
+  };
 
   useEffect(() => {
+    setSelector(props.tableValue);
+    if (chartInstance.current) {
+      chartInstance.current.destroy();
+    }
+    const myChartRef = chartRef.current.getContext("2d");
     let i = 0;
-    const data2 = Array.from({ length: props.clusters.length }, () => ({
-      x: Math.random() * 100, // Random X value between 0 and 100
-      y: Math.random() * 100, // Random Y value between 0 and 100
-      count: props.clusters[i].districtPlanIds.length,
-      clusterId: props.clusters[i++].clusterId,
-    }));
-    setData(data2);
-  }, [props.clusters]);
+    let data2 = [];
+    if (props.tableValue === 1) {
+      data2 = Array.from({ length: props.clusters.length }, () => ({
+        x: props.clusters[i].clusterDemographics.mds_x,
+        y: props.clusters[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
+        r: props.clusters[i].districtPlanIds.length,
+        name: "Cluster " + props.clusters[i++].clusterId,
+      }));
+    } else if (props.tableValue === 2) {
+      data2 = Array.from({ length: props.clusters.length }, () => ({
+        x: props.clusters[i].clusterDemographics.asian,
+        y: props.clusters[i].clusterDemographics.hispanic, // Random Y value between 0 and 100
+        r: props.clusters[i].districtPlanIds.length,
+        name: "Cluster " + props.clusters[i++].clusterId,
+      }));
+    } else if (props.tableValue === 3) {
+      data2 = Array.from({ length: props.clusters.length }, () => ({
+        x: props.clusters[i].clusterDemographics.white,
+        y: props.clusters[i].clusterDemographics.black, // Random Y value between 0 and 100
+        r: props.clusters[i].districtPlanIds.length,
+        name: "Cluster " + props.clusters[i++].clusterId,
+      }));
+    }
 
-  const margin = { top: 40, right: 40, bottom: 60, left: 60 };
-  const innerWidth = width - margin.left - margin.right;
-  const innerHeight = height - margin.top - margin.bottom;
-
-  const svg = d3
-    .select(svgRef.current)
-    .attr("width", width)
-    .attr("height", height);
-
-  const g = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-  // Create scales to map data to SVG coordinates
-  const xScale = d3
-    .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.x)])
-    .range([0, innerWidth])
-    .nice();
-
-  const yScale = d3
-    .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.y)])
-    .range([innerHeight, 0])
-    .nice();
-
-  const radiusScale = d3
-    .scaleSqrt()
-    .domain([0, d3.max(data, (d) => d.count)])
-    .range([0, 10]);
-
-  // Draw X and Y axes with gridlines and smaller ticks
-  const xAxis = d3.axisBottom(xScale).ticks(5);
-  g.append("g")
-    .attr("class", "x-axis")
-    .attr("transform", `translate(0, ${innerHeight})`)
-    .call(xAxis)
-    .selectAll("text")
-    .style("text-anchor", "middle");
-
-  const yAxis = d3.axisLeft(yScale).ticks(5);
-  g.append("g").attr("class", "y-axis").call(yAxis);
-
-  // Add gridlines to the chart area
-  g.selectAll(".y-axis .tick line")
-    .attr("x2", innerWidth) // Extend the gridlines to the right
-    .style("stroke", "#f0f0f0"); // Subtle gridline color
-
-  g.selectAll(".x-axis .tick line")
-    .attr("y2", -innerHeight) // Extend the gridlines upwards
-    .style("stroke", "#f0f0f0"); // Subtle gridline color
-
-  // Create data points with click functionality
-  // Create data points with click functionality
-  g.selectAll(".data-point")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("class", (d) => "data-point-" + d.clusterId)
-    .attr("transform", (d) => `translate(${xScale(d.x)},${yScale(d.y)})`)
-    .on("mouseover", handleMouseOver)
-    .on("mouseout", handleMouseOut)
-    .attr("r", (d) => radiusScale(d.count))
-    .style("cursor", "pointer")
-    .style("fill", "steelblue")
-    .style("opacity", 0.7)
-    .on("mousedown", handleClickedPoint);
-
-  function handleMouseOver(event, d) {
-    setHoverCluster(d.clusterId);
-    setDistrictPlans(d.count);
-  }
-
-  function handleMouseOut() {
-    setHoverCluster(null);
-    setDistrictPlans(null);
-  }
-
-  function handleClickedPoint(event, d) {
-    console.log(props.tabValue);
-    props.setTabValue(props.nextTab);
-    props.onClick(d.clusterId);
-  }
+    chartInstance.current = new Chart(myChartRef, {
+      // plugins: [ChartDataLabels],
+      type: "bubble",
+      title: "First Data Set",
+      data: {
+        datasets: [
+          {
+            label: "Clusters",
+            data: data2,
+            backgroundColor: "rgb(255, 99, 132, 0.25)",
+          },
+        ],
+      },
+      options: {
+        onClick: function (e, i) {
+          let clusterName = data2[i[0].index].name;
+          let clusterId = clusterName.slice(8);
+          props.setTabValue(props.nextTab);
+          props.onClick(clusterId);
+        },
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: axisLabels[props.tableValue - 1].yAxis,
+            },
+          },
+          x: {
+            title: {
+              display: true,
+              text: axisLabels[props.tableValue - 1].xAxis,
+            },
+          },
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (item) {
+                return (
+                  "Cluster: " +
+                  item.raw.name +
+                  ", Number Of Plans: " +
+                  item.raw.r
+                );
+              },
+            },
+          },
+          title: {
+            display: true,
+            text: axisLabels[props.tableValue - 1].title,
+            padding: {
+              top: 10,
+              bottom: 20,
+            },
+          },
+        },
+      },
+    });
+  }, [props]);
 
   return (
     <div>
-      <svg ref={svgRef}></svg>
-      <p>Cluster: {hoverCluster}</p>
-      <p>Number of District Plans: {districtPlans}</p>
+      <div class="chart-container">
+        <canvas ref={chartRef} />
+      </div>
+      <Select value={selector} onChange={handleChange}>
+        <MenuItem value={1}>X mds vs Y mds</MenuItem>
+        <MenuItem value={2}>Asians vs Hispanics</MenuItem>
+        <MenuItem value={3}>Whites vs Blacks</MenuItem>
+      </Select>
     </div>
   );
 };
-
 export default Scatterplot;
