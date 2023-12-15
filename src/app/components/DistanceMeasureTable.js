@@ -34,24 +34,48 @@ const DistanceMeasureTable = (props) => {
         </TableHead>
         {!index && (
           <TableBody>
-            {props.distanceMeasureInfo[0].distanceMeasureInfo.map((dm) => (
-              <TableRow
-                key={dm.distanceMeasure}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  <Button
-                    value={dm.distanceMeasure}
-                    variant="contained"
-                    onClick={handleOnClick}
-                  >
-                    {dm.distanceMeasure}
-                  </Button>
-                </TableCell>
-                <TableCell align="right">{dm.totalClusters}</TableCell>
-                <TableCell align="right">{dm.normalizedScore}</TableCell>
-              </TableRow>
-            ))}
+            {props.distanceMeasureInfo[0].distanceMeasureInfo.map((dm) =>
+              dm.distanceMeasure === props.distanceMeasure ? (
+                <TableRow
+                  key={dm.distanceMeasure}
+                  sx={{
+                    backgroundColor: "#FFC6C4",
+                    "&:last-child td, &:last-child th": { border: 0 },
+                  }}
+                >
+                  <TableCell component="th" scope="row">
+                    <Button
+                      value={dm.distanceMeasure}
+                      variant="contained"
+                      onClick={handleOnClick}
+                    >
+                      {dm.distanceMeasure}
+                    </Button>
+                  </TableCell>
+                  <TableCell align="right">{dm.totalClusters}</TableCell>
+                  <TableCell align="right">{dm.normalizedScore}</TableCell>
+                </TableRow>
+              ) : (
+                <TableRow
+                  key={dm.distanceMeasure}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                  }}
+                >
+                  <TableCell component="th" scope="row">
+                    <Button
+                      value={dm.distanceMeasure}
+                      variant="contained"
+                      onClick={handleOnClick}
+                    >
+                      {dm.distanceMeasure}
+                    </Button>
+                  </TableCell>
+                  <TableCell align="right">{dm.totalClusters}</TableCell>
+                  <TableCell align="right">{dm.normalizedScore}</TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
         )}
       </Table>
