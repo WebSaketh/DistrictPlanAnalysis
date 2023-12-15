@@ -42,7 +42,6 @@ const Map2 = (props) => {
   useEffect(() => {
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
-
     /*const getData = async () => {
       let res = await initializationApis.getState(props.state);
       let data = res.data;
@@ -122,7 +121,7 @@ const Map2 = (props) => {
     minHeight: "100px",
     minWidth: "600px",
     maxWidth: "600px",
-    minHeight: "70%",
+    minHeight: "50%",
   };
 
   const style2 = {

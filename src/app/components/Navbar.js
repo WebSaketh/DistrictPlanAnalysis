@@ -5,7 +5,6 @@ const Navbar = (props) => {
   const [header, setHeader] = useState("");
 
   useEffect(() => {
-    console.log(props);
     let temp = "";
     if (props.state !== null) {
       temp += props.state;
@@ -68,33 +67,16 @@ const Navbar = (props) => {
             itemName={props.state}
           ></Dropdown>
         </div>
-        {props.ensembleList.length > 0 && (
-          <div className="col-span-2">
-            <Dropdown
-              title="Select Ensemble"
-              items={props.ensembleList}
-              changeState={props.changeEnsemble}
-              itemName={props.ensemble}
-            ></Dropdown>
-          </div>
+
+        {props.state && (
+          <button
+            text="Reset Map"
+            onClick={props.changeState}
+            className="col-span-2 m-1 btn btn-error self-end"
+          >
+            <a>Reset Map</a>
+          </button>
         )}
-        {props.dmList.length > 0 && (
-          <div className="col-span-2">
-            <Dropdown
-              title="Select Distance Measure"
-              items={props.dmList}
-              changeState={props.changeDistanceMeasure}
-              itemName={props.distanceMeasure}
-            ></Dropdown>
-          </div>
-        )}
-        <button
-          text="Reset Map"
-          onClick={props.changeState}
-          className="col-span-2 m-1 btn btn-error self-end"
-        >
-          <a>Reset Map</a>
-        </button>
       </div>
     </nav>
   );

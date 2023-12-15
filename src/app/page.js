@@ -8,7 +8,9 @@ import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import InfoPanel from "./components/InfoPanel";
 import InfoTabs from "src/app/components/InfoTabs.js";
 import EnsembleTable from "./components/EnsembleTable";
+import DistanceMeasureTable from "./components/DistanceMeasureTable";
 import apis from "./Api/index.js";
+import Button from "@mui/material/Button";
 
 export default function Home() {
   const [state, setState] = useState(null);
@@ -41,6 +43,9 @@ export default function Home() {
   const goToAbout = () => {
     if (about) setAbout(false);
     else setAbout(true);
+  };
+  const viewEnsembles = () => {
+    setEnsemble(null);
   };
   const getClusterInfo = async (clusterId) => {
     try {
@@ -75,7 +80,7 @@ export default function Home() {
     setDistrictPlan(newList);
   };
   const changeDistanceMeasure = (e) => {
-    var k = e.target.text;
+    var k = e;
 
     if (k !== distanceMeasure) {
       try {
@@ -94,7 +99,7 @@ export default function Home() {
     }
   };
   const changeEnsemble = (e) => {
-    var k = e.target.text;
+    var k = e;
     if (k !== ensemble) {
       setEnsemble(k);
       setDistanceMeasure(null);
@@ -116,7 +121,6 @@ export default function Home() {
     setDistrictPlan([]);
   };
   const changeState = (e) => {
-    console.log("State Changed");
     var k = e?.target?.text;
     if (e.target.text === "Default") {
       setState(null);
@@ -149,7 +153,7 @@ export default function Home() {
           setEnsembleList(res[0].ensembles);
           setState("Colorado");
           setCenter([39.4, -106]);
-          setZoom(6.5);
+          setZoom(6.0);
           setEnsembleTableInfo(res[1]);
         }
       });
@@ -169,11 +173,12 @@ export default function Home() {
       }
       getStateInfo("Ohio").then((res) => {
         if (res !== "Error") {
+          console.log("ohiooooo");
           setStateDistrictMap(res[0].ohio2020);
           setEnsembleList(res[0].ensembles);
           setState("Ohio");
           setCenter([40, -83]);
-          setZoom(6.5);
+          setZoom(6.0);
           setEnsembleTableInfo(res[1]);
         }
       });
@@ -197,7 +202,7 @@ export default function Home() {
           setEnsembleList(res[0].ensembles);
           setState("Illinois");
           setCenter([40, -89.5]);
-          setZoom(6.5);
+          setZoom(6.0);
           setEnsembleTableInfo(res[1]);
         }
       });
@@ -298,7 +303,24 @@ export default function Home() {
                 responses={responses}
               ></Map2>
               <br></br>
-              <EnsembleTable ensembleTableInfo={ensembleTableInfo} />
+              {!ensemble && (
+                <EnsembleTable
+                  changeEnsemble={changeEnsemble}
+                  ensembleTableInfo={ensembleTableInfo}
+                />
+              )}
+              {ensemble && (
+                <div>
+                  <Button variant="contained" onClick={viewEnsembles}>
+                    View Ensembles
+                  </Button>
+                  <DistanceMeasureTable
+                    distanceMeasureInfo={ensembleTableInfo}
+                    ensembleName={ensemble}
+                    changeDistanceMeasure={changeDistanceMeasure}
+                  />
+                </div>
+              )}
             </div>
 
             <InfoPanel

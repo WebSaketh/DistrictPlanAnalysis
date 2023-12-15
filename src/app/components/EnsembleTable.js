@@ -6,8 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 
 const EnsembleTable = (props) => {
+  const handleOnClick = (e) => {
+    props.changeEnsemble(e.target.value);
+  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ maxWidth: 600 }} aria-label="simple table">
@@ -25,7 +29,13 @@ const EnsembleTable = (props) => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {ensemble.ensembleName}
+                <Button
+                  value={ensemble.ensembleName}
+                  variant="contained"
+                  onClick={handleOnClick}
+                >
+                  {ensemble.ensembleName}
+                </Button>
               </TableCell>
               <TableCell align="right">{ensemble.distanceMeasures}</TableCell>
               <TableCell align="right">{ensemble.totalPlans}</TableCell>
