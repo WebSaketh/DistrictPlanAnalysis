@@ -50,7 +50,8 @@ const Map2 = (props) => {
       else if (props.state === "Illinois") setStateData(data.ill2020);
     };
     getData();*/
-  }, [props.state]);
+    console.log(props);
+  }, [props.state, props.clusterADP]);
 
   const onEachFeature = (feature, layer) => {
     layer.on({
@@ -150,8 +151,12 @@ const Map2 = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
-      {props.responses?.length === 0 && props.stateDistrictMap !== null ? (
+      {props.clusterADP !== null ? (
+        <GeoJSON data={props.clusterADP.AverageDistrictMapGeoData}></GeoJSON>
+      ) : null}
+      {props.responses?.length === 0 &&
+      props.clusterADP === null &&
+      props.stateDistrictMap !== null ? (
         <GeoJSON
           key={props.state}
           data={props.stateDistrictMap}

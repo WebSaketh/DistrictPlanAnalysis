@@ -9,6 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Checkbox from "@mui/material/Checkbox";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
@@ -29,6 +30,7 @@ const styles = (theme) => ({
 });
 
 const columns = [
+  { id: "Selector", label: "Select", minWidth: 50 },
   { id: "Row", label: "Row", minWidth: 100 },
   {
     id: "ClusterId",
@@ -122,6 +124,8 @@ function createData(
 }
 
 const ClusterTable = (props) => {
+  const selected = props.selected;
+  const setSelected = props.setSelected;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [data, setData] = useState([]);
@@ -146,7 +150,7 @@ const ClusterTable = (props) => {
       );
     }
     setData(d);
-  }, [props]);
+  }, [props.clusters]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -158,11 +162,20 @@ const ClusterTable = (props) => {
   };
 
   const handleClusterClick = (event) => {
-    console.log(props.tabValue);
     let clusterId = event.currentTarget.id.slice(8);
     props.setTabValue(props.tabValue.replace("Cluster", "District Plan"));
     props.changeCluster(clusterId);
   };
+
+  const handleClick = (event, id) => {
+    if (selected === null) {
+      setSelected(id);
+    } else {
+      setSelected(null);
+    }
+  };
+
+  const isSelected = (id) => selected == id;
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -194,33 +207,59 @@ const ClusterTable = (props) => {
             {data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, indx) => {
+                const isItemSelected = isSelected(row.Row);
+                const labelId = `enhanced-table-checkbox-${row.Row}`;
                 return (
                   <StyledTableRow
                     role="checkbox"
                     tabIndex={-1}
                     key={indx}
                     id={row.ClusterId}
-                    onClick={handleClusterClick}
                   >
                     {columns.map((column) => {
                       const value = row[column.id];
-                      return column.id === "ClusterId" ? (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          className="special-table-cell"
-                        >
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      ) : (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
+
+                      if (column.id === "Selector") {
+                        return (
+                          <TableCell
+                            padding="checkbox"
+                            key={column.id}
+                            align={column.align}
+                          >
+                            <Checkbox
+                              disabled={
+                                selected !== row.Row && selected !== null
+                              }
+                              color="primary"
+                              checked={isItemSelected}
+                              inputProps={{
+                                "aria-labelledby": labelId,
+                              }}
+                              onClick={(event) => handleClick(event, row.Row)}
+                            />
+                          </TableCell>
+                        );
+                      } else {
+                        return column.id === "ClusterId" ? (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            className="special-table-cell"
+                            onClick={handleClusterClick}
+                            id={row.ClusterId}
+                          >
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        ) : (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.format && typeof value === "number"
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
+                      }
                     })}
                   </StyledTableRow>
                 );

@@ -226,7 +226,6 @@ const DistrictPlanTable = (props) => {
                       key={row.Row}
                       id={row.Row}
                       selected={isItemSelected}
-                      onClick={(event) => handleClick(event, row.Row)}
                     >
                       {columns.map((column) => {
                         const value = row[column.id];
@@ -244,6 +243,7 @@ const DistrictPlanTable = (props) => {
                                 inputProps={{
                                   "aria-labelledby": labelId,
                                 }}
+                                onClick={(event) => handleClick(event, row.Row)}
                               />
                             </TableCell>
                           );

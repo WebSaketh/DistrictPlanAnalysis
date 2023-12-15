@@ -12,9 +12,20 @@ const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
   const [selected, setSelected] = useState([]);
   const [tableValue, setTableValue] = useState(1);
+  const [thisADP, setThisADP] = useState(null);
+
+  const settingADP = (index) => {
+    if (thisADP !== null) {
+      setThisADP(null);
+      props.setClusterADP(null);
+    } else {
+      let cluster = props.clusters[index - 1];
+      setThisADP(index);
+      props.getClusterADP(cluster.clusterId);
+    }
+  };
 
   const changeTableValue = (value) => {
-    console.log(value);
     setTableValue(value);
   };
 
@@ -50,6 +61,8 @@ const InfoPanel = (props) => {
               changeCluster={props.changeCluster}
               tabValue={tabValue}
               setTabValue={setTabValue}
+              selected={thisADP}
+              setSelected={settingADP}
             ></ClusterTable>
           </div>
           <div hidden={tabValue !== "Cluster Scatterplot"}>

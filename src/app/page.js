@@ -61,8 +61,9 @@ export default function Home() {
     try {
       let json = await apis.getAverageDistrictPlanGeoJson(clusterId);
       if (json.data === "Error") throw new Error("error getting cluster ADP");
-      return json.data;
+      setClusterADP(json.data);
     } catch (error) {
+      setClusterADP([]);
       return "Error";
     }
   };
@@ -262,7 +263,6 @@ export default function Home() {
         console.error("Error fetching data:", error.message);
       }
     };
-
     fetchData();
   }, [districtPlan]);
 
@@ -301,6 +301,7 @@ export default function Home() {
                 changeState={changeState}
                 stateDistrictMap={stateDistrictMap}
                 responses={responses}
+                clusterADP={clusterADP}
               ></Map2>
               <br></br>
               {!ensemble && (
@@ -335,7 +336,8 @@ export default function Home() {
               distanceMeasure={distanceMeasure}
               clickClusterButton={clickClusterButton}
               changeDistrictPlan={changeDistrictPlan}
-              clusterADP={clusterADP}
+              getClusterADP={getClusterADP}
+              setClusterADP={setClusterADP}
               responses={responses}
               districtPlan={districtPlan}
             />
