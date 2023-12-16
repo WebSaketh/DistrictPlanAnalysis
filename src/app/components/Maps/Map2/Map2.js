@@ -12,6 +12,7 @@ import { useMapEvents } from "react-leaflet/hooks";
 import { ohio2020, ill2020, colo2020 } from "./const";
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
+var randomColor = require("randomcolor");
 
 const MapControl = (props) => {
   const map = useMapEvents({
@@ -29,6 +30,13 @@ const maxBounds = L.latLngBounds(
 var center = [40, -96];
 
 const Map2 = (props) => {
+  const [colors, setColors] = useState([
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "orange",
+  ]);
   if (props.state == "Colorado") {
     center = [39.4, -106];
   }
@@ -50,8 +58,7 @@ const Map2 = (props) => {
       else if (props.state === "Illinois") setStateData(data.ill2020);
     };
     getData();*/
-    console.log(props);
-  }, [props.state, props.clusterADP]);
+  }, [props.state, props.clusterADP, props.responses]);
 
   const onEachFeature = (feature, layer) => {
     layer.on({
@@ -173,7 +180,11 @@ const Map2 = (props) => {
       ) : null}
       {props.responses?.map((res, index) =>
         JSON.stringify(res.data.geoJsonData) === "{}" ? null : (
-          <GeoJSON key={index} data={res?.data?.geoJsonData}></GeoJSON>
+          <GeoJSON
+            key={index}
+            color={colors[index]}
+            data={res?.data?.geoJsonData}
+          ></GeoJSON>
         )
       )}
     </MapContainer>

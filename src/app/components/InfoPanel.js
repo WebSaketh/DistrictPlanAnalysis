@@ -14,6 +14,11 @@ const InfoPanel = (props) => {
   const [tableValue, setTableValue] = useState(1);
   const [thisADP, setThisADP] = useState(null);
 
+  useEffect(() => {
+    setSelected([]);
+    setThisADP(null);
+  }, [props.cluster, props.distanceMeasure]);
+
   const settingADP = (index) => {
     if (thisADP !== null) {
       setThisADP(null);
@@ -98,6 +103,8 @@ const InfoPanel = (props) => {
               clusterADP={props.clusterADP}
               selected={selected}
               setSelected={setSelected}
+              responses={props.responses}
+              setResponses={props.setResponses}
             ></DistrictPlanTable>
           </div>
           <div hidden={tabValue !== "District Plan Scatterplot"}>

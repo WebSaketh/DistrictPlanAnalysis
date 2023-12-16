@@ -61,6 +61,7 @@ export default function Home() {
     try {
       let json = await apis.getAverageDistrictPlanGeoJson(clusterId);
       if (json.data === "Error") throw new Error("error getting cluster ADP");
+
       setClusterADP(json.data);
     } catch (error) {
       setClusterADP([]);
@@ -79,6 +80,7 @@ export default function Home() {
   };
   const changeDistrictPlan = (newList) => {
     setDistrictPlan(newList);
+    setResponses([]);
   };
   const changeDistanceMeasure = (e) => {
     var k = e;
@@ -93,6 +95,7 @@ export default function Home() {
           setCluster(null);
           setClusterADP(null);
           setDistrictPlan([]);
+          setResponses([]);
         });
       } catch (error) {
         console.log(error.message);
@@ -108,6 +111,7 @@ export default function Home() {
       setClusterADP(null);
       setDistrictPlan([]);
       setClusters([]);
+      setResponses([]);
 
       let index = parseInt(k.slice(-1)) - 1;
       setDistanceMeasureDropDown(ensembleTableInfo[index].distanceMeasureArray);
@@ -134,6 +138,7 @@ export default function Home() {
       setClusters([]);
       setEnsembleTableInfo([]);
       setDistanceMeasureDropDown([]);
+      setResponses([]);
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
@@ -147,6 +152,7 @@ export default function Home() {
         setClusters([]);
         setEnsembleTableInfo([]);
         setDistanceMeasureDropDown([]);
+        setResponses([]);
       }
       getStateInfo("Colorado").then((res) => {
         if (res !== "Error") {
@@ -171,6 +177,7 @@ export default function Home() {
         setClusters([]);
         setEnsembleTableInfo([]);
         setDistanceMeasureDropDown([]);
+        setResponses([]);
       }
       getStateInfo("Ohio").then((res) => {
         if (res !== "Error") {
@@ -196,6 +203,7 @@ export default function Home() {
         setClusters([]);
         setEnsembleTableInfo([]);
         setDistanceMeasureDropDown([]);
+        setResponses([]);
       }
       getStateInfo("Illinois").then((res) => {
         if (res !== "Error") {
@@ -222,6 +230,7 @@ export default function Home() {
       setClusters([]);
       setEnsembleTableInfo([]);
       setDistanceMeasureDropDown([]);
+      setResponses([]);
     }
   };
   const getStateInfo = async (state) => {
@@ -328,6 +337,7 @@ export default function Home() {
             <InfoPanel
               view={view}
               changeView={changeView}
+              distanceMeasure={distanceMeasure}
               setCluster={setCluster}
               clusters={clusters}
               cluster={cluster}
@@ -339,6 +349,7 @@ export default function Home() {
               getClusterADP={getClusterADP}
               setClusterADP={setClusterADP}
               responses={responses}
+              setResponses={setResponses}
               districtPlan={districtPlan}
             />
           </div>

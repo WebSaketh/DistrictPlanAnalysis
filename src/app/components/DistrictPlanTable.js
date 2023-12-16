@@ -40,7 +40,8 @@ function createData(
   White,
   Black,
   Hispanic,
-  Asian
+  Asian,
+  Color
 ) {
   return {
     Row,
@@ -52,6 +53,7 @@ function createData(
     Black,
     Hispanic,
     Asian,
+    Color,
   };
 }
 
@@ -116,6 +118,8 @@ const columns = [
   },
 ];
 
+const colors = ["red", "blue", "green", "yellow", "orange"];
+
 const DistrictPlanTable = (props) => {
   const selected = props.selected;
   const setSelected = props.setSelected;
@@ -139,12 +143,13 @@ const DistrictPlanTable = (props) => {
           districtPlan.clusterDemographics.white,
           districtPlan.clusterDemographics.black,
           districtPlan.clusterDemographics.hispanic,
-          districtPlan.clusterDemographics.asian
+          districtPlan.clusterDemographics.asian,
+          "white"
         )
       );
     }
     setData(d);
-  }, [props]);
+  }, [props.districtPlanInfo]);
 
   const handleClick = (event, id) => {
     if (data[id].IsAvailable === "yes") {
@@ -152,6 +157,7 @@ const DistrictPlanTable = (props) => {
       let newSelected = [];
 
       if (selectedIndex === -1) {
+        if (selected.length >= colors.length) return;
         newSelected = newSelected.concat(selected, id);
       } else if (selectedIndex === 0) {
         newSelected = newSelected.concat(selected.slice(1));
@@ -163,10 +169,17 @@ const DistrictPlanTable = (props) => {
           selected.slice(selectedIndex + 1)
         );
       }
+
+      if (selectedIndex >= 0) {
+        props.setResponses(props.responses.splice(selectedIndex, 1));
+      }
       setSelected(newSelected);
       props.changeDistrictPlan(
         newSelected.map((indx) => data[indx].DistrictPlanId)
       );
+      for (let i = 0; i < newSelected.length; i++) {
+        data[newSelected[i]].Color = colors[i];
+      }
     }
   };
 
@@ -216,49 +229,104 @@ const DistrictPlanTable = (props) => {
               {data
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
-                  const isItemSelected = isSelected(row.Row);
-                  const labelId = `enhanced-table-checkbox-${row.Row}`;
-                  return (
-                    <StyledTableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.Row}
-                      id={row.Row}
-                      selected={isItemSelected}
-                    >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        if (column.id === "Selector") {
-                          return (
-                            <TableCell
-                              padding="checkbox"
-                              key={column.id}
-                              align={column.align}
-                            >
-                              <Checkbox
-                                disabled={row.IsAvailable === "no"}
-                                color="primary"
-                                checked={isItemSelected}
-                                inputProps={{
-                                  "aria-labelledby": labelId,
-                                }}
-                                onClick={(event) => handleClick(event, row.Row)}
-                              />
-                            </TableCell>
-                          );
-                        } else {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
+                  let isItemSelected = isSelected(row.Row);
+                  let labelId = `enhanced-table-checkbox-${row.Row}`;
+                  let color = row.Color;
+                  if (isItemSelected) {
+                    console;
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.Row}
+                        id={row.Row}
+                        selected={isItemSelected}
+                        style={
+                          isSelected
+                            ? { backgroundColor: color, opacity: 0.25 }
+                            : {}
                         }
-                      })}
-                    </StyledTableRow>
-                  );
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          if (column.id === "Selector") {
+                            return (
+                              <TableCell
+                                padding="checkbox"
+                                key={column.id}
+                                align={column.align}
+                              >
+                                <Checkbox
+                                  disabled={row.IsAvailable === "no"}
+                                  color="primary"
+                                  checked={isItemSelected}
+                                  inputProps={{
+                                    "aria-labelledby": labelId,
+                                  }}
+                                  onClick={(event) =>
+                                    handleClick(event, row.Row)
+                                  }
+                                />
+                              </TableCell>
+                            );
+                          } else {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          }
+                        })}
+                      </TableRow>
+                    );
+                  } else {
+                    return (
+                      <StyledTableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.Row}
+                        id={row.Row}
+                        selected={isItemSelected}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          if (column.id === "Selector") {
+                            return (
+                              <TableCell
+                                padding="checkbox"
+                                key={column.id}
+                                align={column.align}
+                              >
+                                <Checkbox
+                                  disabled={row.IsAvailable === "no"}
+                                  color="primary"
+                                  checked={isItemSelected}
+                                  inputProps={{
+                                    "aria-labelledby": labelId,
+                                  }}
+                                  onClick={(event) =>
+                                    handleClick(event, row.Row)
+                                  }
+                                />
+                              </TableCell>
+                            );
+                          } else {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          }
+                        })}
+                      </StyledTableRow>
+                    );
+                  }
                 })}
             </TableBody>
           </Table>
