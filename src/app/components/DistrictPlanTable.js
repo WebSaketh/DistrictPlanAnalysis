@@ -119,7 +119,7 @@ const columns = [
   },
 ];
 
-const colors = ["red", "blue", "green", "yellow", "orange"];
+const colors = ["red", "blue", "green", "yellow", "orange"]; // if you change this, must change the colors array in the chart
 
 const DistrictPlanTable = (props) => {
   const selected = props.selected;
@@ -211,6 +211,10 @@ const DistrictPlanTable = (props) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const clickCompareButton = () => {
+    console.log("clicking compare button");
   };
 
   const isSelected = (id) => selected.indexOf(id) !== -1;
@@ -365,6 +369,7 @@ const DistrictPlanTable = (props) => {
         </Paper>
       </Box>
       <Button onClick={clickButton}>View All Available Plans</Button>
+      <Button onClick={clickCompareButton}>Compare with enacted</Button>
       <Button onClick={unselectPlans}>Unselect all Plans</Button>
     </div>
   );

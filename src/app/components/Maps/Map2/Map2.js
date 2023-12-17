@@ -12,7 +12,6 @@ import { useMapEvents } from "react-leaflet/hooks";
 import { ohio2020, ill2020, colo2020 } from "./const";
 import * as d3 from "d3";
 import { useEffect, useState } from "react";
-var randomColor = require("randomcolor");
 
 const MapControl = (props) => {
   const map = useMapEvents({
@@ -148,7 +147,7 @@ const Map2 = (props) => {
       center={center}
       zoom={6.0}
       scrollWheelZoom={true}
-      dragging={false}
+      dragging={true}
     >
       <MapControl
         center={props.center}
