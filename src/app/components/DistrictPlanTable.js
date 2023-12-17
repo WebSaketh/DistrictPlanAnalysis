@@ -369,7 +369,7 @@ const DistrictPlanTable = (props) => {
         </Paper>
       </Box>
       <Button onClick={clickButton}>View All Available Plans</Button>
-      <Button onClick={clickCompareButton}>Compare with enacted</Button>
+      {/*<Button onClick={clickCompareButton}>Compare with enacted</Button>*/}
       <Button onClick={unselectPlans}>Unselect all Plans</Button>
     </div>
   );
