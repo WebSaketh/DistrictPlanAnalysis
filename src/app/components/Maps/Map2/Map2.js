@@ -58,6 +58,7 @@ const Map2 = (props) => {
       else if (props.state === "Illinois") setStateData(data.ill2020);
     };
     getData();*/
+    console.log(props.responses);
   }, [props.state, props.clusterADP, props.responses]);
 
   const onEachFeature = (feature, layer) => {
@@ -158,6 +159,11 @@ const Map2 = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {props.responses.map((res, index) =>
+        JSON.stringify(res.data.geoJsonData) === "{}" ? null : (
+          <GeoJSON color={colors[index]} data={res.data.geoJsonData}></GeoJSON>
+        )
+      )}
       {props.clusterADP !== null ? (
         <GeoJSON data={props.clusterADP.AverageDistrictMapGeoData}></GeoJSON>
       ) : null}
@@ -178,15 +184,6 @@ const Map2 = (props) => {
           </Tooltip>
         </GeoJSON>
       ) : null}
-      {props.responses?.map((res, index) =>
-        JSON.stringify(res.data.geoJsonData) === "{}" ? null : (
-          <GeoJSON
-            key={index}
-            color={colors[index]}
-            data={res?.data?.geoJsonData}
-          ></GeoJSON>
-        )
-      )}
     </MapContainer>
   );
 };

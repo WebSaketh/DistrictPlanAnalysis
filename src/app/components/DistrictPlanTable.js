@@ -19,6 +19,7 @@ import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 import { visuallyHidden } from "@mui/utils";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -169,10 +170,6 @@ const DistrictPlanTable = (props) => {
           selected.slice(selectedIndex + 1)
         );
       }
-
-      if (selectedIndex >= 0) {
-        props.setResponses(props.responses.splice(selectedIndex, 1));
-      }
       setSelected(newSelected);
       props.changeDistrictPlan(
         newSelected.map((indx) => data[indx].DistrictPlanId)
@@ -183,8 +180,32 @@ const DistrictPlanTable = (props) => {
     }
   };
 
+  const clickButton = () => {
+    let newSelected = [];
+    for (let i = 0; i < data.length; i++) {
+      let comparison = data[i].IsAvailable.localeCompare("yes");
+      if (comparison == 0 && newSelected.length < colors.length) {
+        newSelected.push(data[i].Row);
+      }
+    }
+
+    setSelected(newSelected);
+    props.changeDistrictPlan(
+      newSelected.map((indx) => data[indx].DistrictPlanId)
+    );
+
+    for (let i = 0; i < newSelected.length; i++) {
+      data[newSelected[i]].Color = colors[i];
+    }
+  };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const unselectPlans = () => {
+    setSelected([]);
+    props.changeDistrictPlan([]);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -198,150 +219,154 @@ const DistrictPlanTable = (props) => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <TableContainer>
-          <Table
-            sx={{
-              "& .MuiTableRow-root:hover": {
-                backgroundColor: "#FFC6C4",
-              },
-              minWidth: 750,
-            }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
+    <div>
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <TableContainer>
+            <Table
+              sx={{
+                "& .MuiTableRow-root:hover": {
+                  backgroundColor: "#FFC6C4",
+                },
+                minWidth: 750,
+              }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
 
-            <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  let isItemSelected = isSelected(row.Row);
-                  let labelId = `enhanced-table-checkbox-${row.Row}`;
-                  let color = row.Color;
-                  if (isItemSelected) {
-                    console;
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.Row}
-                        id={row.Row}
-                        selected={isItemSelected}
-                        style={
-                          isSelected
-                            ? { backgroundColor: color, opacity: 0.25 }
-                            : {}
-                        }
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          if (column.id === "Selector") {
-                            return (
-                              <TableCell
-                                padding="checkbox"
-                                key={column.id}
-                                align={column.align}
-                              >
-                                <Checkbox
-                                  disabled={row.IsAvailable === "no"}
-                                  color="primary"
-                                  checked={isItemSelected}
-                                  inputProps={{
-                                    "aria-labelledby": labelId,
-                                  }}
-                                  onClick={(event) =>
-                                    handleClick(event, row.Row)
-                                  }
-                                />
-                              </TableCell>
-                            );
-                          } else {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
+              <TableBody>
+                {data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    let isItemSelected = isSelected(row.Row);
+                    let labelId = `enhanced-table-checkbox-${row.Row}`;
+                    let color = row.Color;
+                    if (isItemSelected) {
+                      console;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.Row}
+                          id={row.Row}
+                          selected={isItemSelected}
+                          style={
+                            isSelected
+                              ? { backgroundColor: color, opacity: 0.8 }
+                              : {}
                           }
-                        })}
-                      </TableRow>
-                    );
-                  } else {
-                    return (
-                      <StyledTableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.Row}
-                        id={row.Row}
-                        selected={isItemSelected}
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          if (column.id === "Selector") {
-                            return (
-                              <TableCell
-                                padding="checkbox"
-                                key={column.id}
-                                align={column.align}
-                              >
-                                <Checkbox
-                                  disabled={row.IsAvailable === "no"}
-                                  color="primary"
-                                  checked={isItemSelected}
-                                  inputProps={{
-                                    "aria-labelledby": labelId,
-                                  }}
-                                  onClick={(event) =>
-                                    handleClick(event, row.Row)
-                                  }
-                                />
-                              </TableCell>
-                            );
-                          } else {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          }
-                        })}
-                      </StyledTableRow>
-                    );
-                  }
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Box>
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            if (column.id === "Selector") {
+                              return (
+                                <TableCell
+                                  padding="checkbox"
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <Checkbox
+                                    disabled={row.IsAvailable === "no"}
+                                    color="primary"
+                                    checked={isItemSelected}
+                                    inputProps={{
+                                      "aria-labelledby": labelId,
+                                    }}
+                                    onClick={(event) =>
+                                      handleClick(event, row.Row)
+                                    }
+                                  />
+                                </TableCell>
+                              );
+                            } else {
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === "number"
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            }
+                          })}
+                        </TableRow>
+                      );
+                    } else {
+                      return (
+                        <StyledTableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.Row}
+                          id={row.Row}
+                          selected={isItemSelected}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            if (column.id === "Selector") {
+                              return (
+                                <TableCell
+                                  padding="checkbox"
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <Checkbox
+                                    disabled={row.IsAvailable === "no"}
+                                    color="primary"
+                                    checked={isItemSelected}
+                                    inputProps={{
+                                      "aria-labelledby": labelId,
+                                    }}
+                                    onClick={(event) =>
+                                      handleClick(event, row.Row)
+                                    }
+                                  />
+                                </TableCell>
+                              );
+                            } else {
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === "number"
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            }
+                          })}
+                        </StyledTableRow>
+                      );
+                    }
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Box>
+      <Button onClick={clickButton}>View All Available Plans</Button>
+      <Button onClick={unselectPlans}>Unselect all Plans</Button>
+    </div>
   );
 };
 

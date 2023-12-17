@@ -78,10 +78,7 @@ export default function Home() {
 
     // getClusterADP(id).then((res) => setClusterADP(res));
   };
-  const changeDistrictPlan = (newList) => {
-    setDistrictPlan(newList);
-    setResponses([]);
-  };
+
   const changeDistanceMeasure = (e) => {
     var k = e;
 
@@ -101,6 +98,10 @@ export default function Home() {
         console.log(error.message);
       }
     }
+  };
+  const changeDistrictPlan = (newList) => {
+    console.log(newList);
+    setDistrictPlan(newList);
   };
   const changeEnsemble = (e) => {
     var k = e;
@@ -265,13 +266,11 @@ export default function Home() {
         if (allResponses === "error")
           throw new Error("error with getting district plan geo json");
         setResponses(allResponses);
-        if (allResponses.length > 0) {
-          console.log("All responses received successfully!");
-        }
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
     };
+
     fetchData();
   }, [districtPlan]);
 

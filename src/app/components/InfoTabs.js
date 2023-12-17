@@ -10,12 +10,7 @@ const InfoTabs = (props) => {
     props.clickClusterButton();
   };
   const handleChange = (event, newValue) => {
-    console.log(newValue);
-    if (props.color === "primary") {
-      props.setTabValue(newValue);
-    } else {
-      props.setTabValue(newValue);
-    }
+    props.setTabValue(newValue);
   };
   return (
     <Box className="flex justify-between items-center" sx={{ width: "100%" }}>
