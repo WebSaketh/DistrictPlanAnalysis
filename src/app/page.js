@@ -61,8 +61,10 @@ export default function Home() {
     try {
       let json = await apis.getAverageDistrictPlanGeoJson(clusterId);
       if (json.data === "Error") throw new Error("error getting cluster ADP");
-      return json.data;
+
+      setClusterADP(json.data);
     } catch (error) {
+      setClusterADP([]);
       return "Error";
     }
   };
@@ -76,9 +78,7 @@ export default function Home() {
 
     // getClusterADP(id).then((res) => setClusterADP(res));
   };
-  const changeDistrictPlan = (newList) => {
-    setDistrictPlan(newList);
-  };
+
   const changeDistanceMeasure = (e) => {
     var k = e;
 
@@ -92,11 +92,16 @@ export default function Home() {
           setCluster(null);
           setClusterADP(null);
           setDistrictPlan([]);
+          setResponses([]);
         });
       } catch (error) {
         console.log(error.message);
       }
     }
+  };
+  const changeDistrictPlan = (newList) => {
+    console.log(newList);
+    setDistrictPlan(newList);
   };
   const changeEnsemble = (e) => {
     var k = e;
@@ -107,6 +112,7 @@ export default function Home() {
       setClusterADP(null);
       setDistrictPlan([]);
       setClusters([]);
+      setResponses([]);
 
       let index = parseInt(k.slice(-1)) - 1;
       setDistanceMeasureDropDown(ensembleTableInfo[index].distanceMeasureArray);
@@ -133,6 +139,7 @@ export default function Home() {
       setClusters([]);
       setEnsembleTableInfo([]);
       setDistanceMeasureDropDown([]);
+      setResponses([]);
     } else if (k === "Colorado") {
       if (state !== k) {
         setDistrict(null);
@@ -146,6 +153,7 @@ export default function Home() {
         setClusters([]);
         setEnsembleTableInfo([]);
         setDistanceMeasureDropDown([]);
+        setResponses([]);
       }
       getStateInfo("Colorado").then((res) => {
         if (res !== "Error") {
@@ -170,6 +178,7 @@ export default function Home() {
         setClusters([]);
         setEnsembleTableInfo([]);
         setDistanceMeasureDropDown([]);
+        setResponses([]);
       }
       getStateInfo("Ohio").then((res) => {
         if (res !== "Error") {
@@ -195,6 +204,7 @@ export default function Home() {
         setClusters([]);
         setEnsembleTableInfo([]);
         setDistanceMeasureDropDown([]);
+        setResponses([]);
       }
       getStateInfo("Illinois").then((res) => {
         if (res !== "Error") {
@@ -221,6 +231,7 @@ export default function Home() {
       setClusters([]);
       setEnsembleTableInfo([]);
       setDistanceMeasureDropDown([]);
+      setResponses([]);
     }
   };
   const getStateInfo = async (state) => {
@@ -255,9 +266,6 @@ export default function Home() {
         if (allResponses === "error")
           throw new Error("error with getting district plan geo json");
         setResponses(allResponses);
-        if (allResponses.length > 0) {
-          console.log("All responses received successfully!");
-        }
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -301,6 +309,7 @@ export default function Home() {
                 changeState={changeState}
                 stateDistrictMap={stateDistrictMap}
                 responses={responses}
+                clusterADP={clusterADP}
               ></Map2>
               <br></br>
               {!ensemble && (
@@ -327,6 +336,7 @@ export default function Home() {
             <InfoPanel
               view={view}
               changeView={changeView}
+              distanceMeasure={distanceMeasure}
               setCluster={setCluster}
               clusters={clusters}
               cluster={cluster}
@@ -335,8 +345,10 @@ export default function Home() {
               distanceMeasure={distanceMeasure}
               clickClusterButton={clickClusterButton}
               changeDistrictPlan={changeDistrictPlan}
-              clusterADP={clusterADP}
+              getClusterADP={getClusterADP}
+              setClusterADP={setClusterADP}
               responses={responses}
+              setResponses={setResponses}
               districtPlan={districtPlan}
             />
           </div>

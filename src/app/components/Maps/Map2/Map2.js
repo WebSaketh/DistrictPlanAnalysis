@@ -26,9 +26,17 @@ const maxBounds = L.latLngBounds(
   L.latLng(5.49955, -167.276413), // Southwest
   L.latLng(83.162102, -52.23304) // Northeast
 );
+
 var center = [40, -96];
 
 const Map2 = (props) => {
+  const [colors, setColors] = useState([
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "orange",
+  ]);
   if (props.state == "Colorado") {
     center = [39.4, -106];
   }
@@ -50,7 +58,8 @@ const Map2 = (props) => {
       else if (props.state === "Illinois") setStateData(data.ill2020);
     };
     getData();*/
-  }, [props.state]);
+    console.log(props.responses);
+  }, [props.state, props.clusterADP, props.responses]);
 
   const onEachFeature = (feature, layer) => {
     layer.on({
@@ -139,7 +148,8 @@ const Map2 = (props) => {
       center={center}
       zoom={6.0}
       scrollWheelZoom={true}
-      dragging={false}
+      dragging={true}
+      minZoom={3.5}
     >
       <MapControl
         center={props.center}
@@ -150,8 +160,17 @@ const Map2 = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
-      {props.responses?.length === 0 && props.stateDistrictMap !== null ? (
+      {props.responses.map((res, index) =>
+        JSON.stringify(res.data.geoJsonData) === "{}" ? null : (
+          <GeoJSON color={colors[index]} data={res.data.geoJsonData}></GeoJSON>
+        )
+      )}
+      {props.clusterADP !== null ? (
+        <GeoJSON data={props.clusterADP.AverageDistrictMapGeoData}></GeoJSON>
+      ) : null}
+      {props.responses?.length === 0 &&
+      props.clusterADP === null &&
+      props.stateDistrictMap !== null ? (
         <GeoJSON
           key={props.state}
           data={props.stateDistrictMap}
@@ -166,11 +185,6 @@ const Map2 = (props) => {
           </Tooltip>
         </GeoJSON>
       ) : null}
-      {props.responses?.map((res, index) =>
-        JSON.stringify(res.data.geoJsonData) === "{}" ? null : (
-          <GeoJSON key={index} data={res?.data?.geoJsonData}></GeoJSON>
-        )
-      )}
     </MapContainer>
   );
 };

@@ -40,7 +40,6 @@ const Map = (props) => {
       };
       getData();
     } catch (error) {
-      console.log("Hello");
       console.log(error.message);
     }
   }, []);
