@@ -26,6 +26,7 @@ const maxBounds = L.latLngBounds(
   L.latLng(5.49955, -167.276413), // Southwest
   L.latLng(83.162102, -52.23304) // Northeast
 );
+
 var center = [40, -96];
 
 const Map2 = (props) => {
@@ -148,6 +149,7 @@ const Map2 = (props) => {
       zoom={6.0}
       scrollWheelZoom={true}
       dragging={true}
+      minZoom={3.5}
     >
       <MapControl
         center={props.center}
