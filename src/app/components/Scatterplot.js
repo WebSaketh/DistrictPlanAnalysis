@@ -9,14 +9,9 @@ const axisLabels = [
     title: "X mds vs Y mds",
   },
   {
-    xAxis: "Asians",
+    xAxis: "Blacks",
     yAxis: "Hispanics",
-    title: "Asians vs Hispanics",
-  },
-  {
-    xAxis: "Whites",
-    yAxis: "Blacks",
-    title: "Whites vs Blacks",
+    title: "Blacks vs Hispanics",
   },
 ];
 
@@ -46,15 +41,8 @@ const Scatterplot = (props) => {
       }));
     } else if (props.tableValue === 2) {
       data2 = Array.from({ length: props.clusters.length }, () => ({
-        x: props.clusters[i].clusterDemographics.asian,
+        x: props.clusters[i].clusterDemographics.black,
         y: props.clusters[i].clusterDemographics.hispanic, // Random Y value between 0 and 100
-        r: props.clusters[i].districtPlanIds.length,
-        name: "Cluster " + props.clusters[i++].clusterId,
-      }));
-    } else if (props.tableValue === 3) {
-      data2 = Array.from({ length: props.clusters.length }, () => ({
-        x: props.clusters[i].clusterDemographics.white,
-        y: props.clusters[i].clusterDemographics.black, // Random Y value between 0 and 100
         r: props.clusters[i].districtPlanIds.length,
         name: "Cluster " + props.clusters[i++].clusterId,
       }));
@@ -128,7 +116,6 @@ const Scatterplot = (props) => {
       <Select value={selector} onChange={handleChange}>
         <MenuItem value={1}>X mds vs Y mds</MenuItem>
         <MenuItem value={2}>Asians vs Hispanics</MenuItem>
-        <MenuItem value={3}>Whites vs Blacks</MenuItem>
       </Select>
     </div>
   );

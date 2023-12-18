@@ -41,7 +41,7 @@ const Map2 = (props) => {
     center = [39.4, -106];
   }
   if (props.state == "Ohio") {
-    center = [40, -83];
+    center = [41.5, -83];
   }
   if (props.state == "Illinois") {
     center = [40, -89.5];

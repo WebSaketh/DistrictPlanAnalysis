@@ -30,8 +30,7 @@ const styles = (theme) => ({
 });
 
 const columns = [
-  { id: "Selector", label: "Select", minWidth: 50 },
-  { id: "Row", label: "Row", minWidth: 100 },
+  { id: "Selector", label: "Display Average DP", minWidth: 50 },
   {
     id: "ClusterId",
     label: "ClusterId",
@@ -240,6 +239,7 @@ const ClusterTable = (props) => {
                           </TableCell>
                         );
                       } else {
+                        if (column.id === "Row") return;
                         return column.id === "ClusterId" ? (
                           <TableCell
                             key={column.id}
@@ -268,7 +268,7 @@ const ClusterTable = (props) => {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10]}
         component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}

@@ -7,19 +7,28 @@ import DistrictPlanPlot from "src/app/components/DistrictPlanPlot.js";
 import SelectionMessage from "src/app/components/SelectionMessage.js";
 import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import Table from "./Table";
+import { Tabs } from "flowbite-react";
+import StateTable from "./StateTable";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
+  const [mainTabValue, setMainTabValue] = useState(
+    "Ensemble & Cluster Analysis"
+  );
   const [selected, setSelected] = useState([]);
   const [tableValue, setTableValue] = useState(1);
   const [thisADP, setThisADP] = useState(null);
 
   const changeTab = (tabName) => {
-    if (props.color === "primary") {
-      setTabValue(tabName);
+    if (
+      tabName === "Ensemble & Cluster Analysis" ||
+      tabName === "Distance Measure Analysis"
+    ) {
+      setMainTabValue(tabName);
     } else {
       setTabValue(tabName);
     }
+
     setSelected([]);
 
     props.changeDistrictPlan([]);
@@ -47,23 +56,27 @@ const InfoPanel = (props) => {
     setTableValue(value);
   };
 
-  const [mainTabValue, setMainTabValue] = useState(
-    "Ensemble & Cluster Analysis"
-  );
   const [mainSelected, setMainSelected] = useState([]);
 
   if (!props.distanceMeasure) {
-    return <SelectionMessage></SelectionMessage>;
+    return (
+      <div className="flex-1 m-5 text-center content-center lg:h-full lg:w-full lg:mb-0  lg:text-left flex-1">
+        <SelectionMessage />
+      </div>
+    );
   }
 
   return (
     <div className="flex-1 m-5 text-center content-center lg:h-full lg:w-full lg:mb-0  lg:text-left flex-1">
-      <InfoTabs
-        tabValue={mainTabValue}
-        tabList={["Ensemble & Cluster Analysis", "Distance Measure Analysis"]}
-        setTabValue={changeTab}
-        color="primary"
-      />
+      {
+        <InfoTabs
+          tabValue={mainTabValue}
+          tabList={["Ensemble & Cluster Analysis", "Distance Measure Analysis"]}
+          setTabValue={changeTab}
+          color="primary"
+          variant="fullWidth"
+        />
+      }
 
       {mainTabValue === "Ensemble & Cluster Analysis" && !props.cluster && (
         <div className="flex-1 m-5 text-center content-center lg:h-full lg:w-full lg:mb-0  lg:text-left flex-1">

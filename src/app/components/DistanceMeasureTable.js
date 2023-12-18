@@ -19,12 +19,12 @@ const DistanceMeasureTable = (props) => {
     }
   });
   const handleOnClick = (e) => {
-    props.changeDistanceMeasure(e.target.value);
+    props.changeDistanceMeasure(e.target.id);
   };
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ maxWidth: 600 }} aria-label="simple table">
+      <Table sx={{ maxWidth: 600, border: 2 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Distance Measure</TableCell>
@@ -43,14 +43,8 @@ const DistanceMeasureTable = (props) => {
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
                 >
-                  <TableCell component="th" scope="row">
-                    <Button
-                      value={dm.distanceMeasure}
-                      variant="contained"
-                      onClick={handleOnClick}
-                    >
-                      {dm.distanceMeasure}
-                    </Button>
+                  <TableCell id={dm.distanceMeasure}>
+                    {dm.distanceMeasure}
                   </TableCell>
                   <TableCell align="right">{dm.totalClusters}</TableCell>
                   <TableCell align="right">{dm.normalizedScore}</TableCell>
@@ -62,14 +56,12 @@ const DistanceMeasureTable = (props) => {
                     "&:last-child td, &:last-child th": { border: 0 },
                   }}
                 >
-                  <TableCell component="th" scope="row">
-                    <Button
-                      value={dm.distanceMeasure}
-                      variant="contained"
-                      onClick={handleOnClick}
-                    >
-                      {dm.distanceMeasure}
-                    </Button>
+                  <TableCell
+                    className="special-table-cell"
+                    onClick={handleOnClick}
+                    id={dm.distanceMeasure}
+                  >
+                    {dm.distanceMeasure}
                   </TableCell>
                   <TableCell align="right">{dm.totalClusters}</TableCell>
                   <TableCell align="right">{dm.normalizedScore}</TableCell>
