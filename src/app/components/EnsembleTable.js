@@ -10,11 +10,11 @@ import Button from "@mui/material/Button";
 
 const EnsembleTable = (props) => {
   const handleOnClick = (e) => {
-    props.changeEnsemble(e.target.value);
+    props.changeEnsemble(e.target.id);
   };
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ maxWidth: 600 }} aria-label="simple table">
+      <Table sx={{ maxWidth: 600, border: 2 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Ensemble Name</TableCell>
@@ -28,14 +28,12 @@ const EnsembleTable = (props) => {
               key={ensemble.ensembleName}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                <Button
-                  value={ensemble.ensembleName}
-                  variant="contained"
-                  onClick={handleOnClick}
-                >
-                  {ensemble.ensembleName}
-                </Button>
+              <TableCell
+                className="special-table-cell"
+                onClick={handleOnClick}
+                id={ensemble.ensembleName}
+              >
+                {ensemble.ensembleName}
               </TableCell>
               <TableCell align="right">{ensemble.distanceMeasures}</TableCell>
               <TableCell align="right">{ensemble.totalPlans}</TableCell>

@@ -60,7 +60,6 @@ function createData(
 
 const columns = [
   { id: "Selector", label: "Select", minWidth: 50 },
-  { id: "Row", label: "Row", minWidth: 100 },
   {
     id: "DistrictPlanId",
     label: "District Plan Id",
@@ -131,12 +130,11 @@ const DistrictPlanTable = (props) => {
 
   useEffect(() => {
     let d = [];
-    d.push(createData(0, "Average", "no", 0, 0, 0, 0, 0, 0));
     for (let k = 0; k < props.districtPlanInfo.length; k++) {
       let districtPlan = props.districtPlanInfo[k];
       d.push(
         createData(
-          k + 1,
+          k,
           districtPlan.districtPlanId,
           districtPlan.isAvailable == true ? "yes" : "no",
           districtPlan.clusterDemographics.democratic,
@@ -259,7 +257,6 @@ const DistrictPlanTable = (props) => {
                     let labelId = `enhanced-table-checkbox-${row.Row}`;
                     let color = row.Color;
                     if (isItemSelected) {
-                      console;
                       return (
                         <TableRow
                           hover
@@ -320,6 +317,7 @@ const DistrictPlanTable = (props) => {
                         >
                           {columns.map((column) => {
                             const value = row[column.id];
+                            if (column.id === "Row") return;
                             if (column.id === "Selector") {
                               return (
                                 <TableCell
@@ -358,7 +356,7 @@ const DistrictPlanTable = (props) => {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[5, 10]}
             component="div"
             count={data.length}
             rowsPerPage={rowsPerPage}

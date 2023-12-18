@@ -14,7 +14,7 @@ const SelectionMessage = () => {
         fontSize: "24px", // Set font size to 24 pixels
       }}
     >
-      <p>Please Select State, Ensemble, and DM</p>
+      <p>Please Select an Ensemble and Distance Measure</p>
     </div>
   );
 };

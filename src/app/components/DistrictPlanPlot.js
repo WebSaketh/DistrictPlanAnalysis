@@ -16,11 +16,6 @@ const axisLabels = [
     yAxis: "Hispanics",
     title: "Asians vs Hispanics",
   },
-  {
-    xAxis: "Whites",
-    yAxis: "Blacks",
-    title: "Whites vs Blacks",
-  },
 ];
 
 const DistrictPlanPlot = (props) => {
@@ -92,14 +87,14 @@ const DistrictPlanPlot = (props) => {
     } else if (props.tableValue === 2) {
       let i = 0;
       data2 = Array.from({ length: availableDistrictPlans.length }, () => ({
-        x: availableDistrictPlans[i].clusterDemographics.asian,
+        x: availableDistrictPlans[i].clusterDemographics.black,
         y: availableDistrictPlans[i].clusterDemographics.hispanic, // Random Y value between 0 and 100
         r: availableDistrictPlans[i].districtPlanId === selected ? 0 : 5,
         name: "District Plan " + availableDistrictPlans[i++].districtPlanId,
       }));
       i = 0;
       data3 = Array.from({ length: unavailableDistrictPlans.length }, () => ({
-        x: unavailableDistrictPlans[i].clusterDemographics.asian,
+        x: unavailableDistrictPlans[i].clusterDemographics.black,
         y: unavailableDistrictPlans[i].clusterDemographics.hispanic, // Random Y value between 0 and 100
         r: 5,
         name: "District Plan " + unavailableDistrictPlans[i++].districtPlanId,
@@ -110,7 +105,7 @@ const DistrictPlanPlot = (props) => {
               {
                 x:
                   availableDistrictPlans[selectedIndex].clusterDemographics
-                    .asian,
+                    .black,
                 y:
                   availableDistrictPlans[selectedIndex].clusterDemographics
                     .hispanic, // Random Y value between 0 and 100
@@ -121,41 +116,7 @@ const DistrictPlanPlot = (props) => {
               },
             ]
           : [];
-    } else if (props.tableValue === 3) {
-      let i = 0;
-      data2 = Array.from({ length: availableDistrictPlans.length }, () => ({
-        x: availableDistrictPlans[i].clusterDemographics.white,
-        y: availableDistrictPlans[i].clusterDemographics.black, // Random Y value between 0 and 100
-        r: availableDistrictPlans[i].districtPlanId === selected ? 0 : 5,
-        name: "District Plan " + availableDistrictPlans[i++].districtPlanId,
-      }));
-      i = 0;
-      data3 = Array.from({ length: unavailableDistrictPlans.length }, () => ({
-        x: unavailableDistrictPlans[i].clusterDemographics.white,
-        y: unavailableDistrictPlans[i].clusterDemographics.black, // Random Y value between 0 and 100
-        r: 5,
-        name: "District Plan " + unavailableDistrictPlans[i++].districtPlanId,
-      }));
-      data4 =
-        selectedIndex !== null
-          ? [
-              {
-                x:
-                  availableDistrictPlans[selectedIndex].clusterDemographics
-                    .white,
-                y:
-                  availableDistrictPlans[selectedIndex].clusterDemographics
-                    .black, // Random Y value between 0 and 100
-                r: 10,
-                name:
-                  "District Plan " +
-                  availableDistrictPlans[selectedIndex].districtPlanId,
-              },
-            ]
-          : [];
     }
-
-    console.log(data2, data3, data4);
 
     chartInstance.current = new Chart(myChartRef, {
       // plugins: [ChartDataLabels],
@@ -165,29 +126,29 @@ const DistrictPlanPlot = (props) => {
           {
             label: "Available District Plans",
             data: data2,
-            backgroundColor: "rgb(0, 255, 0, 0.4)",
+            backgroundColor: "rgb(0, 255, 0, 0.9)",
           },
           {
             label: "Unavailable District Plans",
             data: data3,
-            backgroundColor: "rgb(255, 99, 132, 0.25)",
+            backgroundColor: "rgb(255, 0, 0, 0.9)",
           },
           {
             label: "Selected District Plan",
             data: data4,
-            backgroundColor: "rgb(255, 210, 0, 0.25)",
+            backgroundColor: "rgb(255, 210, 0, 0.9)",
           },
         ],
       },
       options: {
         onClick: function (e, d) {
           console.log(d[0].element.options.backgroundColor);
-          if (d[0].element.options.backgroundColor === "#E6BB003F") {
+          if (d[0].element.options.backgroundColor === "#E6BB00E5") {
             setSelected(null);
             setSelectedIndex(null);
             props.changeDistrictPlan([]);
           }
-          if (d[0].element.options.backgroundColor !== "#00E60066") return "";
+          if (d[0].element.options.backgroundColor !== "#00E600E5") return "";
 
           let clusterName = data2[d[0].index].name;
           var districtPlanId = parseInt(clusterName.slice(14));
@@ -242,7 +203,6 @@ const DistrictPlanPlot = (props) => {
       <Select value={selector} onChange={handleChange}>
         <MenuItem value={1}>X mds vs Y mds</MenuItem>
         <MenuItem value={2}>Asians vs Hispanics</MenuItem>
-        <MenuItem value={3}>Whites vs Blacks</MenuItem>
       </Select>
     </div>
   );

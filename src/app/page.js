@@ -11,6 +11,7 @@ import EnsembleTable from "./components/EnsembleTable";
 import DistanceMeasureTable from "./components/DistanceMeasureTable";
 import apis from "./Api/index.js";
 import Button from "@mui/material/Button";
+import StateTable from "./components/StateTable";
 
 export default function Home() {
   const [state, setState] = useState(null);
@@ -182,11 +183,10 @@ export default function Home() {
       }
       getStateInfo("Ohio").then((res) => {
         if (res !== "Error") {
-          console.log("ohiooooo");
           setStateDistrictMap(res[0].ohio2020);
           setEnsembleList(res[0].ensembles);
           setState("Ohio");
-          setCenter([40, -83]);
+          setCenter([41.5, -83]);
           setZoom(6.0);
           setEnsembleTableInfo(res[1]);
         }
@@ -311,24 +311,31 @@ export default function Home() {
                 responses={responses}
                 clusterADP={clusterADP}
               ></Map2>
-              <br></br>
+
+              <center>
+                <h2>StateTable</h2>
+              </center>
+
+              <StateTable state={state} />
               {!ensemble && (
                 <EnsembleTable
                   changeEnsemble={changeEnsemble}
                   ensembleTableInfo={ensembleTableInfo}
                 />
               )}
+
               {ensemble && (
                 <div>
-                  <Button variant="contained" onClick={viewEnsembles}>
-                    View Ensembles
-                  </Button>
                   <DistanceMeasureTable
                     distanceMeasureInfo={ensembleTableInfo}
                     ensembleName={ensemble}
                     changeDistanceMeasure={changeDistanceMeasure}
                     distanceMeasure={distanceMeasure}
                   />
+                  <br />
+                  <Button variant="contained" onClick={viewEnsembles}>
+                    View Ensembles
+                  </Button>
                 </div>
               )}
             </div>
