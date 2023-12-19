@@ -82,12 +82,20 @@ const Navbar = (props) => {
       </div>
       <div className="flex flex-row">
         <div className="col-span-2">
-          <Dropdown
-            title="Select State"
-            items={["Colorado", "Illinois", "Ohio"]}
-            changeState={props.changeState}
-            itemName={props.state}
-          ></Dropdown>
+          {props.state === null ? (
+            <Dropdown
+              title="Select State"
+              items={["Colorado", "Illinois", "Ohio"]}
+              changeState={props.changeState}
+            ></Dropdown>
+          ) : (
+            <Dropdown
+              title="Select State"
+              items={["Colorado", "Illinois", "Ohio"]}
+              changeState={props.changeState}
+              itemName={"▼ " + props.state}
+            ></Dropdown>
+          )}
         </div>
 
         {props.state && (

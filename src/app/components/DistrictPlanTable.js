@@ -36,25 +36,17 @@ function createData(
   Row,
   DistrictPlanId,
   IsAvailable,
-  Democratic,
-  Republican,
-  White,
-  Black,
-  Hispanic,
-  Asian,
-  Color
+  DRSplit,
+  OpportunityDistricts,
+  SwingDistricts
 ) {
   return {
     Row,
     DistrictPlanId,
     IsAvailable,
-    Democratic,
-    Republican,
-    White,
-    Black,
-    Hispanic,
-    Asian,
-    Color,
+    DRSplit,
+    OpportunityDistricts,
+    SwingDistricts,
   };
 }
 
@@ -75,43 +67,22 @@ const columns = [
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "Democratic",
-    label: "Dem Pop.",
+    id: "DRSplit",
+    label: "D/R Split",
     minWidth: 40,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "Republican",
-    label: "Rep Pop.",
+    id: "OpportunityDistricts",
+    label: "Opportunity Districts",
     minWidth: 40,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "White",
-    label: "White Pop.",
-    minWidth: 40,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Black",
-    label: "Black Pop.",
-    minWidth: 40,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Hispanic",
-    label: "Hispanic Pop.",
-    minWidth: 40,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Asian",
-    label: "Asian Pop.",
+    id: "SwingDistricts",
+    label: "Swing Districts",
     minWidth: 40,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
@@ -135,14 +106,13 @@ const DistrictPlanTable = (props) => {
       d.push(
         createData(
           k,
-          districtPlan.districtPlanId,
-          districtPlan.isAvailable == true ? "yes" : "no",
-          districtPlan.clusterDemographics.democratic,
-          districtPlan.clusterDemographics.republican,
-          districtPlan.clusterDemographics.white,
-          districtPlan.clusterDemographics.black,
-          districtPlan.clusterDemographics.hispanic,
-          districtPlan.clusterDemographics.asian,
+          districtPlan.districtPlanID,
+          districtPlan.isAvailable,
+          districtPlan.clusterDemographics.democrat +
+            "/" +
+            districtPlan.clusterDemographics.republican,
+          districtPlan.clusterDemographics.opportunityDistrict,
+          districtPlan.clusterDemographics.swingDistrict,
           "white"
         )
       );

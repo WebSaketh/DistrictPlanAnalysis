@@ -53,44 +53,23 @@ const columns = [
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "Democratic",
-    label: "Avg Dem Pop.",
+    id: "DRSplit",
+    label: "D/R Split",
     minWidth: 100,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "Republican",
-    label: "Avg Rep Pop.",
+    id: "AvgOpportunityDistricts",
+    label: "Avg Opportunity Districts",
     minWidth: 100,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "White",
-    label: "Avg White Pop.",
-    minWidth: 100,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Black",
-    label: "Avg Black Pop.",
-    minWidth: 100,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Hispanic",
-    label: "Avg Hisp Pop.",
-    minWidth: 100,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Asian",
-    label: "Avg Asian Pop.",
-    minWidth: 100,
+    id: "AvgSwingDistricts",
+    label: "Avg Swing Districts",
+    maxWidth: 100,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
@@ -101,24 +80,18 @@ function createData(
   ClusterId,
   DistrictPlanCount,
   AvgDistrictPlanDistance,
-  Democratic,
-  Republican,
-  White,
-  Black,
-  Hispanic,
-  Asian
+  DRSplit,
+  AvgOpportunityDistricts,
+  AvgSwingDistricts
 ) {
   return {
     Row,
     ClusterId,
     DistrictPlanCount,
     AvgDistrictPlanDistance,
-    Democratic,
-    Republican,
-    White,
-    Black,
-    Hispanic,
-    Asian,
+    DRSplit,
+    AvgOpportunityDistricts,
+    AvgSwingDistricts,
   };
 }
 
@@ -136,15 +109,14 @@ const ClusterTable = (props) => {
       d.push(
         createData(
           k + 1,
-          "Cluster " + cluster.clusterId,
-          cluster.districtPlanIds.length,
+          "Cluster " + cluster.clusterID,
+          cluster.districtPlanIDs.length,
           Math.random(),
-          cluster.clusterDemographics.democratic,
-          cluster.clusterDemographics.republican,
-          cluster.clusterDemographics.white,
-          cluster.clusterDemographics.black,
-          cluster.clusterDemographics.hispanic,
-          cluster.clusterDemographics.asian
+          cluster.clusterDemographics.avgDem +
+            "/" +
+            cluster.clusterDemographics.avgRep,
+          cluster.clusterDemographics.avgOpportunityDistricts,
+          cluster.clusterDemographics.avgSwingDistricts
         )
       );
     }
