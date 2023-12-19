@@ -11,6 +11,7 @@ import EnsembleSizeAnalysis from "./EnsembleSizeAnalysis.js";
 import HorizontalBoxPlot from "./HorizontalBoxPlot.js";
 import Scatterplot2 from "./Scatterplot2.js";
 import DistrictPlanPlot2 from "./DistrictPlanPlot2.js";
+import DistrictInfoTable from "./DistrictInfoTable.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
@@ -30,6 +31,7 @@ const InfoPanel = (props) => {
   };
 
   const changeTab = (tabName) => {
+    console.log(tabName);
     if (
       tabName === "Ensemble & Cluster Analysis" ||
       tabName === "Distance Measure Analysis"
@@ -167,6 +169,10 @@ const InfoPanel = (props) => {
               setResponses={props.setResponses}
               tabValue={tabValue}
             ></DistrictPlanTable>
+            <DistrictInfoTable
+              selected={selected}
+              districtPlanInfo={props.districtPlanInfo}
+            />
           </div>
           <div hidden={tabValue !== "District Plan MDS Scatterplot"}>
             <DistrictPlanPlot
@@ -209,12 +215,15 @@ const InfoPanel = (props) => {
                 <HorizontalBoxPlot data={dummyData} />
               </div>
             )}
-            {tabValue2 === "Gui10/21" && (     <div className="flex flex-1 flex-col" style={{ margin: "30px 30px" }}>
-
+            {tabValue2 === "Gui10/21" && (
+              <div
+                className="flex flex-1 flex-col"
+                style={{ margin: "30px 30px" }}
+              >
                 <br />
-                <EnsembleSizeAnalysis/>
-                
-              </div>)}
+                <EnsembleSizeAnalysis />
+              </div>
+            )}
           </div>
         </div>
       )}

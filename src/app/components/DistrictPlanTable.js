@@ -111,7 +111,7 @@ const DistrictPlanTable = (props) => {
           districtPlan.clusterDemographics.democrat +
             "/" +
             districtPlan.clusterDemographics.republican,
-          districtPlan.clusterDemographics.opportunityDistrict,
+          districtPlan.clusterDemographics.opportunityDistricts,
           districtPlan.clusterDemographics.swingDistrict,
           "white"
         )

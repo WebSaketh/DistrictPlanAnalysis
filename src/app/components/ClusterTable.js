@@ -40,14 +40,14 @@ const columns = [
   },
   {
     id: "DistrictPlanCount",
-    label: "Num of District plans",
+    label: "District Plan Count",
     minWidth: 100,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "AvgDistrictPlanDistance",
-    label: "Average Distance Between District Plans",
+    label: "Avg. Distance Between Plans",
     minWidth: 100,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
@@ -99,7 +99,7 @@ const ClusterTable = (props) => {
   const selected = props.selected;
   const setSelected = props.setSelected;
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -111,10 +111,10 @@ const ClusterTable = (props) => {
           k + 1,
           "Cluster " + cluster.clusterID,
           cluster.districtPlanIDs.length,
-          Math.random(),
-          cluster.clusterDemographics.avgDem +
+          cluster.clusterDemographics.avgDistance,
+          Math.round(cluster.clusterDemographics.avgDem * 100) / 100 +
             "/" +
-            cluster.clusterDemographics.avgRep,
+            Math.round(cluster.clusterDemographics.avgRep * 100) / 100,
           cluster.clusterDemographics.avgOpportunityDistricts,
           cluster.clusterDemographics.avgSwingDistricts
         )
@@ -240,7 +240,7 @@ const ClusterTable = (props) => {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10]}
+        rowsPerPageOptions={[5, 10]}
         component="div"
         count={data.length}
         rowsPerPage={rowsPerPage}
