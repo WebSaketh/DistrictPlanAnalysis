@@ -3,9 +3,9 @@ import Chart from "chart.js/auto";
 import { Select, MenuItem } from "@mui/material";
 
 const axisLabels = [
-  "African American Districts",
-  "Hispanic Districts",
-  "Asian Districts",
+  "African American Districts > 7%",
+  "Hispanic Districts > 7%",
+  "Asian Districts > 7%",
   "Opportunity Districts",
   "Swing Districts",
 ];
@@ -33,47 +33,51 @@ const DistrictPlanPlot2 = (props) => {
     }
     const myChartRef = chartRef.current.getContext("2d");
 
-    let availableDistrictPlans = [];
-    let unavailableDistrictPlans = [];
+    let matrix = [];
+    for (let i = 0; i < props.districtPlanInfo.length; i++) {
+      let temp = [];
+      temp.push(props.districtPlanInfo[i].clusterDemographics.blackDistricts);
+      temp.push(props.districtPlanInfo[i].clusterDemographics.hispanicDistrics);
+      temp.push(props.districtPlanInfo[i].clusterDemographics.asianDistricts);
+      temp.push(
+        props.districtPlanInfo[i].clusterDemographics.opportunityDistricts
+      );
+      temp.push(props.districtPlanInfo[i].clusterDemographics.swingDistrict);
+      matrix[i] = temp;
+    }
 
-    for (let j = 0; j < props.districtPlanInfo.length; j++) {
-      if (props.districtPlanInfo[j].isAvailable === "yes") {
-        availableDistrictPlans.push(props.districtPlanInfo[j]);
+    let hashMap = {};
+    for (let i = 0; i < matrix.length; i++) {
+      let xData = matrix[i][props.xAxis];
+      let yData = matrix[i][props.yAxis];
+
+      let arr = [];
+      arr.push(xData);
+      arr.push(yData);
+      if (hashMap[arr] === undefined) {
+        hashMap[arr] = 1;
       } else {
-        unavailableDistrictPlans.push(props.districtPlanInfo[j]);
+        hashMap[arr]++;
       }
     }
 
-    let matrix1 = [];
-    for (let i = 0; i < availableDistrictPlans.length; i++) {
-      let temp = [];
-      temp.push(availableDistrictPlans[i].clusterDemographics.blackDistricts);
-      temp.push(availableDistrictPlans[i].clusterDemographics.hispanicDistrics);
-      temp.push(availableDistrictPlans[i].clusterDemographics.asianDistricts);
-      temp.push(
-        availableDistrictPlans[i].clusterDemographics.opportunityDistrict
-      );
-      temp.push(availableDistrictPlans[i].clusterDemographics.swingDistrict);
-      matrix1[i] = temp;
-    }
-    let matrix2 = [];
-    for (let i = 0; i < unavailableDistrictPlans.length; i++) {
-      let temp = [];
-      temp.push(unavailableDistrictPlans[i].clusterDemographics.blackDistricts);
-      temp.push(
-        unavailableDistrictPlans[i].clusterDemographics.hispanicDistrics
-      );
-      temp.push(unavailableDistrictPlans[i].clusterDemographics.asianDistricts);
-      temp.push(
-        unavailableDistrictPlans[i].clusterDemographics.opportunityDistrict
-      );
-      temp.push(unavailableDistrictPlans[i].clusterDemographics.swingDistrict);
-      matrix2[i] = temp;
+    let data = [];
+
+    for (let key in hashMap) {
+      let arr = key.split(",");
+      let json = {
+        x: parseInt(arr[0]),
+        y: parseInt(arr[1]),
+        r: hashMap[key] > 100 ? 30 : hashMap[key] > 50 ? 20 : 10,
+        name: "Number of districts: " + hashMap[key],
+      };
+      data.push(json);
     }
 
-    let data2 = [];
+    console.log(data);
+
+    /*let data2 = [];
     let data3 = [];
-    let data4 = [];
 
     let i = 0;
     data2 = Array.from({ length: availableDistrictPlans.length }, () => ({
@@ -88,20 +92,7 @@ const DistrictPlanPlot2 = (props) => {
       y: matrix2[i][props.yAxis],
       r: 5,
       name: "District Plan " + unavailableDistrictPlans[i++].districtPlanID,
-    }));
-    data4 =
-      selectedIndex !== null
-        ? [
-            {
-              x: availableDistrictPlans[selectedIndex][props.xAxis],
-              y: availableDistrictPlans[selectedIndex][props.yAxis],
-              r: 10,
-              name:
-                "District Plan " +
-                availableDistrictPlans[selectedIndex].districtPlanID,
-            },
-          ]
-        : [];
+    }));*/
 
     chartInstance.current = new Chart(myChartRef, {
       // plugins: [ChartDataLabels],
@@ -109,42 +100,13 @@ const DistrictPlanPlot2 = (props) => {
       data: {
         datasets: [
           {
-            label: "Available District Plans",
-            data: data2,
-            backgroundColor: "rgb(0, 255, 0, 0.9)",
-          },
-          {
-            label: "Unavailable District Plans",
-            data: data3,
-            backgroundColor: "rgb(255, 0, 0, 0.9)",
-          },
-          {
-            label: "Selected District Plan",
-            data: data4,
-            backgroundColor: "rgb(255, 210, 0, 0.9)",
+            label: "District Plan Count for metric",
+            data: data,
+            backgroundColor: "rgb(0, 0, 255, 0.25)",
           },
         ],
       },
       options: {
-        onClick: function (e, d) {
-          console.log(d[0].element.options.backgroundColor);
-          if (d[0].element.options.backgroundColor === "#E6BB00E5") {
-            setSelected(null);
-            setSelectedIndex(null);
-            props.changeDistrictPlan([]);
-          }
-          if (d[0].element.options.backgroundColor !== "#00E600E5") return "";
-
-          let clusterName = data2[d[0].index].name;
-          var districtPlanId = parseInt(clusterName.slice(14));
-          let arr = [];
-
-          setSelected(districtPlanId);
-          setSelectedIndex(d[0].index);
-          arr.push(districtPlanId);
-
-          props.changeDistrictPlan(arr);
-        },
         scales: {
           y: {
             title: {
@@ -163,7 +125,11 @@ const DistrictPlanPlot2 = (props) => {
           tooltip: {
             callbacks: {
               label: function (item) {
-                return item.raw.name;
+                return [
+                  item.raw.name,
+                  axisLabels[props.xAxis] + ": " + item.raw.x,
+                  axisLabels[props.yAxis] + ": " + item.raw.y,
+                ];
               },
             },
           },

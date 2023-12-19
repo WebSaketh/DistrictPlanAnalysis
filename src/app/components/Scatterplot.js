@@ -35,8 +35,12 @@ const Scatterplot = (props) => {
     data2 = Array.from({ length: props.clusters.length }, () => ({
       x: props.clusters[i].clusterDemographics.mds_x,
       y: props.clusters[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
-      r: props.clusters[i].districtPlanIDs.length / 5,
-      name: "Cluster " + props.clusters[i++].clusterID,
+      r:
+        props.clusters[i].districtPlanIDs.length > 100
+          ? props.clusters[i].districtPlanIDs.length / 10
+          : props.clusters[i].districtPlanIDs.length,
+      name: "Cluster ID:" + props.clusters[i].clusterID,
+      dp: "District Plans: " + props.clusters[i++].districtPlanIDs.length,
     }));
 
     chartInstance.current = new Chart(myChartRef, {
@@ -55,7 +59,7 @@ const Scatterplot = (props) => {
       options: {
         onClick: function (e, i) {
           let clusterName = data2[i[0].index].name;
-          let clusterId = clusterName.slice(8);
+          let clusterId = clusterName.slice(11);
           props.setTabValue(props.nextTab);
           props.onClick(clusterId);
         },
@@ -77,12 +81,12 @@ const Scatterplot = (props) => {
           tooltip: {
             callbacks: {
               label: function (item) {
-                return (
-                  "Cluster: " +
-                  item.raw.name +
-                  ", Number Of Plans: " +
-                  item.raw.r * 5
-                );
+                return [
+                  item.raw.name,
+                  item.raw.dp,
+                  "Xmds-value: " + Math.round(item.raw.x * 100) / 100,
+                  "Ymds-value: " + Math.round(item.raw.y * 100) / 100,
+                ];
               },
             },
           },

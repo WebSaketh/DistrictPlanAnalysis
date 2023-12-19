@@ -84,7 +84,7 @@ const Navbar = (props) => {
         <div className="col-span-2">
           {props.state === null ? (
             <Dropdown
-              title="Select State"
+              title="▼ Select State"
               items={["Colorado", "Illinois", "Ohio"]}
               changeState={props.changeState}
             ></Dropdown>

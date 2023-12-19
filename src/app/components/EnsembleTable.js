@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 
 const EnsembleTable = (props) => {
   const handleOnClick = (e) => {
+    console.log(e.target.id);
     props.changeEnsemble(e.target.id);
   };
   return (

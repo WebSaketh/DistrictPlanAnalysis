@@ -46,7 +46,14 @@ export default function Home() {
     else setAbout(true);
   };
   const viewEnsembles = () => {
+    setDistrict(null);
     setEnsemble(null);
+    setDistanceMeasure(null);
+    setCluster(null);
+    setClusterADP(null);
+    setDistrictPlan([]);
+    setClusters([]);
+    setResponses([]);
   };
   const getClusterInfo = async (clusterId) => {
     try {

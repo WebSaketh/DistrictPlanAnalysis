@@ -9,15 +9,13 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
 const DistanceMeasureTable = (props) => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(null);
   useEffect(() => {
-    for (let i = 0; i < props.distanceMeasureInfo.length; i++) {
-      let ensembleName = props.distanceMeasureInfo[i].ensembleName;
-      if (ensembleName.localeCompare(props.ensembleName) == 0) {
-        setIndex(i);
-      }
-    }
-  });
+    console.log(props.distanceMeasure);
+    let index = parseInt(props.ensembleName.slice(8)) - 1;
+    console.log(index);
+    setIndex(index);
+  }, [props.ensembleName, props.distanceMeasure]);
   const handleOnClick = (e) => {
     props.changeDistanceMeasure(e.target.id);
   };
@@ -32,9 +30,9 @@ const DistanceMeasureTable = (props) => {
             <TableCell align="right">Average Distance </TableCell>
           </TableRow>
         </TableHead>
-        {!index && (
+        {index !== null && (
           <TableBody>
-            {props.distanceMeasureInfo[0].distanceMeasureInfo.map((dm) =>
+            {props.distanceMeasureInfo[index].distanceMeasureInfo.map((dm) =>
               dm.distanceMeasure === props.distanceMeasure ? (
                 <TableRow
                   key={dm.distanceMeasure}

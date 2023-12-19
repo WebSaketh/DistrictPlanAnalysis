@@ -3,11 +3,11 @@ import Chart from "chart.js/auto";
 import { Select, MenuItem } from "@mui/material";
 
 const axisLabels = [
-  "African American Districts",
-  "Hispanic Districts",
-  "Asian Districts",
-  "Opportunity Districts",
-  "Swing Districts",
+  "Avg. African American Districts > 7%",
+  "Avg. Hispanic Districts > 7%",
+  "Avg. Asian Districts > 7%",
+  "Avg. Opportunity Districts",
+  "Avg. Swing Districts",
 ];
 
 const Scatterplot2 = (props) => {
@@ -29,9 +29,28 @@ const Scatterplot2 = (props) => {
     let matrix = [];
     for (let i = 0; i < props.clusters.length; i++) {
       let temp = [];
-      temp.push(props.clusters[i].clusterDemographics.avgBlackDistricts);
-      temp.push(props.clusters[i].clusterDemographics.avgHispanicDistricts);
-      temp.push(props.clusters[i].clusterDemographics.avgAsianDistricts);
+      if (props.clusters[i].distanceMeasure === "Hamming Distance") {
+        temp.push(
+          props.clusters[i].clusterDemographics.avgBlackDistricts * 700
+        );
+        temp.push(
+          props.clusters[i].clusterDemographics.avgHispanicDistricts * 700
+        );
+        temp.push(
+          props.clusters[i].clusterDemographics.avgAsianDistricts * 700
+        );
+      } else if (props.clusters[i].distanceMeasure === "Optimal Transport") {
+        temp.push(
+          props.clusters[i].clusterDemographics.avgBlackDistricts * 100
+        );
+        temp.push(
+          props.clusters[i].clusterDemographics.avgHispanicDistricts * 100
+        );
+        temp.push(
+          props.clusters[i].clusterDemographics.avgAsianDistricts * 100
+        );
+      }
+
       temp.push(props.clusters[i].clusterDemographics.avgOpportunityDistricts);
       temp.push(props.clusters[i].clusterDemographics.avgSwingDistricts);
       matrix[i] = temp;
@@ -45,8 +64,12 @@ const Scatterplot2 = (props) => {
     data2 = Array.from({ length: props.clusters.length }, () => ({
       x: matrix[i][props.xAxis],
       y: matrix[i][props.yAxis], // Random Y value between 0 and 100
-      r: props.clusters[i].districtPlanIDs.length / 5,
-      name: "Cluster " + props.clusters[i++].clusterID,
+      r:
+        props.clusters[i].districtPlanIDs.length > 100
+          ? props.clusters[i].districtPlanIDs.length / 10
+          : props.clusters[i].districtPlanIDs.length,
+      name: "Cluster: " + props.clusters[i].clusterID,
+      dp: "District Plans: " + props.clusters[i++].districtPlanIDs.length,
     }));
 
     chartInstance.current = new Chart(myChartRef, {
@@ -87,20 +110,16 @@ const Scatterplot2 = (props) => {
           tooltip: {
             callbacks: {
               label: function (item) {
-                return (
-                  "Cluster: " +
-                  item.raw.name +
-                  ", Number Of Plans: " +
-                  item.raw.r * 5 +
-                  ", " +
+                return [
+                  item.raw.name,
+                  item.raw.dp,
                   axisLabels[props.xAxis] +
-                  ": " +
-                  item.raw.x +
-                  ", " +
+                    ": " +
+                    Math.round(item.raw.x * 100) / 100,
                   axisLabels[props.yAxis] +
-                  ": " +
-                  item.raw.y
-                );
+                    ": " +
+                    Math.round(item.raw.y * 100) / 100,
+                ];
               },
             },
           },

@@ -58,6 +58,7 @@ const DistrictPlanPlot = (props) => {
         y: availableDistrictPlans[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
         r: availableDistrictPlans[i].districtPlanID === selected ? -1 : 5,
         name: "District Plan " + availableDistrictPlans[i++].districtPlanID,
+        available: "available",
       }));
       i = 0;
       data3 = Array.from({ length: unavailableDistrictPlans.length }, () => ({
@@ -65,6 +66,7 @@ const DistrictPlanPlot = (props) => {
         y: unavailableDistrictPlans[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
         r: 5,
         name: "District Plan " + unavailableDistrictPlans[i++].districtPlanID,
+        available: "notAvailable",
       }));
       data4 =
         selectedIndex !== null
@@ -141,7 +143,6 @@ const DistrictPlanPlot = (props) => {
       },
       options: {
         onClick: function (e, d) {
-          console.log(d[0].element.options.backgroundColor);
           if (d[0].element.options.backgroundColor === "#E6BB00E5") {
             setSelected(null);
             setSelectedIndex(null);
@@ -177,7 +178,12 @@ const DistrictPlanPlot = (props) => {
           tooltip: {
             callbacks: {
               label: function (item) {
-                return item.raw.name;
+                return [
+                  item.raw.available,
+                  item.raw.name,
+                  "Xmds value: " + Math.round(item.raw.x * 100) / 100,
+                  "Ymds value: " + Math.round(item.raw.y * 100) / 100,
+                ];
               },
             },
           },
