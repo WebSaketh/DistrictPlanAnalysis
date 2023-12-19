@@ -12,9 +12,9 @@ const axisLabels = [
     title: "X mds vs Y mds",
   },
   {
-    xAxis: "Asians",
+    xAxis: "Blacks",
     yAxis: "Hispanics",
-    title: "Asians vs Hispanics",
+    title: "Blacks vs Hispanics",
   },
 ];
 
@@ -30,7 +30,6 @@ const DistrictPlanPlot = (props) => {
   };
 
   useEffect(() => {
-    console.log("use effect");
     setSelector(props.tableValue);
     if (chartInstance.current) {
       chartInstance.current.destroy();
@@ -41,7 +40,7 @@ const DistrictPlanPlot = (props) => {
     let unavailableDistrictPlans = [];
 
     for (let j = 0; j < props.districtPlanInfo.length; j++) {
-      if (props.districtPlanInfo[j].isAvailable) {
+      if (props.districtPlanInfo[j].isAvailable === "yes") {
         availableDistrictPlans.push(props.districtPlanInfo[j]);
       } else {
         unavailableDistrictPlans.push(props.districtPlanInfo[j]);
@@ -58,14 +57,14 @@ const DistrictPlanPlot = (props) => {
         x: availableDistrictPlans[i].clusterDemographics.mds_x,
         y: availableDistrictPlans[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
         r: availableDistrictPlans[i].districtPlanId === selected ? -1 : 5,
-        name: "District Plan " + availableDistrictPlans[i++].districtPlanId,
+        name: "District Plan " + availableDistrictPlans[i++].districtPlanID,
       }));
       i = 0;
       data3 = Array.from({ length: unavailableDistrictPlans.length }, () => ({
         x: unavailableDistrictPlans[i].clusterDemographics.mds_x,
         y: unavailableDistrictPlans[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
         r: 5,
-        name: "District Plan " + unavailableDistrictPlans[i++].districtPlanId,
+        name: "District Plan " + unavailableDistrictPlans[i++].districtPlanID,
       }));
       data4 =
         selectedIndex !== null
@@ -80,24 +79,24 @@ const DistrictPlanPlot = (props) => {
                 r: 10,
                 name:
                   "District Plan " +
-                  availableDistrictPlans[selectedIndex].districtPlanId,
+                  availableDistrictPlans[selectedIndex].districtPlanID,
               },
             ]
           : [];
     } else if (props.tableValue === 2) {
       let i = 0;
       data2 = Array.from({ length: availableDistrictPlans.length }, () => ({
-        x: availableDistrictPlans[i].clusterDemographics.black,
-        y: availableDistrictPlans[i].clusterDemographics.hispanic, // Random Y value between 0 and 100
+        x: availableDistrictPlans[i].clusterDemographics.blackDistricts,
+        y: availableDistrictPlans[i].clusterDemographics.hispanicDistrics, // Random Y value between 0 and 100
         r: availableDistrictPlans[i].districtPlanId === selected ? 0 : 5,
-        name: "District Plan " + availableDistrictPlans[i++].districtPlanId,
+        name: "District Plan " + availableDistrictPlans[i++].districtPlanID,
       }));
       i = 0;
       data3 = Array.from({ length: unavailableDistrictPlans.length }, () => ({
-        x: unavailableDistrictPlans[i].clusterDemographics.black,
-        y: unavailableDistrictPlans[i].clusterDemographics.hispanic, // Random Y value between 0 and 100
+        x: unavailableDistrictPlans[i].clusterDemographics.blackDistricts,
+        y: unavailableDistrictPlans[i].clusterDemographics.hispanicDistrics, // Random Y value between 0 and 100
         r: 5,
-        name: "District Plan " + unavailableDistrictPlans[i++].districtPlanId,
+        name: "District Plan " + unavailableDistrictPlans[i++].districtPlanID,
       }));
       data4 =
         selectedIndex !== null
@@ -105,14 +104,14 @@ const DistrictPlanPlot = (props) => {
               {
                 x:
                   availableDistrictPlans[selectedIndex].clusterDemographics
-                    .black,
+                    .blackDistricts,
                 y:
                   availableDistrictPlans[selectedIndex].clusterDemographics
-                    .hispanic, // Random Y value between 0 and 100
+                    .hispanicDistrics, // Random Y value between 0 and 100
                 r: 10,
                 name:
                   "District Plan " +
-                  availableDistrictPlans[selectedIndex].districtPlanId,
+                  availableDistrictPlans[selectedIndex].districtPlanID,
               },
             ]
           : [];
@@ -202,7 +201,7 @@ const DistrictPlanPlot = (props) => {
       </div>
       <Select value={selector} onChange={handleChange}>
         <MenuItem value={1}>X mds vs Y mds</MenuItem>
-        <MenuItem value={2}>Asians vs Hispanics</MenuItem>
+        <MenuItem value={2}>Blacks vs Hispanics</MenuItem>
       </Select>
     </div>
   );

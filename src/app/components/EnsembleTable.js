@@ -20,6 +20,7 @@ const EnsembleTable = (props) => {
             <TableCell>Ensemble Name</TableCell>
             <TableCell align="right">Distance Metrics</TableCell>
             <TableCell align="right">Number of Plans</TableCell>
+            <TableCell align="right">Date Created</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,6 +38,7 @@ const EnsembleTable = (props) => {
               </TableCell>
               <TableCell align="right">{ensemble.distanceMeasures}</TableCell>
               <TableCell align="right">{ensemble.totalPlans}</TableCell>
+              <TableCell align="right">{ensemble.dateCreated}</TableCell>
             </TableRow>
           ))}
         </TableBody>

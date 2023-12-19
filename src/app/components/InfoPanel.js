@@ -7,17 +7,22 @@ import DistrictPlanPlot from "src/app/components/DistrictPlanPlot.js";
 import SelectionMessage from "src/app/components/SelectionMessage.js";
 import SimpleLineChart from "src/app/components/SimpleLineChart.js";
 import Table from "./Table";
-import { Tabs } from "flowbite-react";
-import StateTable from "./StateTable";
+import EnsembleSizeAnalysis from "./EnsembleSizeAnalysis.js";
+import HorizontalBoxPlot from "./HorizontalBoxPlot.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
+  const [tabValue2, setTabValue2] = useState("Gui9");
   const [mainTabValue, setMainTabValue] = useState(
     "Ensemble & Cluster Analysis"
   );
   const [selected, setSelected] = useState([]);
   const [tableValue, setTableValue] = useState(1);
   const [thisADP, setThisADP] = useState(null);
+
+  const changeTab2 = (tabName) => {
+    setTabValue2(tabName);
+  };
 
   const changeTab = (tabName) => {
     if (
@@ -26,7 +31,8 @@ const InfoPanel = (props) => {
     ) {
       setMainTabValue(tabName);
     } else {
-      setTabValue(tabName);
+      if (tabName === "Gui9" || tabName === "Gui10/21") setTabValue2(tabName);
+      else setTabValue(tabName);
     }
 
     setSelected([]);
@@ -147,14 +153,22 @@ const InfoPanel = (props) => {
       )}
 
       {mainTabValue === "Distance Measure Analysis" && (
-        <div className="flex flex-1 justify-center items-center">
-          <div className="flex flex-1 flex-col ">
-            <div className="m-5 flex flex-row">
-              <SimpleLineChart />
-            </div>
-            <div className="m-5">
-              <Table data={data3} />
-            </div>
+        <div>
+          <InfoTabs
+            tabValue={tabValue2}
+            setTabValue={changeTab}
+            tabList={["Gui9", "Gui10/21"]}
+            clickClusterButton={props.clickClusterButton}
+            color="secondary"
+          />
+          <div className="flex flex-1 justify-center items-center">
+            {tabValue2 === "Gui9" && (
+              <div className="flex flex-1 flex-col ">
+                <br />
+                <HorizontalBoxPlot data={dummyData} />
+              </div>
+            )}
+            {tabValue2 === "Gui10/21" && <EnsembleSizeAnalysis />}
           </div>
         </div>
       )}
@@ -166,6 +180,12 @@ export default InfoPanel;
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
+
+const dummyData = [
+  { category: "Optimal Transport", values: [0.1, 0.3, 0.5, 0.7, 1.0] },
+  { category: "Hamming Distance", values: [0.3, 0.4, 0.6, 0.8, 1.0] },
+  { category: "Entropy", values: [0.1, 0.2, 0.45, 0.65, 1.0] },
+];
 const data3 = {
   columns: [
     "Metric Name",
