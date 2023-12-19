@@ -29,7 +29,7 @@ const DistanceMeasureTable = (props) => {
           <TableRow>
             <TableCell>Distance Measure</TableCell>
             <TableCell align="right">Number of Clusters</TableCell>
-            <TableCell align="right">Normalized Score</TableCell>
+            <TableCell align="right">Average Distance </TableCell>
           </TableRow>
         </TableHead>
         {!index && (
@@ -47,7 +47,7 @@ const DistanceMeasureTable = (props) => {
                     {dm.distanceMeasure}
                   </TableCell>
                   <TableCell align="right">{dm.totalClusters}</TableCell>
-                  <TableCell align="right">{dm.normalizedScore}</TableCell>
+                  <TableCell align="right">{dm.averageDistance}</TableCell>
                 </TableRow>
               ) : (
                 <TableRow
@@ -64,7 +64,7 @@ const DistanceMeasureTable = (props) => {
                     {dm.distanceMeasure}
                   </TableCell>
                   <TableCell align="right">{dm.totalClusters}</TableCell>
-                  <TableCell align="right">{dm.normalizedScore}</TableCell>
+                  <TableCell align="right">{dm.averageDistance}</TableCell>
                 </TableRow>
               )
             )}

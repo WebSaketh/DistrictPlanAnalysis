@@ -164,6 +164,7 @@ const InfoPanel = (props) => {
           <div className="flex flex-1 justify-center items-center">
             {tabValue2 === "Gui9" && (
               <div className="flex flex-1 flex-col ">
+                <br />
                 <HorizontalBoxPlot data={dummyData} />
               </div>
             )}
