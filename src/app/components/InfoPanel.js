@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import ClusterTable from "src/app/components/ClusterTable.js";
+import ClusterTable from "./ClusterTable.js";
 import DistrictPlanTable from "./DistrictPlanTable.js";
-import InfoTabs from "src/app/components/InfoTabs.js";
-import Scatterplot from "src/app/components/Scatterplot.js";
-import DistrictPlanPlot from "src/app/components/DistrictPlanPlot.js";
-import SelectionMessage from "src/app/components/SelectionMessage.js";
-import SimpleLineChart from "src/app/components/SimpleLineChart.js";
+import InfoTabs from "./InfoTabs.js";
+import Scatterplot from "./Scatterplot.js";
+import DistrictPlanPlot from "./DistrictPlanPlot.js";
+import SelectionMessage from "./SelectionMessage.js";
+import SimpleLineChart from "./SimpleLineChart.js";
 import Table from "./Table";
 import EnsembleSizeAnalysis from "./EnsembleSizeAnalysis.js";
 import HorizontalBoxPlot from "./HorizontalBoxPlot.js";
+import Scatterplot2 from "./Scatterplot2.js";
+import DistrictPlanPlot2 from "./DistrictPlanPlot2.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
@@ -19,6 +21,9 @@ const InfoPanel = (props) => {
   const [selected, setSelected] = useState([]);
   const [tableValue, setTableValue] = useState(1);
   const [thisADP, setThisADP] = useState(null);
+
+  const [xAxis, setXAxis] = useState(0);
+  const [yAxis, setYAxis] = useState(1);
 
   const changeTab2 = (tabName) => {
     setTabValue2(tabName);
@@ -62,8 +67,6 @@ const InfoPanel = (props) => {
     setTableValue(value);
   };
 
-  const [mainSelected, setMainSelected] = useState([]);
-
   if (!props.distanceMeasure) {
     return (
       <div className="flex-1 m-5 text-center content-center lg:h-full lg:w-full lg:mb-0  lg:text-left flex-1">
@@ -89,7 +92,11 @@ const InfoPanel = (props) => {
           <InfoTabs
             tabValue={tabValue}
             setTabValue={changeTab}
-            tabList={["Cluster Table", "Cluster Scatterplot"]}
+            tabList={[
+              "Cluster Table",
+              "MDS Cluster Scatterplot",
+              "Value Cluster Scatterplot",
+            ]}
             color="secondary"
           ></InfoTabs>
           <div hidden={tabValue !== "Cluster Table"}>
@@ -102,7 +109,7 @@ const InfoPanel = (props) => {
               setSelected={settingADP}
             ></ClusterTable>
           </div>
-          <div hidden={tabValue !== "Cluster Scatterplot"}>
+          <div hidden={tabValue !== "MDS Cluster Scatterplot"}>
             <Scatterplot
               tableValue={tableValue}
               changeTableValue={changeTableValue}
@@ -112,7 +119,24 @@ const InfoPanel = (props) => {
               setTabValue={setTabValue}
               tabValue={tabValue}
               onClick={props.changeCluster}
-              nextTab="District Plan Scatterplot"
+              nextTab="District Plan MDS Scatterplot"
+            />
+          </div>
+          <div hidden={tabValue !== "Value Cluster Scatterplot"}>
+            <Scatterplot2
+              tableValue={tableValue}
+              changeTableValue={changeTableValue}
+              maxWidth={600}
+              maxHeight={400}
+              clusters={props.clusters}
+              setTabValue={setTabValue}
+              tabValue={tabValue}
+              onClick={props.changeCluster}
+              nextTab="District Plan Value Scatterplot"
+              xAxis={xAxis}
+              setXAxis={setXAxis}
+              yAxis={yAxis}
+              setYAxis={setYAxis}
             />
           </div>
         </div>
@@ -122,7 +146,11 @@ const InfoPanel = (props) => {
           <InfoTabs
             tabValue={tabValue}
             setTabValue={changeTab}
-            tabList={["District Plan Table", "District Plan Scatterplot"]}
+            tabList={[
+              "District Plan Table",
+              "District Plan MDS Scatterplot",
+              "District Plan Value Scatterplot",
+            ]}
             cluster={props.cluster}
             clickClusterButton={props.clickClusterButton}
             color="secondary"
@@ -140,13 +168,26 @@ const InfoPanel = (props) => {
               tabValue={tabValue}
             ></DistrictPlanTable>
           </div>
-          <div hidden={tabValue !== "District Plan Scatterplot"}>
+          <div hidden={tabValue !== "District Plan MDS Scatterplot"}>
             <DistrictPlanPlot
               tableValue={tableValue}
               changeTableValue={changeTableValue}
               districtPlan={props.districtPlan}
               districtPlanInfo={props.districtPlanInfo}
               changeDistrictPlan={props.changeDistrictPlan}
+            />
+          </div>
+          <div hidden={tabValue !== "District Plan Value Scatterplot"}>
+            <DistrictPlanPlot2
+              tableValue={tableValue}
+              changeTableValue={changeTableValue}
+              districtPlan={props.districtPlan}
+              districtPlanInfo={props.districtPlanInfo}
+              changeDistrictPlan={props.changeDistrictPlan}
+              xAxis={xAxis}
+              setXAxis={setXAxis}
+              yAxis={yAxis}
+              setYAxis={setYAxis}
             />
           </div>
         </div>

@@ -120,6 +120,7 @@ export default function Home() {
     }
   };
   const changeDistrict = (e) => {
+    console.log(e);
     setDistrict(e);
   };
   const clickClusterButton = () => {
