@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import ClusterTable from "src/app/components/ClusterTable.js";
+import ClusterTable from "./ClusterTable.js";
 import DistrictPlanTable from "./DistrictPlanTable.js";
-import InfoTabs from "src/app/components/InfoTabs.js";
-import Scatterplot from "src/app/components/Scatterplot.js";
-import DistrictPlanPlot from "src/app/components/DistrictPlanPlot.js";
-import SelectionMessage from "src/app/components/SelectionMessage.js";
-import SimpleLineChart from "src/app/components/SimpleLineChart.js";
+import InfoTabs from "./InfoTabs.js";
+import Scatterplot from "./Scatterplot.js";
+import DistrictPlanPlot from "./DistrictPlanPlot.js";
+import SelectionMessage from "./SelectionMessage.js";
+import SimpleLineChart from "./SimpleLineChart.js";
 import Table from "./Table";
 import EnsembleSizeAnalysis from "./EnsembleSizeAnalysis.js";
 import HorizontalBoxPlot from "./HorizontalBoxPlot.js";
@@ -168,7 +168,12 @@ const InfoPanel = (props) => {
                 <HorizontalBoxPlot data={dummyData} />
               </div>
             )}
-            {tabValue2 === "Gui10/21" && <EnsembleSizeAnalysis />}
+            {tabValue2 === "Gui10/21" && (     <div className="flex flex-1 flex-col" style={{ margin: "30px 30px" }}>
+
+                <br />
+                <EnsembleSizeAnalysis/>
+                
+              </div>)}
           </div>
         </div>
       )}
