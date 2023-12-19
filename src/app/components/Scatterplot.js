@@ -32,21 +32,12 @@ const Scatterplot = (props) => {
     const myChartRef = chartRef.current.getContext("2d");
     let i = 0;
     let data2 = [];
-    if (props.tableValue === 1) {
-      data2 = Array.from({ length: props.clusters.length }, () => ({
-        x: props.clusters[i].clusterDemographics.mds_x,
-        y: props.clusters[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
-        r: props.clusters[i].districtPlanIDs.length / 5,
-        name: "Cluster " + props.clusters[i++].clusterId,
-      }));
-    } else if (props.tableValue === 2) {
-      data2 = Array.from({ length: props.clusters.length }, () => ({
-        x: props.clusters[i].clusterDemographics.avgBlackDistricts,
-        y: props.clusters[i].clusterDemographics.avgHispanicDistricts, // Random Y value between 0 and 100
-        r: props.clusters[i].districtPlanIDs.length / 5,
-        name: "Cluster " + props.clusters[i++].clusterId,
-      }));
-    }
+    data2 = Array.from({ length: props.clusters.length }, () => ({
+      x: props.clusters[i].clusterDemographics.mds_x,
+      y: props.clusters[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
+      r: props.clusters[i].districtPlanIDs.length / 5,
+      name: "Cluster " + props.clusters[i++].clusterID,
+    }));
 
     chartInstance.current = new Chart(myChartRef, {
       // plugins: [ChartDataLabels],
@@ -113,10 +104,6 @@ const Scatterplot = (props) => {
       <div class="chart-container">
         <canvas ref={chartRef} />
       </div>
-      <Select value={selector} onChange={handleChange}>
-        <MenuItem value={1}>X mds vs Y mds</MenuItem>
-        <MenuItem value={2}>Blacks vs Hispanics</MenuItem>
-      </Select>
     </div>
   );
 };

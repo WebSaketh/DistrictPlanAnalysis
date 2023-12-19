@@ -56,7 +56,7 @@ const DistrictPlanPlot = (props) => {
       data2 = Array.from({ length: availableDistrictPlans.length }, () => ({
         x: availableDistrictPlans[i].clusterDemographics.mds_x,
         y: availableDistrictPlans[i].clusterDemographics.mds_y, // Random Y value between 0 and 100
-        r: availableDistrictPlans[i].districtPlanId === selected ? -1 : 5,
+        r: availableDistrictPlans[i].districtPlanID === selected ? -1 : 5,
         name: "District Plan " + availableDistrictPlans[i++].districtPlanID,
       }));
       i = 0;
@@ -199,10 +199,6 @@ const DistrictPlanPlot = (props) => {
       <div class="chart-container">
         <canvas ref={chartRef} />
       </div>
-      <Select value={selector} onChange={handleChange}>
-        <MenuItem value={1}>X mds vs Y mds</MenuItem>
-        <MenuItem value={2}>Blacks vs Hispanics</MenuItem>
-      </Select>
     </div>
   );
 };
