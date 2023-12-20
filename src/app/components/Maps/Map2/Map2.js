@@ -30,7 +30,13 @@ const maxBounds = L.latLngBounds(
 var center = [40, -96];
 
 const Map2 = (props) => {
-  const [colors, setColors] = useState(["purple", "green", "orange", "pink"]);
+  const [colors, setColors] = useState([
+    "#CF9FFF",
+    "#90EE90",
+    "#ACE5EE",
+    "#FFD580",
+    ,
+  ]);
   if (props.state == "Colorado") {
     center = [39.4, -106];
   }

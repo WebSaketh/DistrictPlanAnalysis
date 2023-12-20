@@ -5,7 +5,7 @@ import { Select, MenuItem } from "@mui/material";
 const axisLabels = [
   "Avg. African American Significant Districts",
   "Avg. Hispanic Significant Districts",
-  "Avg. Asian Districts > 7%",
+  "Avg. Asian Districts Significant Districts",
   "Avg. Opportunity Districts",
   "Avg. Swing Districts",
 ];
@@ -137,21 +137,27 @@ const Scatterplot2 = (props) => {
       <div class="chart-container">
         <canvas ref={chartRef} />
       </div>
-      <Select value={props.xAxis} onChange={handleXChange}>
-        <MenuItem value={0}>African Americans Districts</MenuItem>
-        <MenuItem value={1}>Hispanics Districts</MenuItem>
-        <MenuItem value={2}>Asians Districts</MenuItem>
-        <MenuItem value={3}>Opportunity Districts</MenuItem>
-        <MenuItem value={4}>Swing Districts</MenuItem>
-      </Select>
-
-      <Select value={props.yAxis} onChange={handleYChange}>
-        <MenuItem value={0}>African Americans Districts</MenuItem>
-        <MenuItem value={1}>Hispanics Districts</MenuItem>
-        <MenuItem value={2}>Asians Districts</MenuItem>
-        <MenuItem value={3}>Opportunity Districts</MenuItem>
-        <MenuItem value={4}>Swing Districts</MenuItem>
-      </Select>
+      <div></div>
+      <div className="axis">
+        <h1>Set X-axis</h1>
+        <Select value={props.xAxis} onChange={handleXChange}>
+          <MenuItem value={0}>African Americans Districts</MenuItem>
+          <MenuItem value={1}>Hispanics Districts</MenuItem>
+          <MenuItem value={2}>Asians Districts</MenuItem>
+          <MenuItem value={3}>Opportunity Districts</MenuItem>
+          <MenuItem value={4}>Swing Districts</MenuItem>
+        </Select>
+      </div>
+      <div className="axis">
+        <h1>Set Y-Axis</h1>
+        <Select value={props.yAxis} onChange={handleYChange}>
+          <MenuItem value={0}>African Americans Districts</MenuItem>
+          <MenuItem value={1}>Hispanics Districts</MenuItem>
+          <MenuItem value={2}>Asians Districts</MenuItem>
+          <MenuItem value={3}>Opportunity Districts</MenuItem>
+          <MenuItem value={4}>Swing Districts</MenuItem>
+        </Select>
+      </div>
     </div>
   );
 };
