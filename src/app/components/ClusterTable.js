@@ -73,6 +73,27 @@ const columns = [
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
+  {
+    id: "AvgSigBlackDistricts",
+    label: "Avg Sig. Black Districts",
+    maxWidth: 100,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "AvgSigAsianDistricts",
+    label: "Avg Sig. Asian Districts",
+    maxWidth: 100,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "AvgSigHispanicDistricts",
+    label: "Avg Sig. Hispanic Districts",
+    maxWidth: 100,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
 ];
 
 function createData(
@@ -82,7 +103,10 @@ function createData(
   AvgDistrictPlanDistance,
   DRSplit,
   AvgOpportunityDistricts,
-  AvgSwingDistricts
+  AvgSwingDistricts,
+  AvgSigBlackDistricts,
+  AvgSigAsianDistricts,
+  AvgSigHispanicDistricts
 ) {
   return {
     Row,
@@ -92,6 +116,9 @@ function createData(
     DRSplit,
     AvgOpportunityDistricts,
     AvgSwingDistricts,
+    AvgSigBlackDistricts,
+    AvgSigAsianDistricts,
+    AvgSigHispanicDistricts,
   };
 }
 
@@ -101,7 +128,19 @@ const ClusterTable = (props) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data, setData] = useState([]);
-
+  var factor = 1;
+  if (props.state == "Colorado") {
+    factor = 475;
+  }
+  if (props.state == "Illinois") {
+    factor = 475;
+  }
+  if (props.state == "Ohio") {
+    factor = 85;
+    if (props.distanceMeasure == "Hamming Distance") {
+      factor = 475;
+    }
+  }
   useEffect(() => {
     let d = [];
     for (let k = 0; k < props.clusters.length; k++) {
@@ -116,7 +155,10 @@ const ClusterTable = (props) => {
             "/" +
             Math.round(cluster.clusterDemographics.avgRep * 100) / 100,
           cluster.clusterDemographics.avgOpportunityDistricts,
-          cluster.clusterDemographics.avgSwingDistricts
+          cluster.clusterDemographics.avgSwingDistricts,
+          cluster.clusterDemographics.avgBlackDistricts * factor,
+          cluster.clusterDemographics.avgAsianDistricts * factor,
+          cluster.clusterDemographics.avgHispanicDistricts * factor
         )
       );
     }

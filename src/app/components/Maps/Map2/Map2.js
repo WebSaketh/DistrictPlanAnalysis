@@ -44,14 +44,7 @@ const Map2 = (props) => {
   useEffect(() => {
     document.getElementById("map")?.click();
     document.getElementById("map2")?.click();
-    /*const getData = async () => {
-      let res = await initializationApis.getState(props.state);
-      let data = res.data;
-      if (props.state === "Ohio") setStateData(data.ohio2020);
-      else if (props.state === "Colorado") setStateData(data.colo2020);
-      else if (props.state === "Illinois") setStateData(data.ill2020);
-    };
-    getData();*/
+
     console.log(props.responses);
   }, [props.state, props.clusterADP, props.responses]);
 
