@@ -74,8 +74,6 @@ const DistrictPlanPlot2 = (props) => {
       data.push(json);
     }
 
-    console.log(data);
-
     /*let data2 = [];
     let data3 = [];
 

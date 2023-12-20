@@ -12,7 +12,7 @@ import HorizontalBoxPlot from "./HorizontalBoxPlot.js";
 import Scatterplot2 from "./Scatterplot2.js";
 import DistrictPlanPlot2 from "./DistrictPlanPlot2.js";
 import DistrictInfoTable from "./DistrictInfoTable.js";
-import BoxAndWhiskersTable from "./BoxAndWhiskersTable.js"
+import BoxAndWhiskersTable from "./BoxAndWhiskersTable.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
@@ -221,8 +221,13 @@ const InfoPanel = (props) => {
             {tabValue2 === "Compare Distance Measures" && (
               <div className="flex flex-1 flex-col ">
                 <br />
-                <HorizontalBoxPlot data={dummyData} />
-                <BoxAndWhiskersTable/>
+                <HorizontalBoxPlot
+                  data={dummyData}
+                  ensembleInfo={props.ensembleTableInfo}
+                  state={props.state}
+                  ensemble={props.ensemble}
+                />
+                <BoxAndWhiskersTable />
               </div>
             )}
             {tabValue2 === "Ensebmle Size Cluster Association" && (

@@ -8,10 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
-
 const EnsembleTable = (props) => {
   const handleOnClick = (e) => {
-    console.log(e.target.id);
     props.changeEnsemble(e.target.id);
   };
   return (
@@ -31,12 +29,14 @@ const EnsembleTable = (props) => {
               key={ensemble.ensembleName}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell
-                className="special-table-cell"
-              >
+              <TableCell className="special-table-cell">
                 <Button
                   variant="outlined"
-                  style={{ backgroundColor: '#990001', color: 'white', fontSize: '12px' }}
+                  style={{
+                    backgroundColor: "#990001",
+                    color: "white",
+                    fontSize: "12px",
+                  }}
                   onClick={handleOnClick}
                   id={ensemble.ensembleName}
                 >
