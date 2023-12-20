@@ -27,6 +27,8 @@ const InfoPanel = (props) => {
   const [xAxis, setXAxis] = useState(0);
   const [yAxis, setYAxis] = useState(1);
 
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+
   const changeTab2 = (tabName) => {
     setTabValue2(tabName);
   };
@@ -51,6 +53,7 @@ const InfoPanel = (props) => {
 
     props.changeDistrictPlan([]);
     props.setClusterADP(null);
+    setSelectedDistrict(null);
     setThisADP(null);
   };
 
@@ -173,9 +176,11 @@ const InfoPanel = (props) => {
               responses={props.responses}
               setResponses={props.setResponses}
               tabValue={tabValue}
+              selectedDistrict={selectedDistrict}
+              setSelectedDistrict={setSelectedDistrict}
             ></DistrictPlanTable>
             <DistrictInfoTable
-              selected={selected}
+              selectedDistrict={selectedDistrict}
               districtPlanInfo={props.districtPlanInfo}
             />
           </div>
