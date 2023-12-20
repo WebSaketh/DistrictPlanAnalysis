@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import ApexCharts from "apexcharts";
 
-const HorizontalBoxPlot = ({ data }) => {
+const HorizontalBoxPlot = ({ data, state, ensemble }) => {
   useEffect(() => {
     // Check if running on the client side
+    console.log(state, ensemble);
+
     if (typeof window !== "undefined" && typeof document !== "undefined") {
       const options = {
         series: [

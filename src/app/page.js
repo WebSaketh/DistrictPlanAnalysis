@@ -108,7 +108,6 @@ export default function Home() {
     }
   };
   const changeDistrictPlan = (newList) => {
-    console.log(newList);
     setDistrictPlan(newList);
   };
   const changeEnsemble = (e) => {
@@ -127,7 +126,6 @@ export default function Home() {
     }
   };
   const changeDistrict = (e) => {
-    console.log(e);
     setDistrict(e);
   };
   const clickClusterButton = () => {
@@ -341,13 +339,18 @@ export default function Home() {
                     distanceMeasure={distanceMeasure}
                   />
                   <br />
-                  <Button variant="outlined"                   
-                  style={{ backgroundColor: '#990001', color: 'white', fontSize: '12px', marginLeft: '5px', // Adjust the margin as needed
-                }}
-                  onClick={viewEnsembles}>
+                  <Button
+                    variant="outlined"
+                    style={{
+                      backgroundColor: "#990001",
+                      color: "white",
+                      fontSize: "12px",
+                      marginLeft: "5px", // Adjust the margin as needed
+                    }}
+                    onClick={viewEnsembles}
+                  >
                     View Ensembles
                   </Button>
-
                 </div>
               )}
             </div>
@@ -370,6 +373,8 @@ export default function Home() {
               setResponses={setResponses}
               districtPlan={districtPlan}
               state={state}
+              ensembleTableInfo={ensembleTableInfo}
+              ensemble={ensemble}
             />
           </div>
         </div>
