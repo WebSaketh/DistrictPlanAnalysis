@@ -48,7 +48,7 @@ const SimpleLineChart = () => {
         }}
       />
       <CartesianGrid stroke="#ccc" />
-      <Line type="monotone" dataKey="value1" stroke="blue" name="Ensemble1" />
+      <Line type="monotone" dataKey="value1" stroke="blue" name="Ensemble" />
       <Line type="monotone" dataKey="value2" stroke="red" name="Ensemble2" />
       <Line type="monotone" dataKey="value3" stroke="green" name="Ensemble3" />
 

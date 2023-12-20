@@ -341,9 +341,13 @@ export default function Home() {
                     distanceMeasure={distanceMeasure}
                   />
                   <br />
-                  <Button variant="contained" onClick={viewEnsembles}>
+                  <Button variant="outlined"                   
+                  style={{ backgroundColor: '#990001', color: 'white', fontSize: '12px', marginLeft: '5px', // Adjust the margin as needed
+                }}
+                  onClick={viewEnsembles}>
                     View Ensembles
                   </Button>
+
                 </div>
               )}
             </div>
