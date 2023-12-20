@@ -227,7 +227,10 @@ const InfoPanel = (props) => {
                   state={props.state}
                   ensemble={props.ensemble}
                 />
-                <BoxAndWhiskersTable />
+                <BoxAndWhiskersTable
+                  state={props.state}
+                  ensemble={props.ensemble}
+                />
               </div>
             )}
             {tabValue2 === "Ensebmle Size Cluster Association" && (
