@@ -43,6 +43,11 @@ body {
   margin-left: 30px;
 }
 
+.axis {
+  display: inline-block;
+  margin-right: 10;
+}
+
 path.leaflet-interactive:focus {
   outline: none;
 }

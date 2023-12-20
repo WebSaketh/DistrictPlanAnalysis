@@ -90,13 +90,13 @@ const StateTable = (props) => {
                 <TableBody>
                   <TableRow>
                     <TableCell>{data.state}</TableCell>
-                    <TableCell align="center">{data.rep}</TableCell>
-                    <TableCell align="center">{data.dem}</TableCell>
-                    <TableCell align="center">{data.white}</TableCell>
-                    <TableCell align="center">{data.black}</TableCell>
-                    <TableCell align="center">{data.hispanic}</TableCell>
-                    <TableCell align="center">{data.asian}</TableCell>
-                    <TableCell align="center">{data.other}</TableCell>
+                    <TableCell align="left">{data.rep}</TableCell>
+                    <TableCell align="left">{data.dem}</TableCell>
+                    <TableCell align="left">{data.white}</TableCell>
+                    <TableCell align="left">{data.black}</TableCell>
+                    <TableCell align="left">{data.hispanic}</TableCell>
+                    <TableCell align="left">{data.asian}</TableCell>
+                    <TableCell align="left">{data.other}</TableCell>
                   </TableRow>
                 </TableBody>
               ) : null}

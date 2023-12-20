@@ -3,9 +3,9 @@ import Chart from "chart.js/auto";
 import { Select, MenuItem } from "@mui/material";
 
 const axisLabels = [
-  "African American Districts > 7%",
-  "Hispanic Districts > 7%",
-  "Asian Districts > 7%",
+  "Significant African American Districts Count",
+  "Significant Hispanic Districts Count",
+  "Significant Asian Districts Count",
   "Opportunity Districts",
   "Swing Districts",
 ];
@@ -149,7 +149,8 @@ const DistrictPlanPlot2 = (props) => {
       <div class="chart-container">
         <canvas ref={chartRef} />
       </div>
-      <div>
+      <div className="axis">
+        <h1>Set X-axis</h1>
         <Select value={props.xAxis} onChange={handleXChange}>
           <MenuItem value={0}>African Americans Districts</MenuItem>
           <MenuItem value={1}>Hispanics Districts</MenuItem>
@@ -158,7 +159,8 @@ const DistrictPlanPlot2 = (props) => {
           <MenuItem value={4}>Swing Districts</MenuItem>
         </Select>
       </div>
-      <div>
+      <div className="axis">
+        <h1>Set Y-Axis</h1>
         <Select value={props.yAxis} onChange={handleYChange}>
           <MenuItem value={0}>African Americans Districts</MenuItem>
           <MenuItem value={1}>Hispanics Districts</MenuItem>
