@@ -156,11 +156,7 @@ const Map2 = (props) => {
         <GeoJSON
           data={props.clusterADP.AverageDistrictMapGeoData}
           onEachFeature={onEachFeature}
-        >
-          <Tooltip direction="center" offset={[0, -190]} permanent>
-            {"District: " + props.district}
-          </Tooltip>
-        </GeoJSON>
+        ></GeoJSON>
       ) : null}
       {props.responses?.length === 0 &&
       props.clusterADP === null &&
