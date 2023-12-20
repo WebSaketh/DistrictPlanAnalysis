@@ -109,31 +109,28 @@ const EnsembleSizeAnalysis = (props) => {
 export default EnsembleSizeAnalysis;
 
 const ohio = [
-  { ensembleSize: 1000, numberOfClusters: 5 },
-  { ensembleSize: 1050, numberOfClusters: 8 },
-  { ensembleSize: 1100, numberOfClusters: 9 },
-  { ensembleSize: 1200, numberOfClusters: 11 },
-  { ensembleSize: 1300, numberOfClusters: 13 },
-  { ensembleSize: 1400, numberOfClusters: 14 },
-  { ensembleSize: 1500, numberOfClusters: 16 },
+  { ensembleSize: 250, numberOfClusters: 3 },
+  { ensembleSize: 1000, numberOfClusters: 9 },
+  { ensembleSize: 2000, numberOfClusters: 10 },
+  { ensembleSize: 3000, numberOfClusters: 11 },
+  { ensembleSize: 4000, numberOfClusters: 11 },
+  { ensembleSize: 5000, numberOfClusters: 11 },
 ];
 
 const illinois = [
-  { ensembleSize: 1000, numberOfClusters: 13 },
-  { ensembleSize: 1050, numberOfClusters: 11 },
-  { ensembleSize: 1100, numberOfClusters: 10 },
-  { ensembleSize: 1200, numberOfClusters: 9 },
-  { ensembleSize: 1300, numberOfClusters: 4 },
-  { ensembleSize: 1400, numberOfClusters: 2 },
-  { ensembleSize: 1500, numberOfClusters: 0 },
+  { ensembleSize: 250, numberOfClusters: 3 },
+  { ensembleSize: 1000, numberOfClusters: 9 },
+  { ensembleSize: 2000, numberOfClusters: 10 },
+  { ensembleSize: 3000, numberOfClusters: 11 },
+  { ensembleSize: 4000, numberOfClusters: 11 },
+  { ensembleSize: 5000, numberOfClusters: 11 },
 ];
 
 const colorado = [
-  { ensembleSize: 1000, numberOfClusters: 40 },
-  { ensembleSize: 1050, numberOfClusters: 20 },
-  { ensembleSize: 1100, numberOfClusters: 10 },
-  { ensembleSize: 1200, numberOfClusters: 25 },
-  { ensembleSize: 1300, numberOfClusters: 35 },
-  { ensembleSize: 1400, numberOfClusters: 22 },
-  { ensembleSize: 1500, numberOfClusters: 16 },
+  { ensembleSize: 250, numberOfClusters: 3 },
+  { ensembleSize: 1000, numberOfClusters: 8 },
+  { ensembleSize: 2000, numberOfClusters: 10 },
+  { ensembleSize: 3000, numberOfClusters: 11 },
+  { ensembleSize: 4000, numberOfClusters: 12 },
+  { ensembleSize: 5000, numberOfClusters: 12 },
 ];
