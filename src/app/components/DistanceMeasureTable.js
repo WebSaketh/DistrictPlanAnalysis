@@ -60,6 +60,7 @@ const DistanceMeasureTable = (props) => {
                     className="special-table-cell"
                     onClick={handleOnClick}
                     id={dm.distanceMeasure}
+                    style={{ color: "blue" }}
                   >
                     {dm.distanceMeasure}
                   </TableCell>
