@@ -14,7 +14,7 @@ const EnsembleTable = (props) => {
   };
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ maxWidth: 600, border: 2 }} aria-label="simple table">
+      <Table sx={{ border: 2 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Ensemble Name</TableCell>

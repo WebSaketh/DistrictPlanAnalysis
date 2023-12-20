@@ -5,7 +5,38 @@ const HorizontalBoxPlot = ({ data, state, ensemble }) => {
   useEffect(() => {
     // Check if running on the client side
     console.log(state, ensemble);
-
+    if (state == "Colorado" && ensemble == "Ensemble1") {
+      data = [
+        {
+          category: "Hamming Distance",
+          values: [0.0, 0.815, 0.868, 0.921, 1.0],
+        },
+      ];
+    }
+    if (state == "Illinois" && ensemble == "Ensemble1") {
+      data = [
+        {
+          category: "Hamming Distance",
+          values: [0.0, 0.7943262, 0.867612, 0.9267139, 1.0],
+        },
+      ];
+    }
+    if (state == "Ohio" && ensemble == "Ensemble2") {
+      data = [
+        {
+          category: "Hamming Distance",
+          values: [0.0, 0.78444, 0.86, 0.92222, 1.0],
+        },
+      ];
+    }
+    if (state == "Ohio" && ensemble == "Ensemble1") {
+      data = [
+        {
+          category: "Optimal Transport",
+          values: [0.0, 0.460674, 0.561798, 0.651685, 1.0],
+        },
+      ];
+    }
     if (typeof window !== "undefined" && typeof document !== "undefined") {
       const options = {
         series: [
