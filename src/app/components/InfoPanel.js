@@ -117,6 +117,8 @@ const InfoPanel = (props) => {
               setTabValue={setTabValue}
               selected={thisADP}
               setSelected={settingADP}
+              state={props.state}
+              distanceMeasure={props.distanceMeasure}
             ></ClusterTable>
           </div>
           <div hidden={tabValue !== "MDS Cluster Scatterplot"}>

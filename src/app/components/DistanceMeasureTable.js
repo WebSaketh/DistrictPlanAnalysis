@@ -27,6 +27,7 @@ const DistanceMeasureTable = (props) => {
           <TableRow>
             <TableCell>Distance Measure</TableCell>
             <TableCell align="right">Number of Clusters</TableCell>
+            <TableCell align="right">Average R/D Split</TableCell>
             <TableCell align="right">Average Distance </TableCell>
           </TableRow>
         </TableHead>
@@ -45,6 +46,7 @@ const DistanceMeasureTable = (props) => {
                     {dm.distanceMeasure}
                   </TableCell>
                   <TableCell align="right">{dm.totalClusters}</TableCell>
+                  <TableCell align="right">{dm.avgRDsplit}</TableCell>
                   <TableCell align="right">{dm.averageDistance}</TableCell>
                 </TableRow>
               ) : (
@@ -62,6 +64,7 @@ const DistanceMeasureTable = (props) => {
                     {dm.distanceMeasure}
                   </TableCell>
                   <TableCell align="right">{dm.totalClusters}</TableCell>
+                  <TableCell align="right">{dm.avgRDsplit}</TableCell>
                   <TableCell align="right">{dm.averageDistance}</TableCell>
                 </TableRow>
               )

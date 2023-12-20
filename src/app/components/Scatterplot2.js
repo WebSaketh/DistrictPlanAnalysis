@@ -31,24 +31,20 @@ const Scatterplot2 = (props) => {
       let temp = [];
       if (props.clusters[i].distanceMeasure === "Hamming Distance") {
         temp.push(
-          props.clusters[i].clusterDemographics.avgBlackDistricts * 700
+          props.clusters[i].clusterDemographics.avgBlackDistricts * 475
         );
         temp.push(
-          props.clusters[i].clusterDemographics.avgHispanicDistricts * 700
+          props.clusters[i].clusterDemographics.avgHispanicDistricts * 475
         );
         temp.push(
-          props.clusters[i].clusterDemographics.avgAsianDistricts * 700
+          props.clusters[i].clusterDemographics.avgAsianDistricts * 475
         );
       } else if (props.clusters[i].distanceMeasure === "Optimal Transport") {
+        temp.push(props.clusters[i].clusterDemographics.avgBlackDistricts * 85);
         temp.push(
-          props.clusters[i].clusterDemographics.avgBlackDistricts * 100
+          props.clusters[i].clusterDemographics.avgHispanicDistricts * 85
         );
-        temp.push(
-          props.clusters[i].clusterDemographics.avgHispanicDistricts * 100
-        );
-        temp.push(
-          props.clusters[i].clusterDemographics.avgAsianDistricts * 100
-        );
+        temp.push(props.clusters[i].clusterDemographics.avgAsianDistricts * 85);
       }
 
       temp.push(props.clusters[i].clusterDemographics.avgOpportunityDistricts);

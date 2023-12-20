@@ -38,7 +38,10 @@ function createData(
   IsAvailable,
   DRSplit,
   OpportunityDistricts,
-  SwingDistricts
+  SwingDistricts,
+  BlackDistricts,
+  AsianDistricts,
+  HispanicDistricts
 ) {
   return {
     Row,
@@ -47,6 +50,9 @@ function createData(
     DRSplit,
     OpportunityDistricts,
     SwingDistricts,
+    BlackDistricts,
+    AsianDistricts,
+    HispanicDistricts,
   };
 }
 
@@ -88,6 +94,27 @@ const columns = [
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
+  {
+    id: "BlackDistricts",
+    label: "Significantly (>1.65x State Avg. Pop.) Black Districts",
+    minWidth: 40,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "AsianDistricts",
+    label: "Significantly (>1.65x State Avg. Pop.) Asian Districts",
+    minWidth: 40,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "HispanicDistricts",
+    label: "Significantly (>1.65x State Avg. Pop.) Hispanic Districts",
+    minWidth: 40,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
 ];
 
 const colors = ["purple", "green", "orange", "pink"]; // if you change this, must change the colors array in the chart
@@ -116,6 +143,9 @@ const DistrictPlanTable = (props) => {
             districtPlan.clusterDemographics.republican,
           districtPlan.clusterDemographics.opportunityDistricts,
           districtPlan.clusterDemographics.swingDistrict,
+          districtPlan.clusterDemographics.blackDistricts,
+          districtPlan.clusterDemographics.asianDistricts,
+          districtPlan.clusterDemographics.hispanicDistrics,
           "white"
         )
       );
