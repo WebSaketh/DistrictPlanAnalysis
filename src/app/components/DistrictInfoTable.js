@@ -110,8 +110,8 @@ const DistrictInfoTable = (props) => {
   };
 
   useEffect(() => {
-    if (props.selected.length == 1) {
-      let index = props.selected[0];
+    if (props.selectedDistrict !== null) {
+      let index = props.selectedDistrict;
 
       let districtInfo = [];
 
@@ -141,7 +141,7 @@ const DistrictInfoTable = (props) => {
       setData([]);
       setDistrictPlanId(null);
     }
-  }, [props.selected]);
+  }, [props.selectedDistrict]);
   return (
     <div>
       {districtPlanId !== null ? (

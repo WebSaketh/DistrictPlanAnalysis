@@ -51,7 +51,8 @@ function createData(
 }
 
 const columns = [
-  { id: "Selector", label: "Select", minWidth: 50 },
+  { id: "Selector", label: "View District Plan", minWidth: 50 },
+  { id: "Selector2", label: "View Details", minWidth: 50 },
   {
     id: "DistrictPlanId",
     label: "District Plan Id",
@@ -98,6 +99,8 @@ const DistrictPlanTable = (props) => {
   const [dense, setDense] = useState(true);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [data, setData] = useState([]);
+  const selectedDistrict = props.selectedDistrict;
+  const setSelectedDistrict = props.setSelectedDistrict;
 
   useEffect(() => {
     let d = [];
@@ -145,6 +148,14 @@ const DistrictPlanTable = (props) => {
       for (let i = 0; i < newSelected.length; i++) {
         data[newSelected[i]].Color = colors[i];
       }
+    }
+  };
+
+  const handleClick2 = (event, id) => {
+    if (selectedDistrict === id) {
+      setSelectedDistrict(null);
+    } else {
+      setSelectedDistrict(id);
     }
   };
 
@@ -224,6 +235,8 @@ const DistrictPlanTable = (props) => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
                     let isItemSelected = isSelected(row.Row);
+                    let isChecked = row.Row === selectedDistrict;
+
                     let labelId = `enhanced-table-checkbox-${row.Row}`;
                     let color = row.Color;
                     if (isItemSelected) {
@@ -259,6 +272,28 @@ const DistrictPlanTable = (props) => {
                                     }}
                                     onClick={(event) =>
                                       handleClick(event, row.Row)
+                                    }
+                                  />
+                                </TableCell>
+                              );
+                            } else if (column.id === "Selector2") {
+                              return (
+                                <TableCell
+                                  padding="checkbox"
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <Checkbox
+                                    disabled={
+                                      selectedDistrict !== null && !isChecked
+                                    }
+                                    color="primary"
+                                    checked={isChecked}
+                                    inputProps={{
+                                      "aria-labelledby": labelId,
+                                    }}
+                                    onClick={(event) =>
+                                      handleClick2(event, row.Row)
                                     }
                                   />
                                 </TableCell>
@@ -304,6 +339,28 @@ const DistrictPlanTable = (props) => {
                                     }}
                                     onClick={(event) =>
                                       handleClick(event, row.Row)
+                                    }
+                                  />
+                                </TableCell>
+                              );
+                            } else if (column.id === "Selector2") {
+                              return (
+                                <TableCell
+                                  padding="checkbox"
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <Checkbox
+                                    disabled={
+                                      selectedDistrict !== null && !isChecked
+                                    }
+                                    color="primary"
+                                    checked={isChecked}
+                                    inputProps={{
+                                      "aria-labelledby": labelId,
+                                    }}
+                                    onClick={(event) =>
+                                      handleClick2(event, row.Row)
                                     }
                                   />
                                 </TableCell>
