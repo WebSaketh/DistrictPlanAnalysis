@@ -41,7 +41,8 @@ function createData(
   SwingDistricts,
   BlackDistricts,
   AsianDistricts,
-  HispanicDistricts
+  HispanicDistricts,
+  ElectionWinner
 ) {
   return {
     Row,
@@ -53,6 +54,7 @@ function createData(
     BlackDistricts,
     AsianDistricts,
     HispanicDistricts,
+    ElectionWinner,
   };
 }
 
@@ -115,6 +117,13 @@ const columns = [
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
+  {
+    id: "ElectionWinner",
+    label: "Election Winner (2020 Presidential)",
+    minWidth: 40,
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
 ];
 
 const colors = ["purple", "green", "orange", "pink"]; // if you change this, must change the colors array in the chart
@@ -133,6 +142,7 @@ const DistrictPlanTable = (props) => {
     let d = [];
     for (let k = 0; k < props.districtPlanInfo.length; k++) {
       let districtPlan = props.districtPlanInfo[k];
+      // k = districtPlan.clusterDemographics.republican>districtPlan.clusterDemographics.democrat?"Republican":"Democrat"
       d.push(
         createData(
           k,
@@ -146,6 +156,10 @@ const DistrictPlanTable = (props) => {
           districtPlan.clusterDemographics.blackDistricts,
           districtPlan.clusterDemographics.asianDistricts,
           districtPlan.clusterDemographics.hispanicDistrics,
+          districtPlan.clusterDemographics.republican >
+            districtPlan.clusterDemographics.democrat
+            ? "Republican"
+            : "Democrat",
           "white"
         )
       );

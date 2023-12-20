@@ -27,7 +27,7 @@ const DistanceMeasureTable = (props) => {
           <TableRow>
             <TableCell>Distance Measure</TableCell>
             <TableCell align="right">Number of Clusters</TableCell>
-            <TableCell align="right">Average R/D Split</TableCell>
+            <TableCell align="right">Average D/R Split</TableCell>
             <TableCell align="right">Average Distance </TableCell>
           </TableRow>
         </TableHead>
