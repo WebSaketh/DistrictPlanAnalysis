@@ -22,30 +22,34 @@ import { visuallyHidden } from "@mui/utils";
 
 const ohioData = {
   state: "Ohio",
-  rep: 45,
-  dem: 55,
-  white: 35,
-  black: 23,
-  hispanic: 13,
-  asian: 15,
+  rep: 53.27,
+  dem: 45.24,
+  white: 77.3,
+  black: 13.3,
+  hispanic: 4.5,
+  asian: 2.7,
+  other: 2.2,
 };
 const coloradoData = {
   state: "Colorado",
   rep: 41.9,
   dem: 55.4,
-  white: 75,
-  black: 12,
-  hispanic: 4,
-  asian: 6,
+  white: 66.5,
+  black: 4.7,
+  hispanic: 22.5,
+  asian: 3.8,
+  other: 2.5,
 };
+
 const illinoisData = {
   state: "Illinois",
-  rep: 34,
-  dem: 66,
-  white: 64,
-  black: 20,
-  hispanic: 7,
-  asian: 10,
+  rep: 40.6,
+  dem: 57.5,
+  white: 59.5,
+  black: 14.7,
+  hispanic: 18.3,
+  asian: 6.3,
+  other: 1.2,
 };
 
 const StateTable = (props) => {
@@ -62,7 +66,7 @@ const StateTable = (props) => {
   }, [props.state]);
   return (
     <div>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ maxWidth: "600px", width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>
           <TableContainer>
             <Table
@@ -79,6 +83,7 @@ const StateTable = (props) => {
                   <TableCell>Black %</TableCell>
                   <TableCell>Hispanic %</TableCell>
                   <TableCell>Asian %</TableCell>
+                  <TableCell>Other %</TableCell>
                 </TableRow>
               </TableHead>
               {data !== null ? (
@@ -91,6 +96,7 @@ const StateTable = (props) => {
                     <TableCell align="center">{data.black}</TableCell>
                     <TableCell align="center">{data.hispanic}</TableCell>
                     <TableCell align="center">{data.asian}</TableCell>
+                    <TableCell align="center">{data.other}</TableCell>
                   </TableRow>
                 </TableBody>
               ) : null}
