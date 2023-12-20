@@ -89,7 +89,7 @@ const columns = [
   },
 ];
 
-const colors = ["red", "blue", "green", "yellow", "orange"]; // if you change this, must change the colors array in the chart
+const colors = ["purple", "green", "orange", "pink"]; // if you change this, must change the colors array in the chart
 
 const DistrictPlanTable = (props) => {
   const selected = props.selected;

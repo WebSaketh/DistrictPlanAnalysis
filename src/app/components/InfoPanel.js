@@ -15,7 +15,7 @@ import DistrictInfoTable from "./DistrictInfoTable.js";
 
 const InfoPanel = (props) => {
   const [tabValue, setTabValue] = useState("Cluster Table");
-  const [tabValue2, setTabValue2] = useState("Gui9");
+  const [tabValue2, setTabValue2] = useState("Compare Distance Measures");
   const [mainTabValue, setMainTabValue] = useState(
     "Ensemble & Cluster Analysis"
   );
@@ -38,7 +38,11 @@ const InfoPanel = (props) => {
     ) {
       setMainTabValue(tabName);
     } else {
-      if (tabName === "Gui9" || tabName === "Gui10/21") setTabValue2(tabName);
+      if (
+        tabName === "Compare Distance Measures" ||
+        tabName === "Ensebmle Size Cluster Association"
+      )
+        setTabValue2(tabName);
       else setTabValue(tabName);
     }
 
@@ -61,7 +65,7 @@ const InfoPanel = (props) => {
     } else {
       let cluster = props.clusters[index - 1];
       setThisADP(index);
-      props.getClusterADP(cluster.clusterId);
+      props.getClusterADP(cluster.clusterID);
     }
   };
 
@@ -201,27 +205,31 @@ const InfoPanel = (props) => {
 
       {mainTabValue === "Distance Measure Analysis" && (
         <div>
+          <br />
           <InfoTabs
             tabValue={tabValue2}
             setTabValue={changeTab}
-            tabList={["Gui9", "Gui10/21"]}
+            tabList={[
+              "Compare Distance Measures",
+              "Ensebmle Size Cluster Association",
+            ]}
             clickClusterButton={props.clickClusterButton}
             color="secondary"
           />
           <div className="flex flex-1 justify-center items-center">
-            {tabValue2 === "Gui9" && (
+            {tabValue2 === "Compare Distance Measures" && (
               <div className="flex flex-1 flex-col ">
                 <br />
                 <HorizontalBoxPlot data={dummyData} />
               </div>
             )}
-            {tabValue2 === "Gui10/21" && (
+            {tabValue2 === "Ensebmle Size Cluster Association" && (
               <div
                 className="flex flex-1 flex-col"
                 style={{ margin: "30px 30px" }}
               >
                 <br />
-                <EnsembleSizeAnalysis />
+                <EnsembleSizeAnalysis state={props.state} />
               </div>
             )}
           </div>

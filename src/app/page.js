@@ -365,6 +365,7 @@ export default function Home() {
               responses={responses}
               setResponses={setResponses}
               districtPlan={districtPlan}
+              state={state}
             />
           </div>
         </div>

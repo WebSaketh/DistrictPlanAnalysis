@@ -151,21 +151,24 @@ const DistrictPlanPlot2 = (props) => {
       <div class="chart-container">
         <canvas ref={chartRef} />
       </div>
-      <Select value={props.xAxis} onChange={handleXChange}>
-        <MenuItem value={0}>African Americans Districts</MenuItem>
-        <MenuItem value={1}>Hispanics Districts</MenuItem>
-        <MenuItem value={2}>Asians Districts</MenuItem>
-        <MenuItem value={3}>Opportunity Districts</MenuItem>
-        <MenuItem value={4}>Swing Districts</MenuItem>
-      </Select>
-
-      <Select value={props.yAxis} onChange={handleYChange}>
-        <MenuItem value={0}>African Americans Districts</MenuItem>
-        <MenuItem value={1}>Hispanics Districts</MenuItem>
-        <MenuItem value={2}>Asians Districts</MenuItem>
-        <MenuItem value={3}>Opportunity Districts</MenuItem>
-        <MenuItem value={4}>Swing Districts</MenuItem>
-      </Select>
+      <div>
+        <Select value={props.xAxis} onChange={handleXChange}>
+          <MenuItem value={0}>African Americans Districts</MenuItem>
+          <MenuItem value={1}>Hispanics Districts</MenuItem>
+          <MenuItem value={2}>Asians Districts</MenuItem>
+          <MenuItem value={3}>Opportunity Districts</MenuItem>
+          <MenuItem value={4}>Swing Districts</MenuItem>
+        </Select>
+      </div>
+      <div>
+        <Select value={props.yAxis} onChange={handleYChange}>
+          <MenuItem value={0}>African Americans Districts</MenuItem>
+          <MenuItem value={1}>Hispanics Districts</MenuItem>
+          <MenuItem value={2}>Asians Districts</MenuItem>
+          <MenuItem value={3}>Opportunity Districts</MenuItem>
+          <MenuItem value={4}>Swing Districts</MenuItem>
+        </Select>
+      </div>
     </div>
   );
 };

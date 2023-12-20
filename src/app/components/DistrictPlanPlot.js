@@ -82,6 +82,7 @@ const DistrictPlanPlot = (props) => {
                 name:
                   "District Plan " +
                   availableDistrictPlans[selectedIndex].districtPlanID,
+                available: "available",
               },
             ]
           : [];
