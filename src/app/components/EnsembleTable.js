@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
+
 const EnsembleTable = (props) => {
   const handleOnClick = (e) => {
     console.log(e.target.id);
@@ -32,10 +33,15 @@ const EnsembleTable = (props) => {
             >
               <TableCell
                 className="special-table-cell"
-                onClick={handleOnClick}
-                id={ensemble.ensembleName}
               >
-                {ensemble.ensembleName}
+                <Button
+                  variant="outlined"
+                  style={{ backgroundColor: '#990001', color: 'white', fontSize: '12px' }}
+                  onClick={handleOnClick}
+                  id={ensemble.ensembleName}
+                >
+                  {ensemble.ensembleName}
+                </Button>
               </TableCell>
               <TableCell align="right">{ensemble.distanceMeasures}</TableCell>
               <TableCell align="right">{ensemble.totalPlans}</TableCell>
