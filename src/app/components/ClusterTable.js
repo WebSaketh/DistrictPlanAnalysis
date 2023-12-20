@@ -54,7 +54,7 @@ const columns = [
   },
   {
     id: "DRSplit",
-    label: "D/R Split",
+    label: "Avg. D/R Split",
     minWidth: 100,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),

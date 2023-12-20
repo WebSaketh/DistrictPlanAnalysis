@@ -31,8 +31,8 @@ const ohioData = {
 };
 const coloradoData = {
   state: "Colorado",
-  rep: 53,
-  dem: 47,
+  rep: 41.9,
+  dem: 55.4,
   white: 75,
   black: 12,
   hispanic: 4,
@@ -90,7 +90,7 @@ const StateTable = (props) => {
                     <TableCell align="center">{data.white}</TableCell>
                     <TableCell align="center">{data.black}</TableCell>
                     <TableCell align="center">{data.hispanic}</TableCell>
-                    <TableCell align="centers">{data.asian}</TableCell>
+                    <TableCell align="center">{data.asian}</TableCell>
                   </TableRow>
                 </TableBody>
               ) : null}

@@ -3,8 +3,8 @@ import Chart from "chart.js/auto";
 import { Select, MenuItem } from "@mui/material";
 
 const axisLabels = [
-  "Avg. African American Districts > 7%",
-  "Avg. Hispanic Districts > 7%",
+  "Avg. African American Significant Districts",
+  "Avg. Hispanic Significant Districts",
   "Avg. Asian Districts > 7%",
   "Avg. Opportunity Districts",
   "Avg. Swing Districts",
